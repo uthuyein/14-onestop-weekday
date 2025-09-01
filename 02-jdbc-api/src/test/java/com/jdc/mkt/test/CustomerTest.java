@@ -52,7 +52,8 @@ public class CustomerTest {
 	@ParameterizedTest
 	@CsvSource({
 		",Gold,,,1" ,
-		"a,,,,2"
+		"a,,,,2",
+		",,,,6"
 		 })
 	void testFind(String name,String memberType,Boolean active ,Integer id,int size) {
 		var list = service.find(name, memberType, active, id);
