@@ -2,7 +2,10 @@ package com.jdc.mkt.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -22,6 +25,8 @@ public class CustomerTest {
 		service = new CustomerService();
 		service.resetCustomerTable();
 	}
+	
+	
 
 	@Order(1)
 	@ParameterizedTest	
@@ -34,8 +39,9 @@ public class CustomerTest {
 	@Order(2)
 	@ParameterizedTest
 	@CsvSource({
-		",Gold,,1" ,
-		"William James,Gold,,2"
+		" Andrew ss,,,1",
+		",Gold,,2",
+		"John Smith,Diamond,false,3"
 		 })
 	void testUpdate(String name,String memberType,Boolean active ,int id) {
 		var row = service.update(name, memberType, active, id);
@@ -45,11 +51,24 @@ public class CustomerTest {
 	@Order(3)
 	@ParameterizedTest
 	@CsvSource({
-		",Gold,,,2" ,
+		",Gold,,,1" ,
 		"a,,,,2"
 		 })
-	void testFind(String name,String memberType,Boolean active ,int id,int size) {
+	void testFind(String name,String memberType,Boolean active ,Integer id,int size) {
 		var list = service.find(name, memberType, active, id);
 		assertEquals(size, list.size());
 	}
+	
+//	@AfterAll
+//	static void testend() {
+//		System.out.println("Test End");
+//	}
+//	@BeforeEach
+//	void testeach() {
+//		System.out.println("Before Each Test");
+//	}
+//	@AfterEach
+//	void afterEach() {
+//		System.out.println("After Each Test");
+//	}
 }

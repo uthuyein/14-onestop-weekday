@@ -14,7 +14,6 @@ public class Customer {
 		this.memberType = memberType;
 	}
 
-	
 	public int getId() {
 		return id;
 	}
@@ -31,8 +30,6 @@ public class Customer {
 	public boolean isActive() {
 		return active;
 	}
-
-
 
 	public enum MemberType{
 		Silver,Gold,Diamond,Platinum
