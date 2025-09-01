@@ -8,21 +8,8 @@ import java.util.List;
 import com.jdc.mkt.dto.Customer;
 import com.jdc.mkt.dto.Customer.MemberType;
 
-public class CustomerService {
+public class CustomerServiceWithStatement implements ServiceInt{
 	
-	public void resetCustomerTable() {
-		String query = """
-				truncate table customer_tbl;
-				""";
-		try(var con = getConnection();
-				var stmt = con.createStatement()){
-				stmt.execute(query);
-				
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-	}
-
 	public int save(String name) {
 		String query = "insert into customer_tbl(name) value('"+name+"')";
 		

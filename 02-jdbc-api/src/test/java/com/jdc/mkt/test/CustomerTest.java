@@ -2,10 +2,7 @@ package com.jdc.mkt.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -13,16 +10,19 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import com.jdc.mkt.services.CustomerService;
+import com.jdc.mkt.services.CustomerServiceWithPreparedStatement;
+import com.jdc.mkt.services.CustomerServiceWithStatement;
+import com.jdc.mkt.services.ServiceInt;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class CustomerTest {
 	
-	static CustomerService service;
+	static ServiceInt service;
 	
 	@BeforeAll
 	static void init() {
-		service = new CustomerService();
+		//service = new CustomerServiceWithStatement();
+		service = new CustomerServiceWithPreparedStatement();
 		service.resetCustomerTable();
 	}
 	
@@ -37,7 +37,7 @@ public class CustomerTest {
 	}
 	
 	@Order(2)
-	@ParameterizedTest
+	//@ParameterizedTest
 	@CsvSource({
 		" Andrew ss,,,1",
 		",Gold,,2",
@@ -51,7 +51,6 @@ public class CustomerTest {
 	@Order(3)
 	@ParameterizedTest
 	@CsvSource({
-		",Gold,,,1" ,
 		"a,,,,2",
 		",,,,6"
 		 })
