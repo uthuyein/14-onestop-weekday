@@ -2,33 +2,47 @@ package com.jdc.mkt.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import com.jdc.mkt.services.CustomerService;
 
+@TestMethodOrder(OrderAnnotation.class)
 public class CustomerTest {
 	
-	CustomerService service = new CustomerService();
+	static CustomerService service;
+	
+	@BeforeAll
+	static void init() {
+		service = new CustomerService();
+		service.resetCustomerTable();
+	}
 
+	@Order(1)
 	@ParameterizedTest	
-	@ValueSource(strings = {"Aung Aung", "Mg Mg", "Hla Hla", "Su Su"})
+	@ValueSource(strings = {"Andrew", "William", "John", "Charles", "George","Arnel"})
 	void testInsert(String name) {
 		var row = service.save(name);
 		assertEquals(1, row);
 	}
 	
+	@Order(2)
 	@ParameterizedTest
 	@CsvSource({
 		",Gold,,1" ,
-		"Aung Ko Oo,,,1"
+		"William James,Gold,,2"
 		 })
 	void testUpdate(String name,String memberType,Boolean active ,int id) {
 		var row = service.update(name, memberType, active, id);
 		assertEquals(1, row);
 	}
-
+	
+	@Order(3)
 	@ParameterizedTest
 	@CsvSource({
 		",Gold,,,2" ,
