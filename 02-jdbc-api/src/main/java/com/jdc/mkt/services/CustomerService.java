@@ -40,14 +40,14 @@ public class CustomerService {
 		if (null != name) {
 			sb.append("name = '%s'".formatted(name));
 		}
-//		if (null != memberType) {
-//			var s = addComa(name, memberType);
-//			sb.append(s+"= '%s'".formatted(memberType));
-//			
-//		}
+		if (null != memberType) {
+			String s = checkPrefix(name) ? ",memberType" : "memberType";
+			sb.append(s+" = '%s'".formatted(memberType));
+			
+		}
 		if (null != active) {
-			//var s = addComa(name, memberType);
-			sb.append(",active = %d".formatted(active ? 1 : 0));
+			String s = checkPrefix(name)|| checkPrefix(memberType) ? ",active" : "active";
+			sb.append(s+" = %d".formatted(active ? 1 : 0));
 		}
 		
 		String query = sb.toString() + " where id = %d".formatted(id);
@@ -61,15 +61,15 @@ public class CustomerService {
 		}
 		return 0;
 	}
-
-	private String addComa(String prefix, String suffix) {
-		if (null != prefix) {
-			suffix += ","+suffix;
-		}
-		return suffix;
-	}
-
+	
 	public List<Customer> find(String name, String memberType, Boolean active, int id) {
 		return null;
+	}
+	
+	private boolean checkPrefix(String prefix) {
+		if (null != prefix) {
+			return true;
+		}
+		return false;
 	}
 }
