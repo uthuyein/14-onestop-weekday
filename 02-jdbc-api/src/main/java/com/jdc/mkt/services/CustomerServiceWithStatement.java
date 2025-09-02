@@ -92,10 +92,5 @@ public class CustomerServiceWithStatement implements ServiceInt{
 		return list;
 	}
 	
-	private boolean checkPrefix(String prefix) {
-		if (null != prefix) {
-			return true;
-		}
-		return false;
-	}
+	
 }

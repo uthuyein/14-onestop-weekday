@@ -25,5 +25,12 @@ public interface ServiceInt{
 				e.printStackTrace();
 			}
 	}
+	
+	default boolean checkPrefix(String prefix) {
+		if (null != prefix) {
+			return true;
+		}
+		return false;
+	}
 
 }

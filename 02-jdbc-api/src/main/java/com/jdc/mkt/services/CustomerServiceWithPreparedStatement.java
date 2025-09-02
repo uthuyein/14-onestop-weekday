@@ -1,5 +1,7 @@
 package com.jdc.mkt.services;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,35 @@ public class CustomerServiceWithPreparedStatement implements ServiceInt {
 
 	@Override
 	public int update(String name, String memberType, Boolean active, int id) {
+		StringBuilder sb = new StringBuilder("update customer_tbl set ");
+		List<Object>params = new ArrayList<>();
+		
+		if (null != name) {
+			sb.append("name = ?");
+			params.add(name);
+		}
+		if (null != memberType) {
+			sb.append(checkPrefix(name) ? ",memberType = ?" : "memberType=?");
+			params.add(memberType);
+			
+		}
+		if (null != active) {
+			sb.append(checkPrefix(name)|| checkPrefix(memberType) ? ",active" : "active");
+			params.add(active ? 1 : 0);
+		}
+		
+		String query = sb.toString() + " where id = ?";
+		params.add(id);
+				
+		try(var con = getConnection();
+			var stmt = con.prepareStatement(query)){
+			
+			addParam(params, stmt);			
+			return stmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
@@ -52,6 +83,7 @@ public class CustomerServiceWithPreparedStatement implements ServiceInt {
 		}
 		if (null != active) {
 			sb.append(" and active = ?");
+			System.out.println(active);
 			params.add(active ? 1 : 0);
 					
 		}
@@ -64,9 +96,7 @@ public class CustomerServiceWithPreparedStatement implements ServiceInt {
 		try(var con = getConnection();
 			var stmt = con.prepareStatement(sb.toString())){
 					
-			for (int i = 0; i < params.size(); i++) {
-				stmt.setObject(i + 1, params.get(i));
-			}
+			addParam(params, stmt);			
 			var rs = stmt.executeQuery();
 						
 			while (rs.next()) {
@@ -81,6 +111,12 @@ public class CustomerServiceWithPreparedStatement implements ServiceInt {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	private void addParam(List<Object> params, PreparedStatement stmt) throws SQLException {
+		for (int i = 0; i < params.size(); i++) {
+			stmt.setObject(i + 1, params.get(i));
+		}
 	}
 
 }
