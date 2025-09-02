@@ -3,6 +3,7 @@ package com.jdc.mkt;
 public class NestedClassDemo {
 	public static void main(String[] args) {
 		
+		
 		A a = new A() {
 			@Override
 			void test() {
@@ -17,11 +18,16 @@ public class NestedClassDemo {
 		C c = new C();
 		c.test();
 		
+		
+		
+		// Local variable must be final or effectively final
+		String name = "Local Class";
+		
 		// Local class
 		class B extends A {
 			@Override
 			void test() {
-				System.out.println("Local B");
+				System.out.println(name);
 			}
 		}
 

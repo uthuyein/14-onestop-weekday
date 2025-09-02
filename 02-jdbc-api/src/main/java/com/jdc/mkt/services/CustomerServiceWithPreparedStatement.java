@@ -1,7 +1,9 @@
 package com.jdc.mkt.services;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +12,26 @@ import com.jdc.mkt.dto.Customer.MemberType;
 
 import static com.jdc.mkt.util.MysqlConnector.getConnection;
 
-public class CustomerServiceWithPreparedStatement implements ServiceInt {
+public class CustomerServiceWithPreparedStatement implements ServiceInt,ServiceWithProcedure {
 
+	@Override
+	public int countCustomerByMemberType(String memberType) {
+		String query = "{call selectCustomerByMember(?,?)}";
+		try (var con = getConnection();
+			 CallableStatement pstmt = con.prepareCall(query)) {
+			
+			pstmt.setString(1, memberType);
+			pstmt.registerOutParameter(2, Types.INTEGER);
+			
+			pstmt.execute();
+			return pstmt.getInt(2);
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	@Override
 	public int save(String name) {
 		String query = """
