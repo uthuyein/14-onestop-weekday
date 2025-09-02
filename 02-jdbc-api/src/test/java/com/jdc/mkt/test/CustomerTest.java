@@ -15,10 +15,11 @@ import com.jdc.mkt.PrintLogger;
 import com.jdc.mkt.dto.Customer;
 import com.jdc.mkt.services.CustomerServiceWithPreparedStatement;
 import com.jdc.mkt.services.ServiceInt;
+import com.jdc.mkt.utils.DatabaseType;
 import com.jdc.mkt.utils.anno.Connector;
 
 @TestMethodOrder(OrderAnnotation.class)
-@Connector
+@Connector(database = DatabaseType.MYSQL,name = "testDb", user = "root", password = "1234")
 public class CustomerTest {
 	
 	static ServiceInt service;
