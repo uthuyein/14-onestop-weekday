@@ -26,13 +26,17 @@ insert into account_tbl(customer_id,balance)values(1,50000.00);
 insert into account_tbl(customer_id,balance)values(2,50000.00);
 insert into account_tbl(customer_id,balance)values(3,50000.00);
 
+drop procedure if exists selectCustomerByMember ;
 
---delimiter //
---	create procedure selectCustomerByMember(IN mType varchar(20),OUT cuCount int)
---	begin
---		select count(*) from customer_tbl where memberType = mType;
---	end//
---	
---delimiter ;
+delimiter //
+	create procedure selectCustomerByMember(IN mType varchar(20),OUT cuCount int)
+	begin
+		
+	 select count(*) into cuCount from customer_tbl where memberType = mType;
+	end//
+	
+delimiter ;
 
---call selectCustomerByMember('Silver',@cuCount);
+----call selectCustomerByMember('Silver',@cuCount);
+
+
