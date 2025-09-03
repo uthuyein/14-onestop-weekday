@@ -26,6 +26,7 @@ insert into account_tbl(customer_id,balance)values(1,50000.00);
 insert into account_tbl(customer_id,balance)values(2,50000.00);
 insert into account_tbl(customer_id,balance)values(3,50000.00);
 
+--show procedure status where db = 'testDb';
 drop procedure if exists selectCustomerByMember ;
 
 delimiter //
