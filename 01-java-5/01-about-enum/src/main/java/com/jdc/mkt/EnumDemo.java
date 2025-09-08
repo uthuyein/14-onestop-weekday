@@ -16,5 +16,31 @@ public class EnumDemo {
 }
 
 enum Day {
-	MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+	MONDAY {
+		@Override
+		void showDay() {
+			// TODO Auto-generated method stub
+			
+		}
+	}, TUESDAY {
+		@Override
+		void showDay() {
+			// TODO Auto-generated method stub
+			
+		}
+	}, WEDNESDAY {
+		@Override
+		void showDay() {
+			// TODO Auto-generated method stub
+			
+		}
+	};
+	abstract void showDay();
 }
+
+
+
+
+
+
+
