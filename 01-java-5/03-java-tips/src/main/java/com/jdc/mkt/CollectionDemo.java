@@ -5,6 +5,7 @@ import java.util.TreeMap;
 
 public class CollectionDemo {
 
+	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
 //		Set<String> set = new HashSet<String>();
 //					set = new LinkedHashSet<String>();
@@ -30,6 +31,7 @@ public class CollectionDemo {
 	}
 }
 
+@SuppressWarnings("unused")
 class Human implements Comparable<Human>{
 
 	private String name;
