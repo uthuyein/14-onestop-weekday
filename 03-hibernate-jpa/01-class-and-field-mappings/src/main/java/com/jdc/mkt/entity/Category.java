@@ -1,5 +1,6 @@
 package com.jdc.mkt.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
@@ -11,15 +12,16 @@ import lombok.Data;
 @Entity
 @Table( name = "category_tbl",
 		indexes = {
-			@Index(columnList = "name")	
+			@Index(columnList = "catName")	
 		},
 		uniqueConstraints = {
-			@UniqueConstraint(columnNames = "name")
+			@UniqueConstraint(columnNames = "catName")
 		})
 public class Category {
 
 	@Id
 	private int id;
+	@Column(name = "catName")
 	private String name;
 	private Boolean active;
 }

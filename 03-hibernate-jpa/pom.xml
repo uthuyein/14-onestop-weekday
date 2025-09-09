@@ -39,5 +39,6 @@
   </dependencies>
   <modules>
   	<module>01-class-and-field-mappings</module>
+  	<module>02-collection-mappings</module>
   </modules>
 </project>
