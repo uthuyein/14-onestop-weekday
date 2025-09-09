@@ -30,7 +30,7 @@ public class CollectionDemo {
 		Mon,Tue
 	}
 }
-
+class Student{}
 @SuppressWarnings("unused")
 class Human implements Comparable<Human>{
 

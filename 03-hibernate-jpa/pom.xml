@@ -40,5 +40,6 @@
   <modules>
   	<module>01-class-and-field-mappings</module>
   	<module>02-collection-mappings</module>
+  	<module>03-relational-mappings</module>
   </modules>
 </project>
