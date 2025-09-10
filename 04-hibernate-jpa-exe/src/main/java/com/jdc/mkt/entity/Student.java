@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,17 +15,24 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "teacher_tbl")
-public class Teacher {
+@Table(name = "student_tbl")
+public class Student {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(nullable = false,length = 45)
 	private String name;
-	@Column(name = "hire_date",columnDefinition = "date default(current_date)")
-	private LocalDate hireDate;
+	private LocalDate dob;
+	
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
 	
 	@ManyToOne
-	private Subject subject;
+	private Classroom classroom;
+	
+	public enum Gender{
+		Male,Female,Other
+	}
+	
 }

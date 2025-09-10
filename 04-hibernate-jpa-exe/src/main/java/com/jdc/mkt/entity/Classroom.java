@@ -1,7 +1,5 @@
 package com.jdc.mkt.entity;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,17 +11,16 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "teacher_tbl")
-public class Teacher {
+@Table(name = "classroom_tbl")
+public class Classroom {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(nullable = false,length = 45)
 	private String name;
-	@Column(name = "hire_date",columnDefinition = "date default(current_date)")
-	private LocalDate hireDate;
 	
 	@ManyToOne
-	private Subject subject;
+	private Teacher teacher;
+	
 }

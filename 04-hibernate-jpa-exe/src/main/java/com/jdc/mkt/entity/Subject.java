@@ -1,5 +1,6 @@
 package com.jdc.mkt.entity;
 
+import java.util.List;
 import java.util.Map;
 
 import jakarta.persistence.CollectionTable;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapKeyColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -32,4 +34,7 @@ public class Subject {
 	})
 	@MapKeyColumn(name = "key_value")
 	private Map<Integer, String> maps;
+	
+	@OneToMany(mappedBy = "subject")
+	private List<Teacher> teachers;
 }

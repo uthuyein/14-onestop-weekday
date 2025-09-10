@@ -2,7 +2,6 @@ package com.jdc.mkt.entity;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,17 +12,18 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "teacher_tbl")
-public class Teacher {
+@Table(name = "grade_tbl")
+public class Grade {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(nullable = false,length = 45)
-	private String name;
-	@Column(name = "hire_date",columnDefinition = "date default(current_date)")
-	private LocalDate hireDate;
 	
+	private int score;
+	private LocalDate examDate;
+	
+	@ManyToOne
+	private Student student;
 	@ManyToOne
 	private Subject subject;
 }
