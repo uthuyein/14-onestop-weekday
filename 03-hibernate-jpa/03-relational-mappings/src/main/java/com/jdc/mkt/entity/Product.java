@@ -25,8 +25,15 @@ public class Product {
 	@ColumnDefault("1")
 	private boolean active;
 	
-//	@ManyToOne
-//	private Category category;
+//	@JoinTable(name = "prod_cat_tbl",
+//	joinColumns = {
+//			@JoinColumn(name = "prod_id")
+//	},
+//	inverseJoinColumns = {
+//			@JoinColumn(name = "cat_id")
+//	})
+	@ManyToOne
+	private Category category;
 	
 	
 }

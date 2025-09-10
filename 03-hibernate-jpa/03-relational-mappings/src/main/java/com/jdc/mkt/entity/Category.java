@@ -18,8 +18,6 @@ import lombok.Data;
 @Table(name = "category_tbl")
 public class Category {
 
-	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -28,6 +26,7 @@ public class Category {
 	@ColumnDefault("1")
 	private boolean active;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "category")
+	//@JoinColumn(name = "cat_id")
 	private List<Product> products;
 }

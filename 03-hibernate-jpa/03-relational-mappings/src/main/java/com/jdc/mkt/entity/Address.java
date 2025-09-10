@@ -19,6 +19,7 @@ public class Address {
 	private String state;
 	private String township;
 	private String street;
+	
 	@OneToOne
 	private Customer customer;
 }
