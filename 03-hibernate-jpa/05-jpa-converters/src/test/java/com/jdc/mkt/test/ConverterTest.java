@@ -9,7 +9,6 @@ import com.jdc.mkt.entity.Card;
 import com.jdc.mkt.entity.Customer;
 
 public class ConverterTest extends JpaFactory{
-
 	
 	@Test
 	@Order(2)
