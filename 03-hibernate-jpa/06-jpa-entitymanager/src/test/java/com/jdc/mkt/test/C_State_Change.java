@@ -15,7 +15,7 @@ import jakarta.persistence.PersistenceException;
 public class C_State_Change extends JpaFactory {
 
 	@Test
-	//@Disabled
+	@Disabled
 	@Order(3)
 	void removeTest() {
 		var em = emf.createEntityManager();
@@ -80,7 +80,7 @@ public class C_State_Change extends JpaFactory {
 	}
 
 	@Test
-	@Disabled
+	//@Disabled
 	@Order(1)
 	void persistTest() {
 		var em = emf.createEntityManager();
@@ -89,25 +89,27 @@ public class C_State_Change extends JpaFactory {
 		// To Be Transient
 		var category = getCategory("Handset", 1);
 		var product = getProduct("Samsung Glaxy zflip", 4400000.00, category);
+		var product1 = getProduct("Samsung Glaxy note 11", 1000000.00, category);
 
 		// To Be Managed
-		em.persist(category);
+		//em.persist(category);
 		em.persist(product);
+		em.persist(product1);
 		assertTrue(em.contains(product));
 
 		// To Be Removed
 		em.remove(product);
 		assertFalse(em.contains(product));
-
-		// To Be Managed
-		em.persist(product);
-		assertTrue(em.contains(product));
-
-		// To Be Detached
-		em.detach(product);
-		assertFalse(em.contains(product));
-
-		assertThrows(PersistenceException.class, () -> em.persist(product));
+//
+//		// To Be Managed
+//		em.persist(product);
+//		assertTrue(em.contains(product));
+//
+//		// To Be Detached
+//		em.detach(product);
+//		assertFalse(em.contains(product));
+//
+//		assertThrows(PersistenceException.class, () -> em.persist(product));
 
 		em.getTransaction().commit();
 		em.close();

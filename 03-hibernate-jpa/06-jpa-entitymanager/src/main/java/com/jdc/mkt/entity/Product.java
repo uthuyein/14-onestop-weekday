@@ -2,6 +2,7 @@ package com.jdc.mkt.entity;
 
 import org.hibernate.annotations.Check;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,6 +33,7 @@ public class Product {
 	@Column(columnDefinition = "tinyint(1) default 1")
 	private boolean active;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER,
+			cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
 	private Category category;
 }
