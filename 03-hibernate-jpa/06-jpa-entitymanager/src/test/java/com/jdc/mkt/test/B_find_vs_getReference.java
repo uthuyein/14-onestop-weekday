@@ -41,7 +41,7 @@ public class B_find_vs_getReference extends JpaFactory {
 
 		var em = emf.createEntityManager();
 
-		// If found,Proxy will return
+		// If found,Proxy will return before use getter.
 		var p1 = em.getReference(Product.class, 2);
 		assertNotNull(p1);
 		em.clear();
