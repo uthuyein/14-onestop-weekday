@@ -30,7 +30,7 @@ public class JpaFactory {
 	
 	Product getProduct(String name,double dtPrice,Category cat) {
 		var p = new Product();
-		p.setName(null);
+		p.setName(name);
 		p.setDtPrice(dtPrice);
 		p.setWsPrice(dtPrice);
 		p.setCategory(cat);

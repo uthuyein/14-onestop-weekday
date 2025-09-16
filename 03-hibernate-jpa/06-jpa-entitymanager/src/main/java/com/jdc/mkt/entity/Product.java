@@ -1,7 +1,6 @@
 package com.jdc.mkt.entity;
 
 import org.hibernate.annotations.Check;
-import org.hibernate.annotations.ColumnDefault;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,8 +13,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "prodcut_tbl")
-@Check(constraints = "dtPrice >= wsPrice")
+@Table(name = "product_tbl")
+@Check(constraints = "dt_price >= ws_price")
 public class Product {
 
 	@Id
@@ -24,10 +23,12 @@ public class Product {
 	@Column(nullable = false,length = 45)
 	private String name;
 	
+	@Column(name = "dt_price")
 	private double dtPrice;
+	@Column(name = "ws_price")
 	private double wsPrice;
 	
-	@ColumnDefault("true")
+	@Column(columnDefinition = "tinyint(1) default 1")
 	private boolean active;
 	
 	@ManyToOne
