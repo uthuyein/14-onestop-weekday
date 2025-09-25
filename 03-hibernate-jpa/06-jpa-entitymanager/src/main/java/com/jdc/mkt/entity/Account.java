@@ -1,6 +1,10 @@
 package com.jdc.mkt.entity;
 
+import com.jdc.mkt.listener.EnableTimesListener;
+import com.jdc.mkt.listener.Times;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,7 +15,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "account_tbl")
-public class Account {
+public class Account implements EnableTimesListener{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +24,7 @@ public class Account {
 	private String name;
 	
 	private double balance;
+	
+	@Embedded
+	private Times times;
 }

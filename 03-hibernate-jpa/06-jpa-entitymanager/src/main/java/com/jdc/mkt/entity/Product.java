@@ -2,8 +2,12 @@ package com.jdc.mkt.entity;
 
 import org.hibernate.annotations.Check;
 
+import com.jdc.mkt.listener.EnableTimesListener;
+import com.jdc.mkt.listener.Times;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +21,8 @@ import lombok.Data;
 @Entity
 @Table(name = "product_tbl")
 @Check(constraints = "dt_price >= ws_price")
-public class Product {
+//@EntityListeners(TimesListener.class)
+public class Product implements EnableTimesListener{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +37,9 @@ public class Product {
 	
 	@Column(columnDefinition = "tinyint(1) default 1")
 	private boolean active;
+	
+	@Embedded
+	private Times times;
 	
 	@ManyToOne(fetch = FetchType.EAGER,
 			cascade = {CascadeType.PERSIST,CascadeType.REMOVE})

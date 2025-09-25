@@ -33,15 +33,15 @@ public class D_Concurrent_Access extends JpaFactory {
 	})
 	void transitionTest(int transferId, int recieverId, double update) {
 		var em = emf.createEntityManager();
-		var transition = em.getTransaction();
-
+		var transaction = em.getTransaction();
+	
 		//transition.begin();
 
 		try {
-			transition.begin();
+			transaction.begin();
 			var charlie = em.find(Account.class, transferId);
 			var init = charlie.getBalance();
-
+			
 			if (init <= update) {
 				throw new TransactionException("Initial balance not enough to transfer !");
 			}
@@ -56,10 +56,10 @@ public class D_Concurrent_Access extends JpaFactory {
 
 			trump.setBalance(trump.getBalance() + update);
 
-			transition.commit();
+			transaction.commit();
 
 		} catch (Exception e) {
-			transition.rollback();
+			transaction.rollback();
 			e.printStackTrace();
 		}
 
