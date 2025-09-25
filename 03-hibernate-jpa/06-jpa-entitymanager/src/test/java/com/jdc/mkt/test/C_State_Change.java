@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import com.jdc.mkt.entity.Product;
 
-import jakarta.persistence.PersistenceException;
-
 public class C_State_Change extends JpaFactory {
 
 	@Test

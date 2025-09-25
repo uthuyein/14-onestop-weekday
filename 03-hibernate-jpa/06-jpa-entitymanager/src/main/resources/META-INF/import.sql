@@ -11,3 +11,6 @@ insert into product_tbl(name,dt_price,ws_price,category_id) values('Easy To Lear
 insert into product_tbl(name,dt_price,ws_price,category_id) values('Quick start java',15000.00,12000.00,5);
 insert into product_tbl(name,dt_price,ws_price,category_id) values('Hello kitty',3000.00,2000.00,6);
 insert into product_tbl(name,dt_price,ws_price,category_id) values('EmergcyLight',15000.00,12000.00,1);
+
+insert into account_tbl(name,balance) values('Charlie',50000.00);
+insert into account_tbl(name,balance) values('Trump',50000.00);
