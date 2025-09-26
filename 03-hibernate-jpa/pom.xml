@@ -45,5 +45,6 @@
   	
   	<module>05-jpa-converters</module>
   	<module>06-jpa-entitymanager</module>
+  	<module>07-jpa-query</module>
   </modules>
 </project>
