@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -19,6 +20,9 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "category_tbl")
+@NamedQuery(
+		name = "selectAllCategory",
+		query = "select c from Category c")
 public class Category {
 
 	@Id
@@ -31,7 +35,7 @@ public class Category {
 	private boolean active;
 	
 	@ManyToOne
-	@JoinColumn(name = "subCategory_id",nullable = true)
+	@JoinColumn(name = "subCategory_id",nullable = true )
 	private Category category;
 	
 	@OneToMany(mappedBy = "category",cascade = {CascadeType.PERSIST,CascadeType.MERGE})

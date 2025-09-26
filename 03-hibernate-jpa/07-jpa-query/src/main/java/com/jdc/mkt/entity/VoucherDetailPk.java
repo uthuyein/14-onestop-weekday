@@ -2,10 +2,10 @@ package com.jdc.mkt.entity;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
@@ -16,13 +16,13 @@ public class VoucherDetailPk implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne
-	private Product product;
-	@ManyToOne
-	private Voucher voucher;
+//	@ManyToOne
+//	private Product product;
+//	@ManyToOne
+//	private Voucher voucher;
 	
-//	@Column(name = "voucher_id",insertable = false,updatable = false)
-//	private int voucherId;
-//	@Column(name = "product_id",insertable = false,updatable = false)
-//	private int productId;
+	@Column(name = "voucher_id",insertable = false,updatable = false)
+	private int voucherId;
+	@Column(name = "product_id",insertable = false,updatable = false)
+	private int productId;
 }

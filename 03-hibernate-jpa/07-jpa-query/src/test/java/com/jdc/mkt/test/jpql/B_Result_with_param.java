@@ -25,9 +25,9 @@ public class B_Result_with_param extends JpaFactory {
 		"10,30"
 	})
 	void getResultStreamWithIndexParamTest(double from ,double to) {
-		var query = em.createQuery("select p from Product p where p.dtPrice between ?1 and ?2 ", Product.class);
-		query.setParameter(1, from);
-		query.setParameter(2, to);
+		var query = em.createQuery("select p from Product p where p.dtPrice between ?2 and ?1 ", Product.class);
+		query.setParameter(2, from);
+		query.setParameter(1, to);
 		
 		var stream = query.getResultStream();
 		System.out.println("Stream Count : " + stream.count());
@@ -39,7 +39,7 @@ public class B_Result_with_param extends JpaFactory {
 		"10,30"
 	})
 	void getSingleResultWithNameParamTest(double from ,double to) {
-		var query = em.createQuery("select count(p) from Product p where p.dtPrice between :pFrom and :pTo ", null);
+		var query = em.createQuery("select count(p) from Product p where p.dtPrice between :pFrom and :pTo ");
 		query.setParameter("pFrom", from);
 		query.setParameter("pTo", to);
 				
@@ -51,7 +51,7 @@ public class B_Result_with_param extends JpaFactory {
 	@Order(4)
 	void executeUpdateTest() {
 		em.getTransaction().begin();
-		var query = em.createQuery("");
+		var query = em.createQuery("delete from VoucherDetail v where v.id.id = 1");
 		var row = query.executeUpdate();
 		System.out.println("Row count : " + row);
 		em.getTransaction().commit();

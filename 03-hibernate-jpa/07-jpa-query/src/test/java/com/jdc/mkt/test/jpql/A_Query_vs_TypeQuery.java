@@ -6,6 +6,13 @@ import org.junit.jupiter.api.Test;
 import com.jdc.mkt.entity.Category;
 import com.jdc.mkt.test.util.JpaFactory;
 
+
+/*
+ *  Using JPQl query
+ *  1.Entity name,Field Name
+ *  2.Index param (eg.?1) or named param(eg. :name)
+ *  3.call field name with using(. dot)
+ */
 public class A_Query_vs_TypeQuery extends JpaFactory {
 
 	@Test
@@ -15,11 +22,15 @@ public class A_Query_vs_TypeQuery extends JpaFactory {
 		var list = query.getResultList();
 		System.out.println("Category List Size :"+list.size());
 	}
+	
 	@Test
 	@Order(2)
 	void updateWithTypeQueryTest() {
 		em.getTransaction().begin();
-		var query = em.createQuery("update Category c set c.active = false  where c.active = true");
+//		var cat = em.find(Category.class, 7);
+//		cat.setId(10);
+		
+		var query = em.createQuery("update  Category c set c.active = false where c.id = 7");
 		var row = query.executeUpdate();
 		System.out.println("Row Count :"+ row);
 		em.getTransaction().commit();
