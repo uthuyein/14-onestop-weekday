@@ -8,7 +8,8 @@ import com.jdc.mkt.test.util.JpaFactory;
 
 
 /*
- *  Using JPQl query
+ *  Creating JPQl query
+ *  ==================
  *  1.Entity name,Field Name
  *  2.Index param (eg.?1) or named param(eg. :name)
  *  3.call field name with using(. dot)
