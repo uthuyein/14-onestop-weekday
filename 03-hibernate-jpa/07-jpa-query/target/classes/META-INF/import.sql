@@ -17,13 +17,13 @@ INSERT INTO product_tbl (name, dt_price, ws_price, active, category_id)VALUES ('
 -- Books
 INSERT INTO product_tbl (name, dt_price, ws_price, active, category_id)VALUES ('Spring Boot in Action', 45.00, 35.00, true, 6);
 INSERT INTO product_tbl (name, dt_price, ws_price, active, category_id)VALUES ('Learning Python', 50.00, 42.00, true, 6);
-INSERT INTO product_tbl (name, dt_price, ws_price, active, category_id)VALUES ('Za', 10.00, 5.00, true, 7);
-INSERT INTO product_tbl (name, dt_price, ws_price, active, category_id)VALUES ('Belu', 50.00, 42.00, true, 7);
 
 -- Sports
 INSERT INTO product_tbl (name, dt_price, ws_price, active, category_id)VALUES ('Football', 30.00, 20.00, true, 4);
 INSERT INTO product_tbl (name, dt_price, ws_price, active, category_id)VALUES ('Tennis Racket', 120.00, 100.00, true, 4);
 
+INSERT INTO product_tbl (name, dt_price, ws_price, active, category_id)VALUES ('Za', 10.00, 10.00, true, 7);
+INSERT INTO product_tbl (name, dt_price, ws_price, active, category_id)VALUES ('Belu', 10.00, 10.00, true, 7);
 
 INSERT INTO customer_tbl (name, member_type) VALUES ('Alice Johnson', 'Gold');
 INSERT INTO customer_tbl (name, member_type) VALUES ('Bob Smith', 'Silver');
