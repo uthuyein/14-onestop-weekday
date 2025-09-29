@@ -29,7 +29,7 @@ INSERT INTO customer_tbl (name, member_type) VALUES ('Alice Johnson', 'Gold');
 INSERT INTO customer_tbl (name, member_type) VALUES ('Bob Smith', 'Silver');
 INSERT INTO customer_tbl (name, member_type) VALUES ('Charlie Brown', 'NoMember');
 INSERT INTO customer_tbl (name, member_type) VALUES ('Diana Prince', 'Platinum');
-INSERT INTO customer_tbl (name, member_type) VALUES ('Ethan Hunt', 'Diamond');
+INSERT INTO customer_tbl (name, member_type) VALUES ('Ethan Hunt', 'Gold');
 
 
 INSERT INTO contact_tbl (email, primary_phone, secondary_phone, customer_id)VALUES ('alice.johnson@example.com', '0911111111', '0922222222', 1);

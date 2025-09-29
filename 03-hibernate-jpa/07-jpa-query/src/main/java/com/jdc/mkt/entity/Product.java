@@ -3,12 +3,17 @@ package com.jdc.mkt.entity;
 import org.hibernate.annotations.Check;
 import org.hibernate.annotations.ColumnDefault;
 
+import com.jdc.mkt.entity.dto.SelectCNamePNameWithCount;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.ColumnResult;
+import jakarta.persistence.ConstructorResult;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SqlResultSetMapping;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -16,6 +21,17 @@ import lombok.Data;
 @Entity
 @Table(name = "product_tbl")
 @Check(constraints = "dt_price >= ws_price")
+@SqlResultSetMapping(
+		name = "selectCNamePNameWithCount",
+		classes = {
+		@ConstructorResult(
+			targetClass = SelectCNamePNameWithCount.class,
+			columns = {
+				@ColumnResult(name = "category"),
+				@ColumnResult(name = "product"),
+				@ColumnResult(name = "qty")
+			})
+		})
 public class Product {
 
 	@Id
