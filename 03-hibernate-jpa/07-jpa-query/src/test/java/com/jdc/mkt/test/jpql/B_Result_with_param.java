@@ -38,6 +38,7 @@ public class B_Result_with_param extends JpaFactory {
 	@CsvSource({
 		"10,30"
 	})
+	//select count(*) from product_tbl where dt_price between ? and ?
 	void getSingleResultWithNameParamTest(double from ,double to) {
 		var query = em.createQuery("select count(p) from Product p where p.dtPrice between :pFrom and :pTo ");
 		query.setParameter("pFrom", from);

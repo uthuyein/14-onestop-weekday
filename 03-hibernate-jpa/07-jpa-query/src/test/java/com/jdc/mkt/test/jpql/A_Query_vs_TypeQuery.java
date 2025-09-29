@@ -31,7 +31,7 @@ public class A_Query_vs_TypeQuery extends JpaFactory {
 //		var cat = em.find(Category.class, 7);
 //		cat.setId(10);
 		
-		var query = em.createQuery("update  Category c set c.active = false where c.id = 7");
+		var query = em.createQuery("update  Category c set c.id = 10 where c.id = 7");
 		var row = query.executeUpdate();
 		System.out.println("Row Count :"+ row);
 		em.getTransaction().commit();

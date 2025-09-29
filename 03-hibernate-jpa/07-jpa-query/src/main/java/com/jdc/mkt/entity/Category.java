@@ -38,7 +38,7 @@ public class Category {
 	@JoinColumn(name = "subCategory_id",nullable = true )
 	private Category category;
 	
-	@OneToMany(mappedBy = "category",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@OneToMany(mappedBy = "category")
 	private List<Product> products;
 }
 
