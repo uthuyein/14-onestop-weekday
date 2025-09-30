@@ -47,7 +47,8 @@ public class ProjectionQueryTest extends JpaFactory{
 		var cq = cb.createQuery(Double.class);
 		
 		var root = cq.from(VoucherDetail.class);		
-		cq.multiselect(cb.sum(root.get(VoucherDetail_.subTotal)));
+		cq.select(
+				cb.sum(root.get(VoucherDetail_.subTotal)));
 		
 		cq.where(cb.equal(root.get(VoucherDetail_.voucher).get(Voucher_.id), 1));
 		

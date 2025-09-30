@@ -1,10 +1,14 @@
 package com.jdc.mkt.test.criteria;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import com.jdc.mkt.entity.Category;
 import com.jdc.mkt.entity.Category_;
@@ -14,7 +18,37 @@ import com.jdc.mkt.test.util.JpaFactory;
 
 public class CriteriaQueryTest extends JpaFactory {
 	
+	@ParameterizedTest
+	@CsvSource("s,2")
+	/*
+	 * select c from Category c 
+	 * join c.products p 
+	 * where lower(p.name) like lower(:name)
+	 */
+	void selectCategoryByPNameLikeWith(String name,int res) {
+		
+		var cb = em.getCriteriaBuilder();
+		var cq = cb.createQuery(Category.class);
+		
+		//select c from Category c
+		var root = cq.from(Category.class);
+		cq.select(root);
+		
+		//join c.products p
+		var jProduct = root.join(Category_.products);
+		
+		cq.where(cb.like(
+				cb.lower(jProduct.get(Product_.name)),
+				name.toLowerCase().concat("%")));
+		
+		var query = em.createQuery(cq);
+		var list = query.getResultList();
+		assertEquals(res, list.size());
+	}
+	
+	
 	@Test
+	@Disabled
 	//select p from Product p where p.dtPrice between :from and :to
 	void selectProductByDtPriceBetween() {
 		var cb = em.getCriteriaBuilder();
