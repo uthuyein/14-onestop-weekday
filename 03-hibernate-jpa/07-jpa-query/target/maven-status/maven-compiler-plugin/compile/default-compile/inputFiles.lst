@@ -1,0 +1,11 @@
+/Users/MKT/git/14-onestop-weekday/03-hibernate-jpa/07-jpa-query/src/main/java/com/jdc/mkt/entity/Category.java
+/Users/MKT/git/14-onestop-weekday/03-hibernate-jpa/07-jpa-query/src/main/java/com/jdc/mkt/entity/Contact.java
+/Users/MKT/git/14-onestop-weekday/03-hibernate-jpa/07-jpa-query/src/main/java/com/jdc/mkt/entity/Customer.java
+/Users/MKT/git/14-onestop-weekday/03-hibernate-jpa/07-jpa-query/src/main/java/com/jdc/mkt/entity/Product.java
+/Users/MKT/git/14-onestop-weekday/03-hibernate-jpa/07-jpa-query/src/main/java/com/jdc/mkt/entity/Voucher.java
+/Users/MKT/git/14-onestop-weekday/03-hibernate-jpa/07-jpa-query/src/main/java/com/jdc/mkt/entity/VoucherDetail.java
+/Users/MKT/git/14-onestop-weekday/03-hibernate-jpa/07-jpa-query/src/main/java/com/jdc/mkt/entity/VoucherDetailPk.java
+/Users/MKT/git/14-onestop-weekday/03-hibernate-jpa/07-jpa-query/src/main/java/com/jdc/mkt/entity/dto/SelectCNamePNameWithCount.java
+/Users/MKT/git/14-onestop-weekday/03-hibernate-jpa/07-jpa-query/src/main/java/com/jdc/mkt/entity/dto/SelectCNamePNameWithMax.java
+/Users/MKT/git/14-onestop-weekday/03-hibernate-jpa/07-jpa-query/src/main/java/com/jdc/mkt/entity/dto/SelectCNameWithCount.java
+/Users/MKT/git/14-onestop-weekday/03-hibernate-jpa/07-jpa-query/src/main/java/com/jdc/mkt/entity/dto/SelectMemberAndCount.java

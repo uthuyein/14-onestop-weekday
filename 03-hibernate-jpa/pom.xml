@@ -41,8 +41,7 @@
   	<module>01-class-and-field-mappings</module>
   	<module>02-collection-mappings</module>
   	<module>03-relational-mappings</module>
-  	<module>04-inheritance-mappings</module>
-  	
+  	<module>04-inheritance-mappings</module> 	
   	<module>05-jpa-converters</module>
   	<module>06-jpa-entitymanager</module>
   	<module>07-jpa-query</module>
