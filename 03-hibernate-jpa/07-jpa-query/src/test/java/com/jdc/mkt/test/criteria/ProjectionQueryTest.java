@@ -1,7 +1,5 @@
 package com.jdc.mkt.test.criteria;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
 
 import com.jdc.mkt.entity.Category_;
