@@ -19,7 +19,7 @@ import com.jdc.mkt.utils.DatabaseType;
 import com.jdc.mkt.utils.anno.Connector;
 
 @TestMethodOrder(OrderAnnotation.class)
-@Connector(database = DatabaseType.MYSQL,name = "testDb", user = "root", password = "1234")
+@Connector(database = DatabaseType.MYSQL,name = "testDb", user = "root", password = "1234", port = "3306")
 public class CustomerTest {
 	
 	static ServiceInt service;
