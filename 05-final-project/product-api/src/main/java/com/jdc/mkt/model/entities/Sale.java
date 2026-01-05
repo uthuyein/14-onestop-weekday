@@ -1,6 +1,7 @@
 package com.jdc.mkt.model.entities;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 import org.hibernate.annotations.ColumnDefault;
@@ -21,12 +22,20 @@ public class Sale {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
+
+	private double discount;
+	private double tax;
+	private double total;
 	private LocalDate saleDate;
-	@ManyToOne
-	private Account account;
-	@ManyToOne
-	private Customer customer;
-	
+	private LocalTime saleTime;
+
 	@ColumnDefault("1")
 	private boolean isActive;
+
+	@ManyToOne
+	private Account account;
+	
+	@ManyToOne
+	private Customer customer;
+
 }

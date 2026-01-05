@@ -8,21 +8,17 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "purchase_detail_tbl")
-public class PurchaseDetail {
+@Table(name = "sale_detail_tbl")
+public class SaleDetail {
 
 	@EmbeddedId
-	private PurchaseDetailPk id;
-	
+	private SaleDetailPk id;
 	@ManyToOne
-	private Purchase purchase;
-	
+	private Sale sale;
 	@ManyToOne
-	private Product product;
+	private SaleProduct saleProduct;
 	
-	@ManyToOne
-	private Size size;
-	
-	private double price;
 	private int qty;
+	private double subTotal;
+
 }
