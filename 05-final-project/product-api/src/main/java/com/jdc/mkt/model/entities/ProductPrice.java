@@ -3,6 +3,8 @@ package com.jdc.mkt.model.entities;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,8 +14,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "sale_product_tbl")
-public class SaleProduct {
+@Table(name = "product_price_tbl")
+public class ProductPrice {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +27,15 @@ public class SaleProduct {
 	@ManyToOne
 	private Size size;
 	
+	@Enumerated(EnumType.STRING)
+	private PriceType priceType;
+	
 	private double price;
+	
 	private LocalDate createAt;
 	private LocalDate updateAt;
+	
+	public enum PriceType{
+		Purchase,Sale
+	}
 }

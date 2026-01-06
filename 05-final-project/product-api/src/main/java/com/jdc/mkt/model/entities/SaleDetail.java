@@ -16,7 +16,7 @@ public class SaleDetail {
 	@ManyToOne
 	private Sale sale;
 	@ManyToOne
-	private SaleProduct saleProduct;
+	private ProductPrice productPrice;
 	
 	private int qty;
 	private double subTotal;

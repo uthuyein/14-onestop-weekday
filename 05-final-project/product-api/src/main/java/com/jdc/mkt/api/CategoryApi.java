@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.mkt.api.inputs.CategoryForm;
-import com.jdc.mkt.api.outputs.CategoryInfo;
 import com.jdc.mkt.model.services.CategoryService;
+import com.jdc.mkt.utils.StatusMessage;
 
 @RestController
 @RequestMapping("categories")
@@ -19,9 +19,8 @@ public class CategoryApi {
 	private CategoryService service;
 	
 	@PostMapping("/save")
-	CategoryInfo save(@Validated @RequestBody CategoryForm form){
+	StatusMessage<Integer> save(@Validated @RequestBody CategoryForm form){
 		var category = service.save(form);
-		var info = CategoryInfo.from(category);		
-		return info;
+		return StatusMessage.success(category.getId(),"%s has successfully save.".formatted(category.getName()));
 	}
 }

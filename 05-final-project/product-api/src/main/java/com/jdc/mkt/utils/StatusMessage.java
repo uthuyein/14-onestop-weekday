@@ -1,23 +1,14 @@
 package com.jdc.mkt.utils;
 
-import com.jdc.mkt.api.outputs.Info;
+public record StatusMessage<ID>(
+		ID id,
+		boolean success,
+		String message
+		) {
 
-import lombok.Data;
-
-@Data
-public class StatusMessage<ID> {
-
-	private ID id;
-	private String message;
-	
-	public StatusMessage<ID> success(Info info){
-		if(null != info.getId()) {
-			var mess = new StatusMessage<ID>();
-			mess.setId(id);
-			mess.setMessage("successfully save !");
-			return mess;
-		}
-		return null;
+	public static<ID> StatusMessage<ID> success(ID id,String message){
+		
+		return new StatusMessage<ID>(id, true,message);
 	}
 	
 }

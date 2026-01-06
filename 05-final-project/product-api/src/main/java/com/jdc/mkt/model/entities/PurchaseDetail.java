@@ -18,11 +18,10 @@ public class PurchaseDetail {
 	private Purchase purchase;
 	
 	@ManyToOne
-	private Product product;
-	
-	@ManyToOne
-	private Size size;
+	private ProductPrice productPrice;
 	
 	private double price;
 	private int qty;
+	
+	
 }
