@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jdc.mkt.api.inputs.CategoryForm;
-import com.jdc.mkt.api.outputs.CategoryInfo;
+import com.jdc.mkt.api.outputs.SelectCategory;
 import com.jdc.mkt.model.entities.Category;
 import com.jdc.mkt.model.repositories.CategoryRepo;
 
@@ -26,15 +26,15 @@ public class CategoryService {
 		return repo.save(form.entity(id));
 	}
 
-	public List<CategoryInfo> findAll() {
-		return repo.findAll().stream().map(cat -> CategoryInfo.from(cat)).toList();
+	public List<SelectCategory> findAll() {
+		return repo.findAll().stream().map(cat -> SelectCategory.from(cat)).toList();
 	}
 
-	public CategoryInfo findById(int id) {
-			return repo.findById(id).map(c -> CategoryInfo.from(c)).orElseThrow(() -> new EntityNotFoundException());
+	public SelectCategory findById(int id) {
+			return repo.findById(id).map(c -> SelectCategory.from(c)).orElseThrow(() -> new EntityNotFoundException());
 	}
 
-	public CategoryInfo findByName(String name) {
-		return repo.findByNameAndIsActiveTrue(name).map(c -> CategoryInfo.from(c)).orElseThrow(() -> new EntityNotFoundException());
+	public SelectCategory findByName(String name) {
+		return repo.findByNameAndIsActiveTrue(name).map(c -> SelectCategory.from(c)).orElseThrow(() -> new EntityNotFoundException());
 	}
 }

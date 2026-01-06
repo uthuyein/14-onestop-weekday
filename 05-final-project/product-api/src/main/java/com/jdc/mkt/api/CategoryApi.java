@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.mkt.api.inputs.CategoryForm;
-import com.jdc.mkt.api.outputs.CategoryInfo;
+import com.jdc.mkt.api.outputs.SelectCategory;
 import com.jdc.mkt.model.services.CategoryService;
 import com.jdc.mkt.utils.ModificationResult;
 
@@ -25,17 +25,17 @@ public class CategoryApi {
 	private CategoryService service;
 	
 	@GetMapping
-	List<CategoryInfo> index(){
+	List<SelectCategory> index(){
 		return service.findAll();
 	}
 	
 	@GetMapping("{id}")
-	CategoryInfo findById(@PathVariable int id) {
+	SelectCategory findById(@PathVariable int id) {
 		return service.findById(id);
 	}
 	
 	@GetMapping("/findByName")
-	CategoryInfo findByName(@RequestParam(name = "category") String name) {
+	SelectCategory findByName(@RequestParam(name = "category") String name) {
 		return service.findByName(name);
 	}
 	

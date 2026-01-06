@@ -37,29 +37,28 @@
 insert into category_tbl(name,category_id) values('Drinks',null);
 insert into category_tbl(name,category_id) values('Snacks',null);
 insert into category_tbl(name,category_id) values('Fruits',null);
+insert into category_tbl(name,category_id) values('Furniture',null);
+insert into category_tbl(name,category_id) values('Vegetables',null);
 insert into category_tbl(name,category_id) values('CoolDrinks',1);
 insert into category_tbl(name,category_id) values('InstantFoods',2);
 insert into category_tbl(name,category_id) values('HotDrinks',1);
 insert into category_tbl(name,category_id) values('FruitDrinks',4);
-insert into category_tbl(name,category_id) values('Vegetables',null);
 insert into category_tbl(name,category_id) values('EnergyDrinks',4);
-insert into category_tbl(name,category_id) values('Furniture',null);
 
 --insert into product_size_tbl(name) values ('Small');
 --insert into product_size_tbl(name) values ('Medium');
 --insert into product_size_tbl(name) values ('Large');
 --
---insert into product_tbl(name,category_id,productSize_id) values ('Gar Gar',1,1);
---insert into product_tbl(name,category_id,productSize_id) values ('Apple',2,2);
---insert into product_tbl(name,category_id,productSize_id) values ('Yogurt',3,3);
---insert into product_tbl(name,category_id,productSize_id) values ('YumYum',4,1);
---insert into product_tbl(name,category_id,productSize_id) values ('Coffee',5,2);
---insert into product_tbl(name,category_id,productSize_id) values ('AvocadoDrink',6,3);
---insert into product_tbl(name,category_id,productSize_id) values ('Broccoli',7,1);
---insert into product_tbl(name,category_id,productSize_id) values ('Shark',8,2);
---insert into product_tbl(name,category_id,productSize_id) values ('Victor',9,2);
---insert into product_tbl(name,category_id,productSize_id) values ('Blanket',10,1);
---insert into product_tbl(name,category_id,productSize_id) values ('Shwe Man May',1,1);
+insert into product_tbl(name,category_id) values ('Gar Gar',7);
+insert into product_tbl(name,category_id) values ('Apple',3);
+insert into product_tbl(name,category_id) values ('Yogurt',6);
+insert into product_tbl(name,category_id) values ('YumYum',7);
+insert into product_tbl(name,category_id) values ('Coffee',8);
+insert into product_tbl(name,category_id) values ('Broccoli',5);
+insert into product_tbl(name,category_id) values ('Shark',10);
+insert into product_tbl(name,category_id) values ('Victor',6);
+insert into product_tbl(name,category_id) values ('Blanket',4);
+insert into product_tbl(name,category_id) values ('Shwe Man May',7);
 --
 --insert into admin_tbl(username,loginId,password,accountType) values ('John','john111','222','Admin');
 --insert into admin_tbl(username,loginId,password,accountType) values ('Andrew','adrew11','123','Customer');
