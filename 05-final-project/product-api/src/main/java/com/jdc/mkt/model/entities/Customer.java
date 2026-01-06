@@ -31,14 +31,16 @@ public class Customer {
 	@ColumnDefault("1")
 	private boolean isActive;
 	
+	@Enumerated(EnumType.STRING)
+	private MemberType type;
+	
+	
 	@ManyToOne
 	private Address address;
 	
 	@OneToOne
 	private Contact contact;
 	
-	@Enumerated(EnumType.STRING)
-	private MemberType type;
 	
 	public enum MemberType{
 		Silver,Gold,Diamond

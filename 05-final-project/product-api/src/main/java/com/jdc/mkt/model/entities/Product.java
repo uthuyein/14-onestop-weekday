@@ -23,9 +23,11 @@ public class Product {
 	@Column(nullable = false,length = 45)
 	private String name;
 	
+	@ColumnDefault("1")
+	private boolean isActive;
+	
 	@ManyToOne
 	private Category category;
 	
-	@ColumnDefault("1")
-	private boolean isActive;
+	
 }

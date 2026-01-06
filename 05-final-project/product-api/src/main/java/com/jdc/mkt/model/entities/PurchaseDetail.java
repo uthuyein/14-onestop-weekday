@@ -14,14 +14,15 @@ public class PurchaseDetail {
 	@EmbeddedId
 	private PurchaseDetailPk id;
 	
+	private double price;
+	private int qty;
+	
 	@ManyToOne
 	private Purchase purchase;
 	
 	@ManyToOne
 	private ProductPrice productPrice;
 	
-	private double price;
-	private int qty;
 	
 	
 }

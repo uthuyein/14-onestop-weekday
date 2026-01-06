@@ -18,8 +18,10 @@ public class Supplier {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(nullable = false,length = 45)
 	private String name;
+	
 	@ColumnDefault("1")
 	private boolean isActive;
 }

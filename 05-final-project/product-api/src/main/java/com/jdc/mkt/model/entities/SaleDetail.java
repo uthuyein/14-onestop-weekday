@@ -13,12 +13,15 @@ public class SaleDetail {
 
 	@EmbeddedId
 	private SaleDetailPk id;
-	@ManyToOne
-	private Sale sale;
-	@ManyToOne
-	private ProductPrice productPrice;
 	
 	private int qty;
 	private double subTotal;
 
+	@ManyToOne
+	private Sale sale;
+	
+	@ManyToOne
+	private ProductPrice productPrice;
+	
+	
 }

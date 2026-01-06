@@ -16,8 +16,10 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;	
+	
 	private String state;
 	private String township;
+	
 	@Column(nullable = false)
 	private String street;
 }
