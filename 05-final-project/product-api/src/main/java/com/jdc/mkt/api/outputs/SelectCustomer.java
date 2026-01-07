@@ -1,16 +1,21 @@
 package com.jdc.mkt.api.outputs;
 
+import java.util.UUID;
+
+import com.jdc.mkt.model.entities.Address;
 import com.jdc.mkt.model.entities.Address_;
+import com.jdc.mkt.model.entities.Contact;
 import com.jdc.mkt.model.entities.Contact_;
 import com.jdc.mkt.model.entities.Customer;
 import com.jdc.mkt.model.entities.Customer_;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
 
 public record SelectCustomer(
-		int id,
+		Integer id,
 		String name,
 		String email,
 		String primaryPh,
@@ -21,9 +26,12 @@ public record SelectCustomer(
 		
 		) {
 
-	public static void select(CriteriaBuilder cb,CriteriaQuery<SelectCustomer> cq, Root<Customer> root) {
-		var contact = root.join(Customer_.contact);
-		var address = root.join(Customer_.address);
+	public static void select(
+			CriteriaBuilder cb,
+			CriteriaQuery<SelectCustomer> cq, 
+			Root<Customer> root,
+			Join<Customer, Contact> contact,
+			Join<Customer, Address> address) {
 		
 		cq.select(
 				cb.construct(SelectCustomer.class,

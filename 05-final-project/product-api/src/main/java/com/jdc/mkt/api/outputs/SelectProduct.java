@@ -18,12 +18,14 @@ public record SelectProduct(
 		return new SelectProduct(p.getId(), p.getName(), p.getCategory());
 	}
 
-	public static void select(CriteriaBuilder cb,CriteriaQuery<Product> cq, Root<Product> root) {
-		cq.multiselect(
+	public static void select(CriteriaBuilder cb,CriteriaQuery<SelectProduct> cq, Root<Product> root) {
+		cq.select(
+				cb.construct(
+						SelectProduct.class,
 						root.get(Product_.id),
 						root.get(Product_.name),
 						root.get(Product_.category)
-						
+						)
 				);
 	}
 

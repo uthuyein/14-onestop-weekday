@@ -22,8 +22,8 @@ import lombok.Data;
 public class Customer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
 	@Column(nullable = false,length = 45)
 	private String name;
@@ -32,7 +32,7 @@ public class Customer {
 	private boolean isActive;
 	
 	@Enumerated(EnumType.STRING)
-	private MemberType type;
+	private MemberType memberType;
 	
 	
 	@ManyToOne

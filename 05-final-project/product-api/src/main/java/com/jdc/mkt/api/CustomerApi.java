@@ -3,6 +3,7 @@ package com.jdc.mkt.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ public class CustomerApi {
 	@Autowired
 	private CustomerService service;
 	
+	@GetMapping
 	List<SelectCustomer> findBy(@RequestBody SearchCustomerForm form){
 		return service.findBy(form);
 	}

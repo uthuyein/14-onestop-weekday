@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.mkt.api.inputs.ProductForm;
 import com.jdc.mkt.api.inputs.search.SearchProductForm;
@@ -16,34 +17,29 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 
 @Service
+@Transactional(readOnly = true)
 public class ProductService {
 
 	@Autowired
 	private ProductRepo repo;
 
-	public List<Product> findBy(SearchProductForm form) {
-		var list = repo.findBy(searchFunction(form));
-		list.stream().forEach(
-				p -> System.out.println("Category : " + p.getCategory().getName() + "\t" + "Product : " + p.getName()));
+	public List<SelectProduct> findBy(SearchProductForm form) {
+		var list = repo.findBy( searchFunction(form));	
 		return list;
 	}
 
-	private Function<CriteriaBuilder, CriteriaQuery<Product>> searchFunction(SearchProductForm form) {
-				
-//		Function<CriteriaBuilder, CriteriaQuery<Product>> fun = cb -> {
-//			
-//			var cq = cb.createQuery(Product.class);
-//			var root = cq.from(Product.class);
-//			
-//			// SelectProduct.select(cb, cq, root);
-//			cq.where(form.where(cb, root));
-//		
-//			return cq;
-//		};
-//		System.out.println("Function :::::::::::::::::::::"+fun);
+	
+	private Function<CriteriaBuilder, CriteriaQuery<SelectProduct>> searchFunction(SearchProductForm form) {			
+		return cb -> {
+			
+			var cq = cb.createQuery(SelectProduct.class);
+			var root = cq.from(Product.class);
+			
+			SelectProduct.select(cb, cq, root);
+			cq.where(form.where(cb, root));
 		
-		return  null;
-
+			return cq;
+		};
 	}
 
 	public SelectProduct save(ProductForm form) {

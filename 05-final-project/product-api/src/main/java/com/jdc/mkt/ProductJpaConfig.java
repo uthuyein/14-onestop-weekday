@@ -7,7 +7,8 @@ import com.jdc.mkt.model.repositories.BaseRepoImpl;
 
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = BaseRepoImpl.class)
+@EnableJpaRepositories(
+		repositoryBaseClass = BaseRepoImpl.class)
 public class ProductJpaConfig {
 
 }
