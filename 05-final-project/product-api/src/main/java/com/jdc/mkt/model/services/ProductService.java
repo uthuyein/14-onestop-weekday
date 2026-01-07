@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jdc.mkt.api.inputs.ProductForm;
+import com.jdc.mkt.api.inputs.search.SearchProductForm;
 import com.jdc.mkt.api.outputs.SelectProduct;
 import com.jdc.mkt.model.entities.Product;
 import com.jdc.mkt.model.repositories.ProductRepo;
@@ -20,21 +21,28 @@ public class ProductService {
 	@Autowired
 	private ProductRepo repo;
 
-	public List<SelectProduct> findBy(ProductForm form) {
-		return repo.findBy(searchFunction(form));
+	public List<Product> findBy(SearchProductForm form) {
+		var list = repo.findBy(searchFunction(form));
+		list.stream().forEach(
+				p -> System.out.println("Category : " + p.getCategory().getName() + "\t" + "Product : " + p.getName()));
+		return list;
 	}
 
-	private Function<CriteriaBuilder, CriteriaQuery<SelectProduct>> searchFunction(ProductForm form) {
-		return cb -> {
-			var cq = cb.createQuery(SelectProduct.class);
-			var root = cq.from(Product.class);
-			SelectProduct.select(cb, cq, root);
-			
-			if (null != form) {
-				cq.where(form.where(cb, cq, root));
-			}
-			return cq;
-		};
+	private Function<CriteriaBuilder, CriteriaQuery<Product>> searchFunction(SearchProductForm form) {
+				
+//		Function<CriteriaBuilder, CriteriaQuery<Product>> fun = cb -> {
+//			
+//			var cq = cb.createQuery(Product.class);
+//			var root = cq.from(Product.class);
+//			
+//			// SelectProduct.select(cb, cq, root);
+//			cq.where(form.where(cb, root));
+//		
+//			return cq;
+//		};
+//		System.out.println("Function :::::::::::::::::::::"+fun);
+		
+		return  null;
 
 	}
 

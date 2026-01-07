@@ -3,7 +3,6 @@ package com.jdc.mkt.model.repositories;
 import java.util.List;
 import java.util.function.Function;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 

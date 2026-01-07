@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.mkt.api.inputs.ProductForm;
-import com.jdc.mkt.api.outputs.SelectProduct;
+import com.jdc.mkt.api.inputs.search.SearchProductForm;
+import com.jdc.mkt.model.entities.Product;
 import com.jdc.mkt.model.services.ProductService;
 import com.jdc.mkt.utils.ModificationResult;
 
@@ -25,7 +26,7 @@ public class ProductApi {
 	private ProductService service;
 	
 	@GetMapping
-	List<SelectProduct> findBy(@RequestBody(required = false) ProductForm form){
+	List<Product> findBy(@RequestBody SearchProductForm form){
 		return service.findBy(form);
 	}
 	
