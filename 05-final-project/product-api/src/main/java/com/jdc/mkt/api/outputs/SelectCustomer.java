@@ -1,7 +1,5 @@
 package com.jdc.mkt.api.outputs;
 
-import java.util.UUID;
-
 import com.jdc.mkt.model.entities.Address;
 import com.jdc.mkt.model.entities.Address_;
 import com.jdc.mkt.model.entities.Contact;
@@ -42,9 +40,20 @@ public record SelectCustomer(
 						contact.get(Contact_.secondaryPhone),
 						address.get(Address_.state),
 						address.get(Address_.township),
-						address.get(Address_.street))
-						
+						address.get(Address_.street))						
 				);
+	}
+
+	public static SelectCustomer from(Customer cu) {
+		return new SelectCustomer(
+				cu.getId(),
+				cu.getName(),
+				cu.getContact().getEmail(),
+				cu.getContact().getPrimaryPhone(),
+				cu.getContact().getSecondaryPhone(),
+				cu.getAddress().getState(), 
+				cu.getAddress().getTownship(),
+				cu.getAddress().getStreet());
 	}
 
 }

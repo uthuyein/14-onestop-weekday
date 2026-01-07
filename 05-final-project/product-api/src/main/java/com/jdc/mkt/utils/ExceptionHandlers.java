@@ -2,6 +2,7 @@ package com.jdc.mkt.utils;
 
 import java.util.List;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,5 +18,11 @@ public class ExceptionHandlers {
 		return e.getFieldErrors()
 				.stream()
 				.map(error -> error.getDefaultMessage()).toList();
+	}
+	
+	@ExceptionHandler
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	List<String> handle(DataIntegrityViolationException e){
+		return List.of(e.getMessage());
 	}
 }

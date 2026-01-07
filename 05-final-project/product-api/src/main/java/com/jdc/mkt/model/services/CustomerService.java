@@ -6,6 +6,7 @@ import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jdc.mkt.api.inputs.CustomerForm;
 import com.jdc.mkt.api.inputs.search.SearchCustomerForm;
 import com.jdc.mkt.api.outputs.SelectCustomer;
 import com.jdc.mkt.model.entities.Customer;
@@ -39,6 +40,11 @@ public class CustomerService {
 			}
 			return cq;
 		};
+	}
+
+	public SelectCustomer save(Integer id,CustomerForm form) {
+		var cu = repo.save(form.entity(id));
+		return SelectCustomer.from(cu);
 	}
 
 }

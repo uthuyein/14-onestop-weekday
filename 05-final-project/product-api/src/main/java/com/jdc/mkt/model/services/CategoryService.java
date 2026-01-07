@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.mkt.api.inputs.CategoryForm;
 import com.jdc.mkt.api.outputs.SelectCategory;
@@ -13,15 +14,18 @@ import com.jdc.mkt.model.repositories.CategoryRepo;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
+@Transactional(readOnly = true)
 public class CategoryService {
 
 	@Autowired
 	private CategoryRepo repo;
 
+	@Transactional
 	public Category save(CategoryForm form) {	
 		return repo.save(form.entity(null));
 	}
 
+	@Transactional
 	public Category update(Integer id, CategoryForm form) {
 		return repo.save(form.entity(id));
 	}

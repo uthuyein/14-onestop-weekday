@@ -1,9 +1,8 @@
 package com.jdc.mkt.model.entities;
 
-import java.util.UUID;
-
 import org.hibernate.annotations.ColumnDefault;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,7 +22,7 @@ public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Column(nullable = false,length = 45)
 	private String name;
@@ -35,10 +34,10 @@ public class Customer {
 	private MemberType memberType;
 	
 	
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
 	private Address address;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
 	private Contact contact;
 	
 	
