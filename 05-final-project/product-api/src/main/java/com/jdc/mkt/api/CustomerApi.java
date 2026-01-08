@@ -31,14 +31,14 @@ public class CustomerApi {
 	
 	@PostMapping
 	ModificationResult<Integer>save(@RequestBody CustomerForm form ){
-		var customer = service.save(null,form);
+		var customer = service.save(form);
 		return ModificationResult.success(customer.id(),
 				"%s has successfully save !".formatted(customer.name()));
 	}
 	
 	@PutMapping("{id}")
 	ModificationResult<Integer>update(@PathVariable Integer id, @RequestBody CustomerForm form ){
-		var customer = service.save(id,form);
+		var customer = service.update(id,form);
 		return ModificationResult.success(customer.id(),
 				"%s has successfully update !".formatted(customer.name()));
 	}

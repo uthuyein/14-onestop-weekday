@@ -12,6 +12,8 @@ import com.jdc.mkt.api.outputs.SelectProduct;
 import com.jdc.mkt.model.entities.Product;
 import com.jdc.mkt.model.repositories.ProductRepo;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 @Transactional(readOnly = true)
 public class ProductService {
@@ -35,15 +37,16 @@ public class ProductService {
 
 	@Transactional
 	public SelectProduct save(ProductForm form) {
-		var p = repo.save(form.entity(null));
+		var p = repo.save(form.entity(new Product()));
 		return SelectProduct.from(p);
 
 	}
 
 	@Transactional
 	public SelectProduct update(Integer id, ProductForm form) {
-		var p = repo.save(form.entity(id));
-		return SelectProduct.from(p);
+		var p = repo.findById(id).orElseThrow(() -> new EntityNotFoundException("There is no entity from database !"));
+		var product = repo.save(form.entity(p));
+		return SelectProduct.from(product);
 	}
 
 }

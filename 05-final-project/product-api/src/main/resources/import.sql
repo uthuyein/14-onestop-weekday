@@ -58,6 +58,17 @@ insert into product_tbl(name,category_id) values ('Shark',10);
 insert into product_tbl(name,category_id) values ('Victor',6);
 insert into product_tbl(name,category_id) values ('Blanket',4);
 insert into product_tbl(name,category_id) values ('Shwe Man May',7);
+
+insert into supplier_tbl(name) values ('John Doe');
+insert into supplier_tbl(name) values ('Andrew Saw');
+insert into supplier_tbl(name) values ('Derrek J');
+insert into supplier_tbl(name) values ('Mercy Linn');
+insert into supplier_tbl(name) values ('Annie M');
+insert into supplier_tbl(name) values ('Marrie A');
+insert into supplier_tbl(name) values ('Herry Jane');
+insert into supplier_tbl(name) values ('Elle Venus');
+insert into supplier_tbl(name) values ('Halcy Grace');
+insert into supplier_tbl(name) values ('Martin Drew');
 --
 --insert into admin_tbl(username,loginId,password,accountType) values ('John','john111','222','Admin');
 --insert into admin_tbl(username,loginId,password,accountType) values ('Andrew','adrew11','123','Customer');
@@ -73,16 +84,7 @@ insert into product_tbl(name,category_id) values ('Shwe Man May',7);
 --insert into cashier_tbl (username, loginId, password, accountType) values ('Gojo', 'gojo', '123', 'Cashier');
 --insert into cashier_tbl (username, loginId, password, accountType) values ('Megumi', 'megumi', '456', 'Cashier');
 --
---insert into supplier_tbl(name) values ('John Doe');
---insert into supplier_tbl(name) values ('Andrew Saw');
---insert into supplier_tbl(name) values ('Derrek J');
---insert into supplier_tbl(name) values ('Mercy Linn');
---insert into supplier_tbl(name) values ('Annie M');
---insert into supplier_tbl(name) values ('Marrie A');
---insert into supplier_tbl(name) values ('Herry Jane');
---insert into supplier_tbl(name) values ('Elle Venus');
---insert into supplier_tbl(name) values ('Halcy Grace');
---insert into supplier_tbl(name) values ('Martin Drew');
+
 --
 --insert into purchase_tbl (admin_id, createDate, createTime, supplier_id) values (1, '2022-10-12', '02:20:11', 1);
 --insert into purchase_tbl (admin_id, createDate, createTime, supplier_id) values (2, '2022-11-05', '10:15:30', 2);

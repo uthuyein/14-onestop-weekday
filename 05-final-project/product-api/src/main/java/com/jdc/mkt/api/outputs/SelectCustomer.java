@@ -5,6 +5,7 @@ import com.jdc.mkt.model.entities.Address_;
 import com.jdc.mkt.model.entities.Contact;
 import com.jdc.mkt.model.entities.Contact_;
 import com.jdc.mkt.model.entities.Customer;
+import com.jdc.mkt.model.entities.Customer.MemberType;
 import com.jdc.mkt.model.entities.Customer_;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -15,6 +16,7 @@ import jakarta.persistence.criteria.Root;
 public record SelectCustomer(
 		Integer id,
 		String name,
+		MemberType memberType,
 		String email,
 		String primaryPh,
 		String secondaryPh,
@@ -35,6 +37,7 @@ public record SelectCustomer(
 				cb.construct(SelectCustomer.class,
 						root.get(Customer_.id),
 						root.get(Customer_.name),
+						root.get(Customer_.memberType),
 						contact.get(Contact_.email),
 						contact.get(Contact_.primaryPhone),
 						contact.get(Contact_.secondaryPhone),
@@ -48,6 +51,7 @@ public record SelectCustomer(
 		return new SelectCustomer(
 				cu.getId(),
 				cu.getName(),
+				cu.getMemberType(),
 				cu.getContact().getEmail(),
 				cu.getContact().getPrimaryPhone(),
 				cu.getContact().getSecondaryPhone(),

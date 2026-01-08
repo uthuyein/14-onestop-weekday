@@ -13,6 +13,7 @@ import com.jdc.mkt.model.entities.Customer;
 import com.jdc.mkt.model.entities.Customer_;
 import com.jdc.mkt.model.repositories.CustomerRepo;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 
@@ -42,9 +43,16 @@ public class CustomerService {
 		};
 	}
 
-	public SelectCustomer save(Integer id,CustomerForm form) {
-		var cu = repo.save(form.entity(id));
+	public SelectCustomer save(CustomerForm form) {		
+		var cu = repo.save(form.entity(new Customer()));
 		return SelectCustomer.from(cu);
 	}
-
+	
+	
+	public SelectCustomer update(Integer id,CustomerForm form) {
+		var cu = repo.findById(id).orElseThrow(() -> new EntityNotFoundException("There is no entity found !"));
+		
+		cu = repo.save(form.entity(cu));
+		return SelectCustomer.from(cu);
+	}
 }

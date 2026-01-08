@@ -25,7 +25,10 @@ public class CategoryApi {
 	private CategoryService service;
 	
 	@GetMapping
-	List<SelectCategory> index(){
+	List<SelectCategory> findAll(@RequestParam(required = false) String name){
+		if(null != name) {
+			return service.findByName(name);
+		}
 		return service.findAll();
 	}
 	
@@ -34,11 +37,7 @@ public class CategoryApi {
 		return service.findById(id);
 	}
 	
-	@GetMapping("/findByName")
-	SelectCategory findByName(@RequestParam(name = "category") String name) {
-		return service.findByName(name);
-	}
-	
+
 	@PostMapping("/save")
 	ModificationResult<Integer> save(@Validated @RequestBody CategoryForm form){
 		var category = service.save(form);

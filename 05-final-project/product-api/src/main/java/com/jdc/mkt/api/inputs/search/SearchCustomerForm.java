@@ -9,6 +9,7 @@ import com.jdc.mkt.model.entities.Address_;
 import com.jdc.mkt.model.entities.Contact;
 import com.jdc.mkt.model.entities.Contact_;
 import com.jdc.mkt.model.entities.Customer;
+import com.jdc.mkt.model.entities.Customer.MemberType;
 import com.jdc.mkt.model.entities.Customer_;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -23,6 +24,7 @@ import lombok.Data;
 public class SearchCustomerForm {
 
 	private String name;
+	private MemberType memberType;
 	private String address;
 	private String email;
 	private String phone;
@@ -38,6 +40,10 @@ public class SearchCustomerForm {
 			params.add(cb.like(
 					cb.lower(root.get(Customer_.name)), 
 					name.toLowerCase().concat("%")));
+		}
+		
+		if(null != memberType) {
+			params.add(cb.equal(root.get(Customer_.memberType), memberType));
 		}
 		
 		if(StringUtils.hasLength(address)) {

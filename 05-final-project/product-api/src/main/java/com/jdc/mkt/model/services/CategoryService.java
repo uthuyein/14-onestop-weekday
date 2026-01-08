@@ -20,25 +20,29 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepo repo;
 
-	@Transactional
-	public Category save(CategoryForm form) {	
-		return repo.save(form.entity(null));
-	}
-
-	@Transactional
-	public Category update(Integer id, CategoryForm form) {
-		return repo.save(form.entity(id));
-	}
-
 	public List<SelectCategory> findAll() {
 		return repo.findAll().stream().map(cat -> SelectCategory.from(cat)).toList();
 	}
 
-	public SelectCategory findById(int id) {
-			return repo.findById(id).map(c -> SelectCategory.from(c)).orElseThrow(() -> new EntityNotFoundException());
+	public List<SelectCategory>  findByName(String name) {
+		return repo.findByNameLikeIgnorCaseAndIsActiveTrue(name.concat("%")).stream()
+				.map(cat -> SelectCategory.from(cat)).toList();
 	}
 
-	public SelectCategory findByName(String name) {
-		return repo.findByNameAndIsActiveTrue(name).map(c -> SelectCategory.from(c)).orElseThrow(() -> new EntityNotFoundException());
+	public SelectCategory findById(int id) {
+		return repo.findById(id).map(c -> SelectCategory.from(c)).orElseThrow(() -> new EntityNotFoundException());
 	}
+
+	@Transactional
+	public Category save(CategoryForm form) {
+		return repo.save(form.entity(new Category()));
+	}
+
+	@Transactional
+	public Category update(Integer id, CategoryForm form) {
+		var category = repo.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("There is no entity from database!"));
+		return repo.save(form.entity(category));
+	}
+
 }
