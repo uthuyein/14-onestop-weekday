@@ -20,14 +20,16 @@ public record ProductPriceForm(
 		Double price
 		) {
 	
-	public ProductPrice entity() {
-		var p = new ProductPrice();
+	public ProductPrice entity(ProductPrice p) {
 		p.setProduct(product);
 		p.setSize(size);
 		p.setPriceType(priceType);
 		p.setPrice(price);
 		p.setCreateAt(LocalDate.now());
+		
+		if(null != p.getId()) {
 		p.setUpdateAt(LocalDate.now());
+		}
 		return p;
 	}
 

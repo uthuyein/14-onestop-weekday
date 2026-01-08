@@ -47,6 +47,8 @@ insert into category_tbl(name,category_id) values('EnergyDrinks',4);
 insert into size_tbl(name) values ('Small');
 insert into size_tbl(name) values ('Medium');
 insert into size_tbl(name) values ('Large');
+insert into size_tbl(name) values ('Small Package');
+insert into size_tbl(name) values ('Large Package');
 
 insert into product_tbl(name,category_id) values ('Gar Gar',7);
 insert into product_tbl(name,category_id) values ('Apple',3);
@@ -69,22 +71,26 @@ insert into supplier_tbl(name) values ('Herry Jane');
 insert into supplier_tbl(name) values ('Elle Venus');
 insert into supplier_tbl(name) values ('Halcy Grace');
 insert into supplier_tbl(name) values ('Martin Drew');
---
---insert into admin_tbl(username,loginId,password,accountType) values ('John','john111','222','Admin');
---insert into admin_tbl(username,loginId,password,accountType) values ('Andrew','adrew11','123','Customer');
---insert into admin_tbl(username,loginId,password,accountType) values ('Derrek','derrek11','125','Cashier');
---insert into admin_tbl(username,loginId,password,accountType) values ('Mercy','mercy11','126','Admin');
---insert into admin_tbl(username,loginId,password,accountType) values ('Annie','annie11','127','Customer');
---insert into admin_tbl(username,loginId,password,accountType) values ('Marrie','marrie11','128','Cashier');
---insert into admin_tbl(username,loginId,password,accountType) values ('Herry','herry11','129','Admin');
---insert into admin_tbl(username,loginId,password,accountType) values ('Elle','elle11','212','Customer');
---insert into admin_tbl(username,loginId,password,accountType) values ('Halcy','halcy11','213','Cashier');
---insert into admin_tbl(username,loginId,password,accountType) values ('Martin','martin11','214','Admin');
---
---insert into cashier_tbl (username, loginId, password, accountType) values ('Gojo', 'gojo', '123', 'Cashier');
---insert into cashier_tbl (username, loginId, password, accountType) values ('Megumi', 'megumi', '456', 'Cashier');
---
 
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Purchase',500,1,1,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Purchase',500,1,2,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Purchase',2500,6,3,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Purchase',1000,6,1,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Purchase',1500,2,1,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Purchase',5000,2,3,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Purchase',1500,3,4,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Purchase',13500,3,5,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Purchase',25000,9,3,'2022-10-12');
+
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Sale',700,1,1,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Sale',700,1,2,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Sale',3000,6,3,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Sale',1300,6,1,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Sale',2000,2,1,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Sale',6000,2,3,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Sale',1700,3,4,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Sale',15000,3,5,'2022-10-12');
+insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Sale',30000,9,3,'2022-10-12');
 --
 --insert into purchase_tbl (admin_id, createDate, createTime, supplier_id) values (1, '2022-10-12', '02:20:11', 1);
 --insert into purchase_tbl (admin_id, createDate, createTime, supplier_id) values (2, '2022-11-05', '10:15:30', 2);

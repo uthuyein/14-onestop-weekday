@@ -37,8 +37,7 @@ public class ProductPriceApi {
 	
 	@PostMapping
 	ModificationResult<Integer> save(@RequestParam(required = false) Integer id,@Validated @RequestBody ProductPriceForm form){		
-		 var product = service.save(form);
-		 return ModificationResult.success(product.id(), "%s has successfully save !".formatted(product.product()));
+		 return service.save(id,form);
 	}
 	
 	

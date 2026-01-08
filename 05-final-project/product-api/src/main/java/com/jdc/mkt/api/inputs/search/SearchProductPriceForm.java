@@ -33,9 +33,11 @@ public class SearchProductPriceForm {
 		if(StringUtils.hasLength(product)) {
 			params.add(cb.like(cb.lower(root.get(ProductPrice_.product).get(Product_.name)), product.concat("%")));
 		}
+		
 		if(StringUtils.hasLength(size)) {
 			params.add(cb.equal(root.get(ProductPrice_.size).get(Size_.name), size));
 		}
+		
 		if(null != priceType) {
 			params.add(cb.equal(root.get(ProductPrice_.priceType), priceType));
 		}
@@ -63,9 +65,7 @@ public class SearchProductPriceForm {
 					cb.lessThanOrEqualTo(root.get(ProductPrice_.updateAt), dateTo))
 					);
 		}
-		
-		
-		
+			
 		return params.toArray(Predicate[]:: new);
 	}
 }
