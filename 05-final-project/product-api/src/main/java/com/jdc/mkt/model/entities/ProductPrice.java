@@ -30,7 +30,7 @@ public class ProductPrice {
 	@Enumerated(EnumType.STRING)
 	private PriceType priceType;
 	
-	private double price;
+	private Double price;
 	
 	private LocalDate createAt;
 	private LocalDate updateAt;

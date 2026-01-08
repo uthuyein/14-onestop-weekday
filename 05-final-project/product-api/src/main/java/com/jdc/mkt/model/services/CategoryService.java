@@ -25,7 +25,7 @@ public class CategoryService {
 	}
 
 	public List<SelectCategory>  findByName(String name) {
-		return repo.findByNameLikeIgnorCaseAndIsActiveTrue(name.concat("%")).stream()
+		return repo.findByNameLikeIgnoreCaseAndIsActiveTrue(name.concat("%")).stream()
 				.map(cat -> SelectCategory.from(cat)).toList();
 	}
 

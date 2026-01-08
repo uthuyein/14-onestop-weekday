@@ -44,10 +44,10 @@ insert into category_tbl(name,category_id) values('HotDrinks',1);
 insert into category_tbl(name,category_id) values('FruitDrinks',4);
 insert into category_tbl(name,category_id) values('EnergyDrinks',4);
 
---insert into product_size_tbl(name) values ('Small');
---insert into product_size_tbl(name) values ('Medium');
---insert into product_size_tbl(name) values ('Large');
---
+insert into size_tbl(name) values ('Small');
+insert into size_tbl(name) values ('Medium');
+insert into size_tbl(name) values ('Large');
+
 insert into product_tbl(name,category_id) values ('Gar Gar',7);
 insert into product_tbl(name,category_id) values ('Apple',3);
 insert into product_tbl(name,category_id) values ('Yogurt',6);
