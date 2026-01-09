@@ -36,8 +36,8 @@ public class ProductPriceApi {
 	}
 	
 	@PostMapping
-	ModificationResult<Integer> save(@RequestParam(required = false) Integer id,@Validated @RequestBody ProductPriceForm form){		
-		 return service.save(id,form);
+	ModificationResult<Integer> update(@RequestParam(required = false) Integer id,@Validated @RequestBody ProductPriceForm form){		
+		 return service.update(id,form);
 	}
 	
 	

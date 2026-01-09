@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.mkt.api.inputs.CustomerForm;
 import com.jdc.mkt.api.inputs.search.SearchCustomerForm;
@@ -12,8 +13,9 @@ import com.jdc.mkt.api.outputs.SelectCustomer;
 import com.jdc.mkt.model.entities.Customer;
 import com.jdc.mkt.model.entities.Customer_;
 import com.jdc.mkt.model.repositories.CustomerRepo;
+import com.jdc.mkt.utils.ModificationResult;
+import com.jdc.mkt.utils.ModificationResult.UpdateStatus;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 
@@ -42,17 +44,14 @@ public class CustomerService {
 			return cq;
 		};
 	}
-
-	public SelectCustomer save(CustomerForm form) {		
-		var cu = repo.save(form.entity(new Customer()));
-		return SelectCustomer.from(cu);
-	}
 	
-	
-	public SelectCustomer update(Integer id,CustomerForm form) {
-		var cu = repo.findById(id).orElseThrow(() -> new EntityNotFoundException("There is no entity found !"));
+	@Transactional
+	public ModificationResult<Integer>  update(Integer id, CustomerForm form) {
+		var customer = id != null ? repo.findById(id).orElse(null) : null;
 		
-		cu = repo.save(form.entity(cu));
-		return SelectCustomer.from(cu);
+		UpdateStatus update = customer == null ? UpdateStatus.Save : UpdateStatus.Update;		
+		customer = repo.save(update == UpdateStatus.Update ? form.entity(customer):form.entity( new Customer()));
+			
+		return ModificationResult.success(customer.getId(),update,customer.getName());
 	}
 }

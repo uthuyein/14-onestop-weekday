@@ -12,6 +12,7 @@ import com.jdc.mkt.api.outputs.SelectProductPrice;
 import com.jdc.mkt.model.entities.ProductPrice;
 import com.jdc.mkt.model.repositories.ProductPriceRepo;
 import com.jdc.mkt.utils.ModificationResult;
+import com.jdc.mkt.utils.ModificationResult.UpdateStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -42,19 +43,12 @@ public class ProductPriceService {
 	}
 
 	@Transactional
-	public ModificationResult<Integer> save(Integer id, ProductPriceForm form) {
+	public ModificationResult<Integer> update(Integer id, ProductPriceForm form) {
 		var price = id != null ?  repo.findById(id).orElse(null) : null;
 		
-		String mess =  null;
-		
-		if(price != null) {
-			price = repo.save(form.entity(price));
-			mess =  "%s has successfully update !";
-		}else {
-			price = repo.save(form.entity(new ProductPrice()));
-			mess =  "%s has successfully save !";
-		}
-	
-		return ModificationResult.success(price.getId(), mess.formatted(price.getProduct().getName()));
+		UpdateStatus update = price == null ? UpdateStatus.Save : UpdateStatus.Update;		
+		price = repo.save(update == UpdateStatus.Update ?form.entity(price):form.entity( new ProductPrice()));
+			
+		return ModificationResult.success(price.getId(),update,price.getProduct().getName());
 	}
 }

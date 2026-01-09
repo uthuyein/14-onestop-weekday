@@ -8,7 +8,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,16 +40,7 @@ public class SupplierApi {
 	}
 	
 	@PostMapping
-	@Transactional
-	ModificationResult<Integer> save(@RequestBody SupplierForm form){
-		var sup = service.save(form);
-		return ModificationResult.success(sup.id(), "%s has successfully save !".formatted(sup.name()));
-	}
-	
-	@PutMapping("{id}")
-	@Transactional
-	ModificationResult<Integer> update(@PathVariable Integer id, @RequestBody SupplierForm form){
-		var sup = service.update(id,form);
-		return ModificationResult.success(sup.id(), "%s has successfully update !".formatted(sup.name()));
+	ModificationResult<Integer> update(@RequestParam(required = false) Integer id, @RequestBody SupplierForm form){
+		return service.update(id,form);
 	}
 }

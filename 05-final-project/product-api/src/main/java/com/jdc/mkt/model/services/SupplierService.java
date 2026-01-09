@@ -10,6 +10,8 @@ import com.jdc.mkt.api.inputs.SupplierForm;
 import com.jdc.mkt.api.outputs.SelectSupplier;
 import com.jdc.mkt.model.entities.Supplier;
 import com.jdc.mkt.model.repositories.SupplierRepo;
+import com.jdc.mkt.utils.ModificationResult;
+import com.jdc.mkt.utils.ModificationResult.UpdateStatus;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -38,16 +40,13 @@ public class SupplierService {
 
 	
 	@Transactional
-	public SelectSupplier save(SupplierForm form) {
-		var select = repo.save(form.entity(new Supplier()));
-		return SelectSupplier.from(select) ;
-	}
-	
-	@Transactional
-	public SelectSupplier update(Integer id,SupplierForm form) {
-		var sup = repo.findById(id).orElseThrow(() -> new EntityNotFoundException("There is no entity from database !"));
-		var select = repo.save(form.entity(sup));
-		return SelectSupplier.from(select) ;
+	public ModificationResult<Integer> update(Integer id,SupplierForm form) {
+		var supplier = id != null ? repo.findById(id).orElse(null) : null;
+		
+		UpdateStatus update = supplier == null ? UpdateStatus.Save : UpdateStatus.Update;		
+		supplier = repo.save(update == UpdateStatus.Update ? form.entity(supplier): form.entity(new Supplier()));
+			
+		return ModificationResult.success(supplier.getId(),update,supplier.getName());
 	}
 
 }

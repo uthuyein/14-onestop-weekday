@@ -38,15 +38,8 @@ public class CategoryApi {
 	}
 	
 
-	@PostMapping("/save")
-	ModificationResult<Integer> save(@Validated @RequestBody CategoryForm form){
-		var category = service.save(form);
-		return ModificationResult.success(category.getId(),"%s has successfully save.".formatted(category.getName()));
-	}
-	
-	@PostMapping("/update/{id}")
-	ModificationResult<Integer> update(@PathVariable(required = false) Integer id, @Validated @RequestBody CategoryForm form){
-		var category = service.update(id,form);
-		return ModificationResult.success(category.getId(),"%s has successfully update.".formatted(category.getName()));
+	@PostMapping
+	ModificationResult<Integer> update(@RequestParam(required = false) Integer id, @Validated @RequestBody CategoryForm form){
+		return service.update(id,form);
 	}
 }

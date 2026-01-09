@@ -4,7 +4,13 @@ import com.jdc.mkt.model.entities.Address;
 import com.jdc.mkt.model.entities.Contact;
 import com.jdc.mkt.model.entities.Customer;
 
-public record CustomerForm(String name, String state, String township, String street, String email, String primary,
+public record CustomerForm(
+		String name,
+		String state,
+		String township, 
+		String street, 
+		String email, 
+		String primary,
 		String secondary) {
 
 	public Customer entity(Customer cu) {
