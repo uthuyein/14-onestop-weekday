@@ -7,7 +7,7 @@ public record ModificationResult<ID>(
 		) {
 
 	public static<ID> ModificationResult<ID> success(ID id,UpdateStatus status,String name){		
-		return new ModificationResult<ID>(id, status,"%s has successfully %s".formatted(name,status));
+		return new ModificationResult<ID>(id, status,"%s has successfully %s".formatted(name,status.name().toLowerCase()));
 	}
 	
 	public enum UpdateStatus{

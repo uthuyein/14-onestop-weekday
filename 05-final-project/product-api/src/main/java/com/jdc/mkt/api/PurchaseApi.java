@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jdc.mkt.api.inputs.PurchaseForm;
 import com.jdc.mkt.api.inputs.search.SearchPurchaseForm;
 import com.jdc.mkt.api.outputs.SelectPurchase;
+import com.jdc.mkt.api.outputs.SelectPurchaseDetail;
 import com.jdc.mkt.model.services.PurchaseService;
 import com.jdc.mkt.utils.ModificationResult;
 
@@ -26,7 +27,7 @@ public class PurchaseApi {
 	private PurchaseService service;
 	
 	@GetMapping
-	List<SelectPurchase> findBy(@RequestBody SearchPurchaseForm form){
+	List<SelectPurchaseDetail> findBy(@RequestBody SearchPurchaseForm form){
 		return service.findBy(form);
 	}
 	

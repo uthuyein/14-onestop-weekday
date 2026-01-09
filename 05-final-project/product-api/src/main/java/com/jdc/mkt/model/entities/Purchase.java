@@ -1,6 +1,8 @@
 package com.jdc.mkt.model.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.ColumnDefault;
 
@@ -9,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -29,5 +32,15 @@ public class Purchase {
 	@ManyToOne
 	private Supplier supplier;
 	
+	@OneToMany(mappedBy = "purchase")
+	private List<PurchaseDetail> purchaseDetails ;
 	
+	public Purchase() {
+		purchaseDetails  = new ArrayList<PurchaseDetail>();
+	}
+	
+	public void addPurchaseDetail(PurchaseDetail detail) {
+		detail.setPurchase(this);
+		purchaseDetails.add(detail);
+	}
 }
