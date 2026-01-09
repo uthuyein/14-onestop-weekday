@@ -19,7 +19,7 @@ public class Purchase {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	private LocalDate issueDate;
 	
@@ -28,5 +28,6 @@ public class Purchase {
 	
 	@ManyToOne
 	private Supplier supplier;
+	
 	
 }
