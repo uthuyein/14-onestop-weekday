@@ -3,10 +3,11 @@
  */
 package com.jdc.mkt.api.inputs;
 
-import java.util.List;
-
 import com.jdc.mkt.model.entities.Account;
 import com.jdc.mkt.model.entities.Customer;
+import com.jdc.mkt.model.entities.Sale;
+
+import jakarta.validation.constraints.NotNull;
 
 /**
  * SaleForm
@@ -17,12 +18,34 @@ import com.jdc.mkt.model.entities.Customer;
  */
 
 public record SaleForm(
-		Account account,
-		Customer customer,
+		Integer accountId,
+		@NotNull(message = "Please select customer !")
+		Integer customerId,
 		Double discount,
-		List<SaleDetailForm> saleDetails,
 		Double tax,
 		Double total
 		) {
+
+	/**
+	 * @param sale
+	 * @return
+	 */
+	public Sale entity(Sale sale) {
+		
+		var account = new Account();
+		account.setId(accountId);
+		
+		var customer = new Customer();
+		customer.setId(customerId);
+		
+		sale.setAccount(account);
+		sale.setCustomer(customer);
+		sale.setTax(sale.getTax());
+		sale.setDiscount(sale.getDiscount());
+		sale.setSaleDate(sale.getSaleDate());
+		sale.setSaleTime(sale.getSaleTime());
+		return sale;
+	}
+
 
 }

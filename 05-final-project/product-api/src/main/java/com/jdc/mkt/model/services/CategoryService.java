@@ -11,7 +11,7 @@ import com.jdc.mkt.api.outputs.SelectCategory;
 import com.jdc.mkt.model.entities.Category;
 import com.jdc.mkt.model.repositories.CategoryRepo;
 import com.jdc.mkt.utils.ModificationResult;
-import com.jdc.mkt.utils.ModificationResult.UpdateStatus;
+import com.jdc.mkt.utils.ModificationResult.ModifiedType;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -40,8 +40,8 @@ public class CategoryService {
 	public ModificationResult<Integer>  update(Integer id, CategoryForm form) {
 		var category = id != null ? repo.findById(id).orElse(null) : null;
 		
-		UpdateStatus update = category == null ? UpdateStatus.Save : UpdateStatus.Update;		
-		category = repo.save(update == UpdateStatus.Update ? form.entity(category): form.entity(new Category()) );
+		ModifiedType update = category == null ? ModifiedType.Save : ModifiedType.Update;		
+		category = repo.save(update == ModifiedType.Update ? form.entity(category): form.entity(new Category()) );
 			
 		return ModificationResult.success(category.getId(),update,category.getName());
 	}

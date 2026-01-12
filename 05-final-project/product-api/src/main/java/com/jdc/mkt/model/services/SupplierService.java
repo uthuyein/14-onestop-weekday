@@ -11,7 +11,7 @@ import com.jdc.mkt.api.outputs.SelectSupplier;
 import com.jdc.mkt.model.entities.Supplier;
 import com.jdc.mkt.model.repositories.SupplierRepo;
 import com.jdc.mkt.utils.ModificationResult;
-import com.jdc.mkt.utils.ModificationResult.UpdateStatus;
+import com.jdc.mkt.utils.ModificationResult.ModifiedType;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -43,8 +43,8 @@ public class SupplierService {
 	public ModificationResult<Integer> update(Integer id,SupplierForm form) {
 		var supplier = id != null ? repo.findById(id).orElse(null) : null;
 		
-		UpdateStatus update = supplier == null ? UpdateStatus.Save : UpdateStatus.Update;		
-		supplier = repo.save(update == UpdateStatus.Update ? form.entity(supplier): form.entity(new Supplier()));
+		ModifiedType update = supplier == null ? ModifiedType.Save : ModifiedType.Update;		
+		supplier = repo.save(update == ModifiedType.Update ? form.entity(supplier): form.entity(new Supplier()));
 			
 		return ModificationResult.success(supplier.getId(),update,supplier.getName());
 	}

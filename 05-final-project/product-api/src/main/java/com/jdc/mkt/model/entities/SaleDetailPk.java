@@ -12,8 +12,8 @@ import lombok.Data;
 public class SaleDetailPk implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "sale_id",insertable = false,updatable = false)
+	@Column(name = "sale_id")
 	private UUID saleId;
-	@Column(name = "sale_product_id",insertable = false,updatable = false)
-	private int saleProductId;
+	@Column(name = "product_price_id")
+	private int productPriceId;
 }

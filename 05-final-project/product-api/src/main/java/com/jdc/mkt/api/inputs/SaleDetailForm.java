@@ -6,6 +6,10 @@ package com.jdc.mkt.api.inputs;
 import com.jdc.mkt.model.entities.ProductPrice;
 import com.jdc.mkt.model.entities.Sale;
 import com.jdc.mkt.model.entities.SaleDetail;
+import com.jdc.mkt.model.entities.SaleDetailPk;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * SaleDetailForm
@@ -16,10 +20,10 @@ import com.jdc.mkt.model.entities.SaleDetail;
  */
 
 public record SaleDetailForm(
-		Sale sale,
+		@NotNull(message = "Please select product Price !")
 		ProductPrice productPrice,
-		Integer qty,
-		Double subTotal
+		@NotBlank(message =  "Please enter quantity")
+		Integer qty
 		) {
 
 	/**
@@ -27,11 +31,14 @@ public record SaleDetailForm(
 	 * @return
 	 */
 	public SaleDetail entity(Sale sale) {
+		var pk = new SaleDetailPk();
+		pk.setProductPriceId(productPrice.getId());
+		pk.setSaleId(sale.getId());
+		
 		var detail = new SaleDetail();
-		detail.setSale(sale);
-		detail.setProductPrice(productPrice);
-		detail.setQty(qty);
-		detail.setSubTotal(subTotal);
+		detail.setId(pk);
+		
+		detail.setQty(qty );
 		return detail;
 	}
 

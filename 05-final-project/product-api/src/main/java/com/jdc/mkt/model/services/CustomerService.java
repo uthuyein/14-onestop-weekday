@@ -14,7 +14,7 @@ import com.jdc.mkt.model.entities.Customer;
 import com.jdc.mkt.model.entities.Customer_;
 import com.jdc.mkt.model.repositories.CustomerRepo;
 import com.jdc.mkt.utils.ModificationResult;
-import com.jdc.mkt.utils.ModificationResult.UpdateStatus;
+import com.jdc.mkt.utils.ModificationResult.ModifiedType;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -49,8 +49,8 @@ public class CustomerService {
 	public ModificationResult<Integer>  update(Integer id, CustomerForm form) {
 		var customer = id != null ? repo.findById(id).orElse(null) : null;
 		
-		UpdateStatus update = customer == null ? UpdateStatus.Save : UpdateStatus.Update;		
-		customer = repo.save(update == UpdateStatus.Update ? form.entity(customer):form.entity( new Customer()));
+		ModifiedType update = customer == null ? ModifiedType.Save : ModifiedType.Update;		
+		customer = repo.save(update == ModifiedType.Update ? form.entity(customer):form.entity( new Customer()));
 			
 		return ModificationResult.success(customer.getId(),update,customer.getName());
 	}

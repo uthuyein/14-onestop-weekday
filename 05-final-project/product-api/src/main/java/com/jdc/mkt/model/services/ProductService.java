@@ -12,7 +12,7 @@ import com.jdc.mkt.api.outputs.SelectProduct;
 import com.jdc.mkt.model.entities.Product;
 import com.jdc.mkt.model.repositories.ProductRepo;
 import com.jdc.mkt.utils.ModificationResult;
-import com.jdc.mkt.utils.ModificationResult.UpdateStatus;
+import com.jdc.mkt.utils.ModificationResult.ModifiedType;
 
 @Service
 @Transactional(readOnly = true)
@@ -39,8 +39,8 @@ public class ProductService {
 	public ModificationResult<Integer> update(Integer id, ProductForm form) {
 		var product = id != null ? repo.findById(id).orElse(null) : null;
 		
-		UpdateStatus update = product == null ? UpdateStatus.Save : UpdateStatus.Update;		
-		product = repo.save(update == UpdateStatus.Update ? form.entity(product): form.entity(new Product()));
+		ModifiedType update = product == null ? ModifiedType.Save : ModifiedType.Update;		
+		product = repo.save(update == ModifiedType.Update ? form.entity(product): form.entity(new Product()));
 			
 		return ModificationResult.success(product.getId(),update,product.getName());
 	}

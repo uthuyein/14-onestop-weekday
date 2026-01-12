@@ -1,5 +1,6 @@
 package com.jdc.mkt.model.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,29 +15,37 @@ import com.jdc.mkt.model.entities.Sale;
 import com.jdc.mkt.model.repositories.SaleDetailRepo;
 import com.jdc.mkt.model.repositories.SaleRepo;
 import com.jdc.mkt.utils.ModificationResult;
-import com.jdc.mkt.utils.ModificationResult.UpdateStatus;
+import com.jdc.mkt.utils.ModificationResult.ModifiedType;
 
 @Service
 public class SaleService {
-	
+
 	@Autowired
 	private SaleRepo saleRepo;
 	@Autowired
 	private SaleDetailRepo detailRepo;
+
+	private List<SaleDetailForm> saleDetails = new ArrayList<>();
 
 	/**
 	 * @param id
 	 * @param form
 	 * @return
 	 */
-	public ModificationResult<Integer> update(UUID id, SaleForm form) {
-		 var sale = getSaleById(id);
-		 var status = sale == null ? UpdateStatus.Save : UpdateStatus.Update;
-		
-		  sale = saleRepo.save(status == UpdateStatus.Save ? new Sale() : sale);
-		  updateSaleDetail(sale,form.saleDetails());
-		  
-		 return ModificationResult.success(null, status, null);
+	public ModificationResult<UUID> update(UUID id, SaleForm form) {
+		var sale = getSaleById(id);
+		var status = sale == null ? ModifiedType.Save : ModifiedType.Update;
+
+		if (!saleDetails.isEmpty() && saleDetails.size() > 0) {
+			sale = saleRepo.save(status == ModifiedType.Save ? form.entity(new Sale()) : form.entity(sale));
+			updateSaleDetail(sale, saleDetails);
+			saleDetails.clear();
+		}
+
+		if(null == sale) {
+			return  ModificationResult.success(null, status, null);
+		}
+		return ModificationResult.success(sale == null ? null: sale.getId(), status, sale.getCustomer().getName());
 	}
 
 	/**
@@ -44,10 +53,10 @@ public class SaleService {
 	 * @param saleDetails
 	 */
 	private void updateSaleDetail(Sale sale, List<SaleDetailForm> saleDetails) {
-		
-		if(sale != null) {
-			for(SaleDetailForm form : saleDetails) {
-				detailRepo.save(form.entity(sale));
+		if (sale != null) {		
+			
+			for (SaleDetailForm detail : saleDetails) {		
+				detailRepo.save(detail.entity(sale));
 			}
 		}
 	}
@@ -61,15 +70,14 @@ public class SaleService {
 	}
 
 	/**
-	 * @param id
-	 * @return sale
+	 * @param form
+	 * @return
 	 */
-	public SelectSaleDetail findById(UUID id) {
-		 var sale = getSaleById(id);		 
-		// return sale != null ? SelectSaleDetail.from(sale) : null;
-		 return null;
+	public void addSaleDetail(SaleDetailForm form) {
+		saleDetails.add(form);		
 	}
-	
+
+
 	private Sale getSaleById(UUID id) {
 		return id == null ? null : saleRepo.findById(id).orElse(null);
 	}

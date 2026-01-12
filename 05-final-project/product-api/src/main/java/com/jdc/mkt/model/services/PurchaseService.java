@@ -17,7 +17,7 @@ import com.jdc.mkt.model.entities.Purchase_;
 import com.jdc.mkt.model.repositories.PurchaseDetailRepo;
 import com.jdc.mkt.model.repositories.PurchaseRepo;
 import com.jdc.mkt.utils.ModificationResult;
-import com.jdc.mkt.utils.ModificationResult.UpdateStatus;
+import com.jdc.mkt.utils.ModificationResult.ModifiedType;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,10 +31,10 @@ public class PurchaseService {
 	@Transactional
 	public ModificationResult<Integer> update(Integer id, PurchaseForm form) {
 		var purchase = id != null ? repo.findById(id).orElse(null) : null;		
-		UpdateStatus update = purchase == null ? UpdateStatus.Save : UpdateStatus.Update;
+		ModifiedType update = purchase == null ? ModifiedType.Save : ModifiedType.Update;
 		
 		try {
-			purchase = repo.save(update == UpdateStatus.Update ? form.entity(purchase) : form.entity(new Purchase()));
+			purchase = repo.save(update == ModifiedType.Update ? form.entity(purchase) : form.entity(new Purchase()));
 			updateDetail(purchase,form.purchaseDetails());
 			
 		} catch (Exception e) {

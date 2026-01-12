@@ -1,4 +1,6 @@
 
+insert into account_tbl(name,email,password,role)values('cashier','cash@gmail.com','c123','Cashier');
+
 insert into address_tbl(state,township,street)values('Yangon','InnSein','HtanTaPin');
 insert into address_tbl(state,township,street)values('Yangon','InnSein','YadanarMyaing');
 insert into address_tbl(state,township,street)values('Yangon','InnSein','SiiSat');
@@ -31,6 +33,7 @@ insert into customer_tbl(name,member_type,address_id,contact_id)values('Herry','
 insert into customer_tbl(name,member_type,address_id,contact_id)values('Elle','Gold',8,8);           
 insert into customer_tbl(name,member_type,address_id,contact_id)values('Halcy','Diamond',9,9);          
 insert into customer_tbl(name,member_type,address_id,contact_id)values('Martin','Silver',10,10);         
+
 
 
 insert into category_tbl(name,category_id) values('Drinks',null);
