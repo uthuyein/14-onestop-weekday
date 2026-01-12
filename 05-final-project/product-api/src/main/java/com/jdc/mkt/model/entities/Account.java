@@ -1,6 +1,6 @@
 package com.jdc.mkt.model.entities;
 
-import org.hibernate.annotations.ColumnDefault;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -20,17 +20,16 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	private String loginId;
+	private String email;
 	private String password;
 	
 	@Enumerated(EnumType.STRING)
-	private AccountType accountType;
+	private Role role;
 	
-	@ColumnDefault("1")
-	private boolean isActive;
+	private LocalDateTime activatedAt;
 	
-	public enum AccountType{
-		Admin,Owner,Cashier
+	public enum Role{
+		Admin,Cashier
 	}
 	
 }

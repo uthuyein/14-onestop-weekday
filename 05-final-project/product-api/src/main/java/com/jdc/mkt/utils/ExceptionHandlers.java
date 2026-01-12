@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import jakarta.persistence.EntityNotFoundException;
-
 @RestControllerAdvice
 public class ExceptionHandlers {
 
@@ -20,10 +18,6 @@ public class ExceptionHandlers {
 				.stream()
 				.map(error -> error.getDefaultMessage()).toList();
 	}
+		
 	
-	@ExceptionHandler
-	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	List<String> handle(EntityNotFoundException e){
-		return List.of(e.getMessage());
-	}
 }

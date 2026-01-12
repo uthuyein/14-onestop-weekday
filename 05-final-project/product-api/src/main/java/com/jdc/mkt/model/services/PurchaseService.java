@@ -40,7 +40,6 @@ public class PurchaseService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("Name ::::::: "+purchase.getSupplier());
 		return ModificationResult.success(purchase.getId(), update, purchase.getSupplier().getName());
 
 	}
