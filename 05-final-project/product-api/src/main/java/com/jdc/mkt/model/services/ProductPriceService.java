@@ -49,6 +49,6 @@ public class ProductPriceService {
 		ModifiedType update = price == null ? ModifiedType.Save : ModifiedType.Update;		
 		price = repo.save(update == ModifiedType.Update ?form.entity(price):form.entity( new ProductPrice()));
 			
-		return ModificationResult.success(price.getId(),update,price.getProduct().getName());
+		return ModificationResult.status(price.getId(),update,price.getProduct().getName());
 	}
 }

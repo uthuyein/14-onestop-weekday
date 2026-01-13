@@ -43,7 +43,7 @@ public class CategoryService {
 		ModifiedType update = category == null ? ModifiedType.Save : ModifiedType.Update;		
 		category = repo.save(update == ModifiedType.Update ? form.entity(category): form.entity(new Category()) );
 			
-		return ModificationResult.success(category.getId(),update,category.getName());
+		return ModificationResult.status(category.getId(),update,category.getName());
 	}
 
 }

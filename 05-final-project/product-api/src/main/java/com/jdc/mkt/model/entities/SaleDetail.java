@@ -16,7 +16,7 @@ public class SaleDetail {
 	private SaleDetailPk id;
 	
 	private int qty;
-	private double subTotal;
+	private Double subTotal;
 
 	@ManyToOne
 	@JoinColumn(insertable = false,updatable = false)

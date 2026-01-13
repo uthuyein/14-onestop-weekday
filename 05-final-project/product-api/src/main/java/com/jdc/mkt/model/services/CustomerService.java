@@ -52,6 +52,6 @@ public class CustomerService {
 		ModifiedType update = customer == null ? ModifiedType.Save : ModifiedType.Update;		
 		customer = repo.save(update == ModifiedType.Update ? form.entity(customer):form.entity( new Customer()));
 			
-		return ModificationResult.success(customer.getId(),update,customer.getName());
+		return ModificationResult.status(customer.getId(),update,customer.getName());
 	}
 }

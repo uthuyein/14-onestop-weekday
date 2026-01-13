@@ -39,6 +39,7 @@ public record SaleDetailForm(
 		detail.setId(pk);
 		
 		detail.setQty(qty );
+		detail.setSubTotal(qty*productPrice.getPrice());
 		return detail;
 	}
 

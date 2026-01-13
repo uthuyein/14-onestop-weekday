@@ -6,7 +6,7 @@ public record ModificationResult<ID>(
 		String message
 		) {
 
-	public static<ID> ModificationResult<ID> success(ID id,ModifiedType status,String name){		
+	public static<ID> ModificationResult<ID> status(ID id,ModifiedType status,String name){		
 		return new ModificationResult<ID>(id, status,"%s has %s to %s".
 				formatted(
 				name  == null ? "Operation" : status.name().toLowerCase(),

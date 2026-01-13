@@ -46,7 +46,7 @@ public class SupplierService {
 		ModifiedType update = supplier == null ? ModifiedType.Save : ModifiedType.Update;		
 		supplier = repo.save(update == ModifiedType.Update ? form.entity(supplier): form.entity(new Supplier()));
 			
-		return ModificationResult.success(supplier.getId(),update,supplier.getName());
+		return ModificationResult.status(supplier.getId(),update,supplier.getName());
 	}
 
 }

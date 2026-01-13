@@ -3,6 +3,9 @@
  */
 package com.jdc.mkt.api.inputs;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import com.jdc.mkt.model.entities.Account;
 import com.jdc.mkt.model.entities.Customer;
 import com.jdc.mkt.model.entities.Sale;
@@ -23,7 +26,8 @@ public record SaleForm(
 		Integer customerId,
 		Double discount,
 		Double tax,
-		Double total
+		Double total,
+		LocalDate saleDate
 		) {
 
 	/**
@@ -41,9 +45,9 @@ public record SaleForm(
 		sale.setAccount(account);
 		sale.setCustomer(customer);
 		sale.setTax(sale.getTax());
-		sale.setDiscount(sale.getDiscount());
-		sale.setSaleDate(sale.getSaleDate());
-		sale.setSaleTime(sale.getSaleTime());
+		sale.setDiscount(discount);
+		sale.setSaleDate(saleDate);
+		sale.setSaleTime(LocalTime.now());
 		return sale;
 	}
 

@@ -42,7 +42,7 @@ public class ProductService {
 		ModifiedType update = product == null ? ModifiedType.Save : ModifiedType.Update;		
 		product = repo.save(update == ModifiedType.Update ? form.entity(product): form.entity(new Product()));
 			
-		return ModificationResult.success(product.getId(),update,product.getName());
+		return ModificationResult.status(product.getId(),update,product.getName());
 	}
 
 }

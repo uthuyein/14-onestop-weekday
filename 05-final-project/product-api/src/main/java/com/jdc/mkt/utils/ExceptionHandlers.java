@@ -18,6 +18,12 @@ public class ExceptionHandlers {
 				.stream()
 				.map(error -> error.getDefaultMessage()).toList();
 	}
+	
+	@ExceptionHandler
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	List<String> handle(BusinessException e){
+		return List.of(e.getMessage());
+	}
 		
 	
 }

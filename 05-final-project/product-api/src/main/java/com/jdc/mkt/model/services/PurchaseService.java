@@ -16,6 +16,7 @@ import com.jdc.mkt.model.entities.PurchaseDetail_;
 import com.jdc.mkt.model.entities.Purchase_;
 import com.jdc.mkt.model.repositories.PurchaseDetailRepo;
 import com.jdc.mkt.model.repositories.PurchaseRepo;
+import com.jdc.mkt.utils.BusinessException;
 import com.jdc.mkt.utils.ModificationResult;
 import com.jdc.mkt.utils.ModificationResult.ModifiedType;
 
@@ -34,13 +35,18 @@ public class PurchaseService {
 		ModifiedType update = purchase == null ? ModifiedType.Save : ModifiedType.Update;
 		
 		try {
+			var list = form.purchaseDetails();
+			
+			if(list.isEmpty() && list.size() == 0) {
+				throw new BusinessException("Please add product first !");		
+			}
 			purchase = repo.save(update == ModifiedType.Update ? form.entity(purchase) : form.entity(new Purchase()));
-			updateDetail(purchase,form.purchaseDetails());
+			updateDetail(purchase,list);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
 		}
-		return ModificationResult.success(purchase.getId(), update, purchase.getSupplier().getName());
+		return ModificationResult.status(purchase.getId(), update, purchase.getSupplier().getName());
 
 	}
 
