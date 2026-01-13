@@ -29,7 +29,7 @@ public class Account {
 	private LocalDateTime activatedAt;
 	
 	public enum Role{
-		Admin,Cashier
+		Admin,Member
 	}
 	
 }

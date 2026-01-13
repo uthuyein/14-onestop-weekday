@@ -34,8 +34,6 @@ insert into customer_tbl(name,member_type,address_id,contact_id)values('Elle','G
 insert into customer_tbl(name,member_type,address_id,contact_id)values('Halcy','Diamond',9,9);          
 insert into customer_tbl(name,member_type,address_id,contact_id)values('Martin','Silver',10,10);         
 
-
-
 insert into category_tbl(name,category_id) values('Drinks',null);
 insert into category_tbl(name,category_id) values('Snacks',null);
 insert into category_tbl(name,category_id) values('Fruits',null);
@@ -94,39 +92,5 @@ insert into product_price_tbl(price_type,price,product_id,size_id,create_at)valu
 insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Sale',1700,3,4,'2022-10-12');
 insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Sale',15000,3,5,'2022-10-12');
 insert into product_price_tbl(price_type,price,product_id,size_id,create_at)values('Sale',30000,9,3,'2022-10-12');
---
---insert into purchase_tbl (admin_id, createDate, createTime, supplier_id) values (1, '2022-10-12', '02:20:11', 1);
---insert into purchase_tbl (admin_id, createDate, createTime, supplier_id) values (2, '2022-11-05', '10:15:30', 2);
---insert into purchase_tbl (admin_id, createDate, createTime, supplier_id) values (1, '2022-12-01', '14:45:00', 3);
---insert into purchase_tbl (admin_id, createDate, createTime, supplier_id) values (2, '2023-01-10', '09:20:15', 1);
---insert into purchase_tbl (admin_id, createDate, createTime, supplier_id) values (1, '2023-02-18', '13:50:40', 2);
---insert into purchase_tbl (admin_id, createDate, createTime, supplier_id) values (2, '2023-03-22', '11:05:30', 3);
---
---insert into purchase_detail_tbl (product_id, purchase_id, price, qty) values (1, 1, 500, 30);
---insert into purchase_detail_tbl (product_id, purchase_id, price, qty) values (2, 2, 800, 20);
---insert into purchase_detail_tbl (product_id, purchase_id, price, qty) values (3, 3, 450, 40);
---insert into purchase_detail_tbl (product_id, purchase_id, price, qty) values (1, 4, 500, 25);
---insert into purchase_detail_tbl (product_id, purchase_id, price, qty) values (2, 5, 800, 30);
---insert into purchase_detail_tbl (product_id, purchase_id, price, qty) values (3, 6, 450, 35);
---
---insert into sale_tbl (customer_id, cashier_id, saleDate, saleTime) values (1, 1, '2025-05-20', '04:25:10');
---insert into sale_tbl (customer_id, cashier_id, saleDate, saleTime) values (2, 2, '2025-05-21', '05:10:30');
---insert into sale_tbl (customer_id, cashier_id, saleDate, saleTime) values (3, 1, '2025-05-22', '06:40:15');
---insert into sale_tbl (customer_id, cashier_id, saleDate, saleTime) values (1, 2, '2025-05-23', '07:15:50');
---insert into sale_tbl (customer_id, cashier_id, saleDate, saleTime) values (2, 1, '2025-05-24', '08:30:20');
---insert into sale_tbl (customer_id, cashier_id, saleDate, saleTime) values (3, 2, '2025-05-25', '09:50:45');
---
---insert into sale_price_tbl (product_id, price, createDate) values (1, 500, '2022-10-30');
---insert into sale_price_tbl (product_id, price, createDate) values (2, 800, '2022-10-30');
---insert into sale_price_tbl (product_id, price, createDate) values (3, 450, '2022-10-30');
---insert into sale_price_tbl (product_id, price, createDate) values (1, 500, '2022-11-10');
---insert into sale_price_tbl (product_id, price, createDate) values (2, 800, '2022-11-15');
---insert into sale_price_tbl (product_id, price, createDate) values (3, 450, '2022-11-20');
---
---INSERT INTO sale_detail_tbl (sale_id, salePrice_id, qty, subTotal, saleDate, saleTime) VALUES (1, 1, 2, 1000, '2025-05-20', '04:25:10');
---INSERT INTO sale_detail_tbl (sale_id, salePrice_id, qty, subTotal, saleDate, saleTime) VALUES (2, 2, 1, 800, '2025-05-21', '05:10:30');
---INSERT INTO sale_detail_tbl (sale_id, salePrice_id, qty, subTotal, saleDate, saleTime) VALUES (3, 3, 3, 1350, '2025-05-22', '06:40:15');
---INSERT INTO sale_detail_tbl (sale_id, salePrice_id, qty, subTotal, saleDate, saleTime) VALUES (4, 4, 1, 500, '2025-05-23', '07:15:50');
---INSERT INTO sale_detail_tbl (sale_id, salePrice_id, qty, subTotal, saleDate, saleTime) VALUES (5, 5, 2, 1600, '2025-05-24', '08:30:20');
---INSERT INTO sale_detail_tbl (sale_id, salePrice_id, qty, subTotal, saleDate, saleTime) VALUES (6, 6, 1, 450, '2025-05-25', '09:50:45');
+
 
