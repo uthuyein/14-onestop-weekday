@@ -19,16 +19,16 @@ import com.jdc.mkt.model.repositories.AccountRepo;
  */
 
 @Configuration
-public class AppUserInitializer {
+public class AppUserInitializerConfig {
 
 	@Value("${app.admin.username}")
 	private String username;
 	@Value("${app.admin.password}")
 	private String password;
-	
+
 	@Bean
-	ApplicationRunner initializer(AccountRepo repo,PasswordEncoder passwordEncoder) {
-		return _ ->{
+	ApplicationRunner initializer(AccountRepo repo, PasswordEncoder passwordEncoder) {
+		return _ -> {
 			var acc = new Account();
 			acc.setName("Andrew");
 			acc.setEmail(username);

@@ -8,17 +8,20 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.mkt.api.inputs.SignInForm;
 import com.jdc.mkt.api.inputs.SignUpForm;
 import com.jdc.mkt.api.inputs.TokenForm;
 import com.jdc.mkt.api.outputs.AuthResult;
+import com.jdc.mkt.model.entities.Account;
 import com.jdc.mkt.model.services.AccountService;
-import com.jdc.mkt.security.JwtTokenProvider;
+import com.jdc.mkt.security.token.JwtTokenProvider;
 
 /**
  * AuthApi
@@ -50,27 +53,26 @@ public class AuthApi {
 		return signIn(UsernamePasswordAuthenticationToken.unauthenticated(acc.getEmail(), acc.getPassword()));
 	}
 	
+	@GetMapping
+	Account findByEmail(@RequestParam String email) {
+		return accService.findByEmail(email);
+	}
+	
 	@PostMapping("refresh")
 	AuthResult refresh(@Validated @RequestBody TokenForm form) {		
 		var auth = tokenProvider.parseRefresh(form.token());
 		return getResult(auth);
 	}
-
-	/**
-	 * @param authenticate
-	 * @return
-	 */
+	
+	
 	private AuthResult signIn(Authentication authenticate) {
 		var auth = authenticationManager.authenticate(authenticate);
 		return getResult(auth);
 	}
 
-	/**
-	 * @param auth
-	 * @return
-	 */
 	private AuthResult getResult(Authentication auth) {
-		var acc = accService.findByEmail(auth.getName());	
+		var acc = accService.findByEmail(auth.getName());
+	
 		return AuthResult.with(acc)
 				.accessToken(tokenProvider.generateAccessToken(auth))
 				.refreshToken(tokenProvider.generateRefreshToken(auth))

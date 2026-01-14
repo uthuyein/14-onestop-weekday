@@ -1,4 +1,4 @@
-package com.jdc.mkt.security;
+package com.jdc.mkt.security.token;
 
 import java.io.IOException;
 
@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * @project product-api
  */
 
+
 public class JwtTokenFilter extends OncePerRequestFilter {
 	
 	@Autowired
@@ -30,7 +31,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		
 		var token = request.getHeader("Authorization");
-		
+			
 		if(StringUtils.hasLength(token)) {
 			SecurityContextHolder.getContext().setAuthentication(tokenProvider.parseAccess(token));
 		}

@@ -1,4 +1,4 @@
-package com.jdc.mkt.utils.security;
+package com.jdc.mkt.security.exception;
 
 /**
  * TokenExpiredException

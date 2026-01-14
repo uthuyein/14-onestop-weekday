@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jdc.mkt.security;
+package com.jdc.mkt.security.token;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -16,8 +16,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import com.jdc.mkt.utils.security.TokenExpiredException;
-import com.jdc.mkt.utils.security.TokenInvalidException;
+import com.jdc.mkt.security.exception.TokenExpiredException;
+import com.jdc.mkt.security.exception.TokenInvalidException;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;

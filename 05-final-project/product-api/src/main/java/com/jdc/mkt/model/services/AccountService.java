@@ -4,8 +4,10 @@
 package com.jdc.mkt.model.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.mkt.api.inputs.SignUpForm;
 import com.jdc.mkt.model.entities.Account;
@@ -21,6 +23,7 @@ import com.jdc.mkt.utils.BusinessException;
  */
 
 @Service
+@Transactional(readOnly = true)
 public class AccountService {
 
 	@Autowired
@@ -40,6 +43,8 @@ public class AccountService {
 	 * @param form
 	 * @return
 	 */
+	@Transactional
+	@PreAuthorize("isAnonymous()")
 	public Account create(SignUpForm form) {
 		if(null != findByEmail(form.email())){
 			throw new BusinessException("Email Aleready Used !");
