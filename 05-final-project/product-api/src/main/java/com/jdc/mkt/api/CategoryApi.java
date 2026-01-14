@@ -18,7 +18,7 @@ import com.jdc.mkt.model.services.CategoryService;
 import com.jdc.mkt.utils.ModificationResult;
 
 @RestController
-@RequestMapping("categories")
+@RequestMapping("admin/categories")
 public class CategoryApi {
 
 	@Autowired

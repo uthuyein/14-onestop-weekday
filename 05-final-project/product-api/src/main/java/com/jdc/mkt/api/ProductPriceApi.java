@@ -19,7 +19,7 @@ import com.jdc.mkt.model.services.ProductPriceService;
 import com.jdc.mkt.utils.ModificationResult;
 
 @RestController
-@RequestMapping("prices")
+@RequestMapping("admin/prices")
 public class ProductPriceApi {
 
 	@Autowired

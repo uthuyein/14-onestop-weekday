@@ -1,5 +1,5 @@
 
-insert into account_tbl(name,email,password,role)values('cashier','cash@gmail.com','c123','Cashier');
+--insert into account_tbl(name,email,password,role,disabled)values('cashier','cash@gmail.com','c123','Member',1);
 
 insert into address_tbl(state,township,street)values('Yangon','InnSein','HtanTaPin');
 insert into address_tbl(state,township,street)values('Yangon','InnSein','YadanarMyaing');

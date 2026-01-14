@@ -20,7 +20,7 @@ import com.jdc.mkt.model.services.PurchaseService;
 import com.jdc.mkt.utils.ModificationResult;
 
 @RestController
-@RequestMapping("purchases")
+@RequestMapping("admin/purchases")
 public class PurchaseApi {
 
 	@Autowired

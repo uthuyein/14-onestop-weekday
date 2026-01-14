@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.jdc.mkt.utils.security.TokenExpiredException;
+import com.jdc.mkt.utils.security.TokenInvalidException;
+
 @RestControllerAdvice
 public class ExceptionHandlers {
 
@@ -22,6 +25,18 @@ public class ExceptionHandlers {
 	@ExceptionHandler
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	List<String> handle(BusinessException e){
+		return List.of(e.getMessage());
+	}
+	
+	@ExceptionHandler
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	List<String> handle(TokenInvalidException e){
+		return List.of(e.getMessage());
+	}
+	
+	@ExceptionHandler
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	List<String> handle(TokenExpiredException e){
 		return List.of(e.getMessage());
 	}
 		

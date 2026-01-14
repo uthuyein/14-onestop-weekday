@@ -28,7 +28,7 @@ import com.jdc.mkt.utils.ModificationResult;
  */
 
 @RestController
-@RequestMapping("sales")
+@RequestMapping("member/sales")
 public class SaleApi {
 	
 	@Autowired

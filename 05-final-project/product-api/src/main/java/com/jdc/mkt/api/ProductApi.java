@@ -17,7 +17,7 @@ import com.jdc.mkt.model.services.ProductService;
 import com.jdc.mkt.utils.ModificationResult;
 
 @RestController
-@RequestMapping("products")
+@RequestMapping("member/products")
 public class ProductApi {
 
 	@Autowired

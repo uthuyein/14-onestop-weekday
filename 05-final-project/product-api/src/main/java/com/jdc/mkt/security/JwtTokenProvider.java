@@ -3,6 +3,7 @@
  */
 package com.jdc.mkt.security;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -10,9 +11,16 @@ import java.util.stream.Collectors;
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import com.jdc.mkt.utils.security.TokenExpiredException;
+import com.jdc.mkt.utils.security.TokenInvalidException;
+
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 
 /**
@@ -78,8 +86,37 @@ public class JwtTokenProvider {
 	 * @param auth
 	 * @return
 	 */
-	private Authentication parse(Type refresh, String token) {
-		return null;
+	private Authentication parse(Type type, String token) {
+		
+		try {
+			 var payload = Jwts.parser()
+					 .requireIssuer(issuer)
+					 .verifyWith(key)
+					 .build()
+					 .parseSignedClaims(token).getPayload();
+			 
+			 if(!type.name().equals(payload.get("type",String.class))) {
+				 throw new TokenInvalidException("Token Invalid Type");
+			 }
+			 
+			 return UsernamePasswordAuthenticationToken.authenticated(
+					payload.getSubject(),
+					null,
+					Arrays.stream(
+							payload.get("role", String.class).split(","))
+							.map(a -> new SimpleGrantedAuthority(a)).toList()
+					);
+			
+		}catch (ExpiredJwtException e) {
+			if(type == Type.Access) {
+				throw new TokenExpiredException("Token has expired ");
+			}
+			throw new TokenInvalidException(e.getMessage());
+		}
+		catch (JwtException e) {
+			throw new TokenInvalidException(e.getMessage());
+		}
+		
 	}
 
 	/**

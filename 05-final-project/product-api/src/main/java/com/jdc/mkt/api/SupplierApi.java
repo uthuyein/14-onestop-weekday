@@ -19,7 +19,7 @@ import com.jdc.mkt.model.services.SupplierService;
 import com.jdc.mkt.utils.ModificationResult;
 
 @RestController
-@RequestMapping("suppliers")
+@RequestMapping("admin/suppliers")
 @Transactional(readOnly = true)
 public class SupplierApi {
 

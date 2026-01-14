@@ -22,6 +22,7 @@ public class Account {
 	private String name;
 	private String email;
 	private String password;
+	private boolean disabled;
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;

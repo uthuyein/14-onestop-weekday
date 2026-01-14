@@ -17,7 +17,7 @@ import com.jdc.mkt.model.services.CustomerService;
 import com.jdc.mkt.utils.ModificationResult;
 
 @RestController
-@RequestMapping("customers")
+@RequestMapping("member/customers")
 public class CustomerApi {
 
 	@Autowired
