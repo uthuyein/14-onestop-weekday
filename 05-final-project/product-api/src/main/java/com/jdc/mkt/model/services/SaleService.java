@@ -63,8 +63,7 @@ public class SaleService {
 	private void updateSaleDetail(Sale sale, List<SaleDetailForm> saleDetails) {
 		if (sale != null) {
 
-			for (SaleDetailForm detail : saleDetails) {
-				
+			for (SaleDetailForm detail : saleDetails) {				
 				detailRepo.save(detail.entity(sale));
 			}
 		}
