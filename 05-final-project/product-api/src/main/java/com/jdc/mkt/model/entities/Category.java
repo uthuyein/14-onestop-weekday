@@ -1,7 +1,5 @@
 package com.jdc.mkt.model.entities;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,8 +21,7 @@ public class Category {
 	@Column(nullable = false,length = 45,unique = true)
 	private String name;
 	
-	@ColumnDefault("1")
-	private Boolean isActive;
+	private boolean isActive;
 	
 	@ManyToOne
 	private Category category;

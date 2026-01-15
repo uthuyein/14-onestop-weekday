@@ -1,7 +1,5 @@
 package com.jdc.mkt.model.entities;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +20,5 @@ public class Size {
 	@Column(nullable = false)
 	private String name;
 	
-	@ColumnDefault("1")
 	private boolean isActive;
 }

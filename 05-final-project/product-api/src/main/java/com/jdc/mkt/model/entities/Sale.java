@@ -5,8 +5,6 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,7 +29,6 @@ public class Sale {
 	private LocalDate saleDate;
 	private LocalTime saleTime;
 
-	@ColumnDefault("1")
 	private boolean isActive;
 
 	@ManyToOne

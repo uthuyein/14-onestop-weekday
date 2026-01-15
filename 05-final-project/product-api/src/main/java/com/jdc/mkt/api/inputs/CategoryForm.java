@@ -8,12 +8,12 @@ public record CategoryForm(
 		@NotBlank(message = "Please type category name !") 
 		String name,
 		Integer categoryId,
-		Boolean isActive) {
+		boolean isActive) {
 
 	public Category entity(Category cat) {
 	
 		cat.setName(name);
-		cat.setIsActive(isActive);
+		cat.setActive(isActive);
 
 		if (null != categoryId) {			
 			var catId = new Category();

@@ -1,0 +1,15 @@
+services:
+  db:
+    image: bitnami/postgresql
+    container_name: product-container
+    environment:
+      POSTGRES_DB: production_db
+    env_file:
+      - .env_postgres
+    volumes:
+      - product_db_volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  product_db_volume:

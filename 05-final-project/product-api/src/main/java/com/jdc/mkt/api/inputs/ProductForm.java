@@ -19,7 +19,7 @@ public record ProductForm(
 	public Product entity(Product p) {
 		p.setName(name);
 		p.setCategory(category);
-		p.setIsActive(p.getIsActive());
+		p.setActive(p.isActive());
 		return p;
 	}
 

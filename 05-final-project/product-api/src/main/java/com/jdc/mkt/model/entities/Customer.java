@@ -1,7 +1,5 @@
 package com.jdc.mkt.model.entities;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +25,6 @@ public class Customer {
 	@Column(nullable = false,length = 45)
 	private String name;
 	
-	@ColumnDefault("1")
 	private boolean isActive;
 	
 	@Enumerated(EnumType.STRING)

@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +24,6 @@ public class Purchase {
 	
 	private LocalDate issueDate;
 	
-	@ColumnDefault("1")
 	private boolean isActive;
 	
 	@ManyToOne

@@ -1,7 +1,5 @@
 package com.jdc.mkt.model.entities;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,8 +22,7 @@ public class Product {
 	@Column(nullable = false,length = 45)
 	private String name;
 	
-	@ColumnDefault("1")
-	private Boolean isActive;
+	private boolean isActive;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Category category;
