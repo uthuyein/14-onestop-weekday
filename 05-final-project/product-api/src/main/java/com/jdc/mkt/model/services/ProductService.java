@@ -39,10 +39,16 @@ public class ProductService {
 	public ModificationResult<Integer> update(Integer id, ProductForm form) {
 		var product = id != null ? repo.findById(id).orElse(null) : null;
 		
-		ModifiedType update = product == null ? ModifiedType.Save : ModifiedType.Update;		
-		product = repo.save(update == ModifiedType.Update ? form.entity(product): form.entity(new Product()));
-			
-		return ModificationResult.status(product.getId(),update,product.getName());
+		product = repo.save(form.entity(product));
+		return ModificationResult.status(product.getId(), ModifiedType.Update, product.getName());
+	}
+
+	@Transactional
+	public ModificationResult<Integer> save(ProductForm form) {
+		var product = new Product();
+		product.setActive(true);
+		product = repo.save(form.entity(product));
+		return ModificationResult.status(product.getId(), ModifiedType.Save, product.getName());
 	}
 
 }

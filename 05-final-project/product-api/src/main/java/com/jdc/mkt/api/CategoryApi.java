@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +40,12 @@ public class CategoryApi {
 	
 
 	@PostMapping
-	ModificationResult<Integer> update(@RequestParam(required = false) Integer id, @Validated @RequestBody CategoryForm form){
+	ModificationResult<Integer> save( @Validated @RequestBody CategoryForm form){
+		return service.save(form);
+	}
+	
+	@PutMapping("{id}")
+	ModificationResult<Integer> update(@PathVariable Integer id, @Validated @RequestBody CategoryForm form){
 		return service.update(id,form);
 	}
 }

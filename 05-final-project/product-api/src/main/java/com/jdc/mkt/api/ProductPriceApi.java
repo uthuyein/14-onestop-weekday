@@ -7,9 +7,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.mkt.api.inputs.ProductPriceForm;
@@ -36,10 +36,13 @@ public class ProductPriceApi {
 	}
 	
 	@PostMapping
-	ModificationResult<Integer> update(@RequestParam(required = false) Integer id,@Validated @RequestBody ProductPriceForm form){		
-		 return service.update(id,form);
+	ModificationResult<Integer> update(@Validated @RequestBody ProductPriceForm form){		
+		 return service.save(form);
 	}
 	
-	
+	@PutMapping("{id}")
+	ModificationResult<Integer> update(@PathVariable Integer id, @RequestBody ProductPriceForm form ){
+		return service.update(id,form);
+	}
 	
 }

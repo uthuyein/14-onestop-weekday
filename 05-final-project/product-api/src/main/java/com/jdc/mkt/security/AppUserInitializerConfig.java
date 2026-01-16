@@ -33,6 +33,7 @@ public class AppUserInitializerConfig {
 			acc.setName("Andrew");
 			acc.setEmail(username);
 			acc.setPassword(passwordEncoder.encode(password));
+			acc.setDisabled(false);
 			acc.setRole(Role.Admin);
 			repo.save(acc);
 		};

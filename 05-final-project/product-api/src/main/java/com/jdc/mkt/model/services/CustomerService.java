@@ -49,9 +49,15 @@ public class CustomerService {
 	public ModificationResult<Integer>  update(Integer id, CustomerForm form) {
 		var customer = id != null ? repo.findById(id).orElse(null) : null;
 		
-		ModifiedType update = customer == null ? ModifiedType.Save : ModifiedType.Update;		
-		customer = repo.save(update == ModifiedType.Update ? form.entity(customer):form.entity( new Customer()));
-			
-		return ModificationResult.status(customer.getId(),update,customer.getName());
+		customer = repo.save(form.entity(customer));
+		return ModificationResult.status(customer.getId(), ModifiedType.Update, customer.getName());
+	}
+
+	@Transactional
+	public ModificationResult<Integer> save(CustomerForm form) {
+		var customer = new Customer();
+		customer.setActive(true);
+		customer = repo.save(form.entity(customer));
+		return ModificationResult.status(customer.getId(), ModifiedType.Save, customer.getName());
 	}
 }

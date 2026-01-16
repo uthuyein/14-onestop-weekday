@@ -26,7 +26,7 @@ public class CategoryService {
 		return repo.findAll().stream().map(cat -> SelectCategory.from(cat)).toList();
 	}
 
-	public List<SelectCategory>  findByName(String name) {
+	public List<SelectCategory> findByName(String name) {
 		return repo.findByNameLikeIgnoreCaseAndIsActiveTrue(name.concat("%")).stream()
 				.map(cat -> SelectCategory.from(cat)).toList();
 	}
@@ -35,15 +35,19 @@ public class CategoryService {
 		return repo.findById(id).map(c -> SelectCategory.from(c)).orElseThrow(() -> new EntityNotFoundException());
 	}
 
-	
 	@Transactional
-	public ModificationResult<Integer>  update(Integer id, CategoryForm form) {
+	public ModificationResult<Integer> update(Integer id, CategoryForm form) {
 		var category = id != null ? repo.findById(id).orElse(null) : null;
-		
-		ModifiedType update = category == null ? ModifiedType.Save : ModifiedType.Update;		
-		category = repo.save(update == ModifiedType.Update ? form.entity(category): form.entity(new Category()) );
-			
-		return ModificationResult.status(category.getId(),update,category.getName());
+		category = repo.save(form.entity(category));
+		return ModificationResult.status(category.getId(), ModifiedType.Update, category.getName());
+	}
+
+	@Transactional
+	public ModificationResult<Integer> save(CategoryForm form) {
+		var category = new Category();
+		category.setActive(true);
+		category = repo.save(form.entity(category));
+		return ModificationResult.status(category.getId(), ModifiedType.Save, category.getName());
 	}
 
 }

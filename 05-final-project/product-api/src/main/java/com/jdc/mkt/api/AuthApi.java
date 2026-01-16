@@ -50,7 +50,7 @@ public class AuthApi {
 	@PostMapping("signUp")
 	AuthResult signUp(@Validated @RequestBody SignUpForm form) {		
 		var acc = accService.create(form);
-		return signIn(UsernamePasswordAuthenticationToken.unauthenticated(acc.getEmail(), acc.getPassword()));
+		return signIn(UsernamePasswordAuthenticationToken.unauthenticated(acc.getEmail(), form.password()));
 	}
 	
 	@GetMapping
@@ -66,6 +66,7 @@ public class AuthApi {
 	
 	
 	private AuthResult signIn(Authentication authenticate) {
+		
 		var auth = authenticationManager.authenticate(authenticate);
 		return getResult(auth);
 	}

@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.mkt.api.inputs.SaleDetailForm;
 import com.jdc.mkt.api.inputs.SaleForm;
@@ -22,6 +23,7 @@ import com.jdc.mkt.utils.ModificationResult;
 import com.jdc.mkt.utils.ModificationResult.ModifiedType;
 
 @Service
+@Transactional(readOnly = true)
 public class SaleService {
 
 	@Autowired
@@ -36,6 +38,7 @@ public class SaleService {
 	 * @param form
 	 * @return
 	 */
+	@Transactional
 	public ModificationResult<UUID> update(UUID id, SaleForm form) {
 		var sale = getSaleById(id);
 		var status = sale == null ? ModifiedType.Save : ModifiedType.Update;

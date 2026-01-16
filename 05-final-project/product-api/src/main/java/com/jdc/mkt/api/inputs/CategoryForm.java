@@ -7,14 +7,13 @@ import jakarta.validation.constraints.NotBlank;
 public record CategoryForm(
 		@NotBlank(message = "Please type category name !") 
 		String name,
-		Integer categoryId,
-		boolean isActive) {
+		Integer categoryId
+		) {
 
 	public Category entity(Category cat) {
 	
 		cat.setName(name);
-		cat.setActive(isActive);
-
+		
 		if (null != categoryId) {			
 			var catId = new Category();
 			catId.setId(categoryId);

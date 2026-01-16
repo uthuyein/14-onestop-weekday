@@ -43,10 +43,16 @@ public class SupplierService {
 	public ModificationResult<Integer> update(Integer id,SupplierForm form) {
 		var supplier = id != null ? repo.findById(id).orElse(null) : null;
 		
-		ModifiedType update = supplier == null ? ModifiedType.Save : ModifiedType.Update;		
-		supplier = repo.save(update == ModifiedType.Update ? form.entity(supplier): form.entity(new Supplier()));
-			
-		return ModificationResult.status(supplier.getId(),update,supplier.getName());
+		supplier = repo.save(form.entity(supplier));
+		return ModificationResult.status(supplier.getId(), ModifiedType.Update, supplier.getName());
+	}
+
+	@Transactional
+	public ModificationResult<Integer> save(SupplierForm form) {
+		var supplier = new Supplier();
+		supplier.setActive(true);
+		supplier = repo.save(form.entity(supplier));
+		return ModificationResult.status(supplier.getId(), ModifiedType.Save, supplier.getName());
 	}
 
 }
