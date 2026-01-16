@@ -6,10 +6,30 @@ services:
       POSTGRES_DB: production_db
     env_file:
       - .env_postgres
+    networks:
+      - product_network
     volumes:
       - product_db_volume:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-
+  backend:
+    build:
+      context: ./product-api
+      dockerfile: Dockerfile
+    container_name: product-backend-container
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    env_file:
+      - .env_postgres
+    networks:
+      - product_network
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
 volumes:
   product_db_volume:
+
+networks:
+  product_network:
+   

@@ -94,7 +94,7 @@ public class JwtTokenProvider {
 					 .verifyWith(key)
 					 .build()
 					 .parseSignedClaims(token).getPayload();
-			 
+		
 			 if(!type.name().equals(payload.get("type",String.class))) {
 				 throw new TokenInvalidException("Token Invalid Type");
 			 }
