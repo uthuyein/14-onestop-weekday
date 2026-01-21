@@ -74,7 +74,7 @@ const isEditMode = !!watch("id");
                  <FormInput  control={form.control} path="name" label="Category Name" placeholder="Type category name !" className="" />
                 
                 {/* Parent Category Select */}
-                  <FormSelect control={form.control} options={categories.map((cat) => ({ key: cat.id,value: cat.name}))} path="subCategory"  className="w-5"  placeholder="Please select one"/>
+                  <FormSelect control={form.control} options={categories.map((cat) => ({ key: cat.id,value: cat.name}))} path="subCategory"  className=""  placeholder="Please select one"/>
 
                 {/* Active Status */}
                 <div className="flex items-center gap-2">
