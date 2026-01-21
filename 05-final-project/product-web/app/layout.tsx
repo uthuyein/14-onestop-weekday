@@ -11,7 +11,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <MenuBar />
-        <main className="flex px-4 py-4">
+        <main className="w-full flex px-4 py-4">
           {children}
         </main>
       </body>

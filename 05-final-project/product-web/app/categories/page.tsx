@@ -1,11 +1,7 @@
-'use client';
-import FormInput from "@/components/forms/form-input";
+import CategoryPage from "./CategoryPage";
+import { getCategories } from "@/lib/server/category.server";
 
-export default function CategoriesPage () {
-    return (
-      <main>
-        <h1>Categories Page</h1>
-       
-      </main>
-    );
+export default async function Page() {
+  const categories = await getCategories(); // SERVER FETCH
+  return <CategoryPage categories={categories} />;
 }

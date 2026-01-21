@@ -23,7 +23,9 @@ public class CategoryService {
 	private CategoryRepo repo;
 
 	public List<SelectCategory> findAll() {
-		return repo.findAll().stream().map(cat -> SelectCategory.from(cat)).toList();
+		var list = repo.findAll().stream().map(cat -> SelectCategory.from(cat)).toList();
+		System.out.println(list);
+		return list;
 	}
 
 	public List<SelectCategory> findByName(String name) {

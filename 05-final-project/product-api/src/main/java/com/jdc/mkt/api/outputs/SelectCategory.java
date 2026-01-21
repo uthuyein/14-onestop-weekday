@@ -5,7 +5,7 @@ import com.jdc.mkt.model.entities.Category;
 public record SelectCategory(
 		int id,
 		String name,
-		Category category
+		Category subCategory
 		){
 
 	public static SelectCategory from(Category c) {

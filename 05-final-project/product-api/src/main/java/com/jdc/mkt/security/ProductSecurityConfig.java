@@ -39,10 +39,10 @@ public class ProductSecurityConfig {
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		
 		http.authorizeHttpRequests(req ->{
-				 req.requestMatchers("/auth/**").permitAll();
-				 req.requestMatchers("/admin/**").hasAuthority(Role.Admin.name());
-				 req.requestMatchers("/member/**").hasAnyAuthority(Role.Admin.name(),Role.Member.name());
-				 req.anyRequest().authenticated();
+				 req.requestMatchers("/**").permitAll();
+//				 req.requestMatchers("/admin/**").hasAuthority(Role.Admin.name());
+//				 req.requestMatchers("/member/**").hasAnyAuthority(Role.Admin.name(),Role.Member.name());
+//				 req.anyRequest().authenticated();
 			
 		});
 		
