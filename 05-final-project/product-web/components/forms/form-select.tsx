@@ -1,4 +1,4 @@
-import { OptionItem } from "@/lib/types";
+import { OptionItem } from "@/lib/type/types";
 import { Control, FieldValues, Path } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";

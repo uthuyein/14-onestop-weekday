@@ -6,6 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Edit2, Plus, Save} from "lucide-react";
 import { createCategory,updateCategory} from "@/lib/server/category.server";
 import { categorySchema ,CategoryForm} from "@/lib/type/category-types";
+import { Form } from "@/components/ui/form";
+import FormInput from "@/components/forms/form-input";
+import FormSelect from "@/components/forms/form-select";
+import { toast } from "sonner";
 
 import {
   Table,
@@ -15,10 +19,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Form } from "@/components/ui/form";
-import FormInput from "@/components/forms/form-input";
-import FormSelect from "@/components/forms/form-select";
-import { toast } from "sonner";
 
 export default function CategoryPage({ categories }: { categories: any[] }) {
   const form = useForm<CategoryForm>({
@@ -29,7 +29,7 @@ export default function CategoryPage({ categories }: { categories: any[] }) {
       subCategory: null,
     },
   });
-  const {  reset, watch } = form;
+  const { reset, watch } = form;
 
   const handleEdit = (cat: CategoryForm) => {
   reset({
@@ -41,13 +41,13 @@ export default function CategoryPage({ categories }: { categories: any[] }) {
 };
 
 
-const onSubmit = async (data: CategoryForm) => {
+const onSubmit = async (form: CategoryForm) => {
   try {
-    if (data.id) {
-      await updateCategory(data.id, data);
+    if (form.id) {
+      await updateCategory(form.id, form);
       toast.success("Category updated");
     } else {
-      await createCategory(data);
+      await createCategory(form);
       toast.success("Category created");
     }
 
@@ -59,17 +59,22 @@ const onSubmit = async (data: CategoryForm) => {
 const isEditMode = !!watch("id");
 
   return (
-    <div className="flex  mx-auto  p-6 space-y-4 space-x-4">
+    <div className="w-full space-y-5 p-5">
+      <div className="flex space-x-1 items-center">
+         { isEditMode ? <Save className="w-5 h-5 " /> : <Plus className="w-5 h-5" />}
+        <h2 className="text-lg  ">
+          {isEditMode ? "Update ":"Create"} Category Form</h2>
+      </div>
       {/* --- FORM SECTION --- */}
-      <div className="">
-        <h2 className="text-lg mb-4">Category Form </h2>
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <div className="flex items-end space-x-3">
+
                 {/* Parent Category insert */}
                  <FormInput  control={form.control} path="name" label="Category Name" placeholder="Type category name !" className="" />
                 
                 {/* Parent Category Select */}
-                  <FormSelect control={form.control} options={categories} path="suCategory"  className=""  placeholder="Please select one"/>
+                  <FormSelect control={form.control} options={categories.map((cat) => ({ key: cat.id,value: cat.name}))} path="subCategory"  className="w-5"  placeholder="Please select one"/>
 
                 {/* Active Status */}
                 <div className="flex items-center gap-2">
@@ -86,10 +91,10 @@ const isEditMode = !!watch("id");
                 </button>
  
               </div>
+              </div>
             </form>
         </Form>
-      </div>
-
+      
       {/* --- TABLE SECTION --- */}
       <div className="rounded-md border bg-white">
         <Table>
@@ -114,7 +119,7 @@ const isEditMode = !!watch("id");
                 <TableRow key={cat.id}>
                   <TableCell className="font-mono text-xs">#{cat.id}</TableCell>
                   <TableCell className="font-medium">{cat.name}</TableCell>
-                  <TableCell>{cat.parent?.name || "—"}</TableCell>
+                  <TableCell>{cat.subCategory?.name || "—"}</TableCell>
                   <TableCell>
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
                       cat.isActive ? "bg-green-100 text-green-700" : "bg-slate-100 text-slate-600"
@@ -136,6 +141,7 @@ const isEditMode = !!watch("id");
           </TableBody>
         </Table>
       </div>
+    
     </div>
   );
 }

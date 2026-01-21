@@ -12,13 +12,16 @@ public record ProductForm(
 		@NotBlank(message = "Please type product name !")
 		String name,
 		@NotNull(message = "Please select category !")
-		Category category,
+		Integer categoryId,
 		Boolean isActive
 		) {
 
 	public Product entity(Product p) {
+		var c = new Category();
+		c.setId(categoryId);
 		p.setName(name);
-		p.setCategory(category);
+		
+		p.setCategory(c);
 		p.setActive(p.isActive());
 		return p;
 	}

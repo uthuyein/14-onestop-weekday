@@ -1,3 +1,4 @@
+"use server"
 import CategoryPage from "./CategoryPage";
 import { getCategories } from "@/lib/server/category.server";
 

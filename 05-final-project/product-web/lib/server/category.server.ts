@@ -6,16 +6,16 @@ import { request } from "./base.server";
 import { CategoryForm } from "../type/category-types";
 import { POST_CONFIG, PUT_CONFIG } from "../utils";
 
-const endpoint="admin/categories"
+const  ENDPOINT ="admin/categories"
 
 export async function getCategories() {
-  const res = await request(`${endpoint}`)
+  const res = await request(`${ENDPOINT}`)
   if (!res.ok) return [];
   return res.json();
 }
 
 export async function createCategory(data: CategoryForm) {
-  const response = await request(`${endpoint}`, {
+  const response = await request(`${ENDPOINT}`, {
       ... POST_CONFIG,
         body:JSON.stringify(data)
     })  
@@ -29,7 +29,7 @@ export async function createCategory(data: CategoryForm) {
 }
 
  export async function updateCategory(id: number, data: CategoryForm) {
-     const response = await request(`${endpoint}/${id}`, {
+     const response = await request(`${ENDPOINT}/${id}`, {
       ... PUT_CONFIG,
         body:JSON.stringify(data)
     }) 

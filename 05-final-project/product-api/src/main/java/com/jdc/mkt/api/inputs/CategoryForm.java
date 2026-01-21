@@ -5,6 +5,7 @@ import com.jdc.mkt.model.entities.Category;
 import jakarta.validation.constraints.NotBlank;
 
 public record CategoryForm(
+		Integer id,
 		@NotBlank(message = "Please type category name !") 
 		String name,
 		Integer categoryId,
@@ -12,7 +13,7 @@ public record CategoryForm(
 		) {
 
 	public Category entity(Category cat) {
-	
+		cat.setId(id);
 		cat.setName(name);
 		cat.setActive(isActive);
 		

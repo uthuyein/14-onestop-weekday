@@ -25,6 +25,11 @@ public class ProductApi {
 	private ProductService service;
 	
 	@GetMapping
+	List<SelectProduct> findAll(){
+		return service.findAll();
+	}
+	
+	@GetMapping("findBy")
 	List<SelectProduct> findBy(@RequestBody SearchProductForm form){
 		return service.findBy(form);
 	}

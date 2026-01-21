@@ -20,6 +20,10 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepo repo;
+	
+	public List<SelectProduct> findAll(){
+		return repo.findAll().stream().map( p -> SelectProduct.from(p)).toList();
+	}
 
 	public List<SelectProduct> findBy(SearchProductForm form) {
 		var list = repo.findBy( cb -> {
@@ -28,8 +32,10 @@ public class ProductService {
 			var root = cq.from(Product.class);
 			
 			SelectProduct.select(cb, cq, root);
-			cq.where(form.where(cb, root));
-		
+			
+			
+				cq.where(form.where(cb, root));
+			
 			return cq;
 		});	
 		return list;
