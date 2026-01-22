@@ -8,13 +8,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "category_tbl")
 public class Category {
 
 	@Id
+	@NonNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
@@ -26,7 +32,4 @@ public class Category {
 	@ManyToOne
 	private Category category;
 	
-//	@OneToMany(mappedBy = "category",
-//			cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-//	List<Product> products;
 }

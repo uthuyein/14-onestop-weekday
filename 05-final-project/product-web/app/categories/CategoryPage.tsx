@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import CategoryTable from "@/components/forms/tables/table-category";
 import { Button } from "@/components/ui/button";
 
-export default function CategoryPage({ categories }: { categories: any[] }) {
+export default function CategoryPage({ categories }: { categories: CategoryListItem[] }) {
   
   const form = useForm<CategoryForm>({
     resolver: zodResolver(categorySchema),
@@ -29,7 +29,7 @@ export default function CategoryPage({ categories }: { categories: any[] }) {
   reset({
     id: cat.id,       
     name: cat.name,
-    subCategoryId: cat.subCategory.id ?? undefined,
+    subCategoryId: cat.subCategory ? cat.subCategory.id : undefined,
     isActive:cat.isActive
   });
 };

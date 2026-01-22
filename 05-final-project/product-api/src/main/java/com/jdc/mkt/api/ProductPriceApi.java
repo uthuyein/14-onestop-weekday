@@ -26,6 +26,10 @@ public class ProductPriceApi {
 	private ProductPriceService service;
 
 	@GetMapping
+	List<SelectProductPrice> findAll(){
+		return service.findAll();
+	}
+	@GetMapping("findBy")
 	List<SelectProductPrice> findBy(@RequestBody(required = false) SearchProductPriceForm form){
 		return service.findBy(form);
 	}

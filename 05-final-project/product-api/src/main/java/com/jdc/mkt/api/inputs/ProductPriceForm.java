@@ -11,9 +11,9 @@ import jakarta.validation.constraints.NotNull;
 
 public record ProductPriceForm(
 		@NotNull(message = "Please select product first !")
-		Product product,
+		Integer productId,
 		@NotNull(message = "Please select product size !")
-		Size size,
+		Integer sizeId,
 		@NotNull(message = "Please select price type !")
 		PriceType priceType,
 		@NotNull(message = "Please type product price !")
@@ -21,14 +21,15 @@ public record ProductPriceForm(
 		) {
 	
 	public ProductPrice entity(ProductPrice p) {
-		p.setProduct(product);
-		p.setSize(size);
+		
+		p.setProduct(new Product(productId));
+		p.setSize(new Size(sizeId));
 		p.setPriceType(priceType);
 		p.setPrice(price);
 		p.setCreateAt(LocalDate.now());
 		
 		if(null != p.getId()) {
-		p.setUpdateAt(LocalDate.now());
+			p.setUpdateAt(LocalDate.now());
 		}
 		return p;
 	}

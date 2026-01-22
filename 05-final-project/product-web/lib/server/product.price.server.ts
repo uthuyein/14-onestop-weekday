@@ -1,18 +1,16 @@
-"use server"
-
-import { ProductForm } from "../type/product-types";
+import { ProductPriceForm } from "../type/product-price-type";
 import { POST_CONFIG, PUT_CONFIG } from "../utils";
 import { request } from "./base.server";
 
-const  ENDPOINT ="member/products"
+const ENDPOINT = "admin/prices"
 
-export async function getProducts() {
-  const res = await request(`${ENDPOINT}`)
-  if (!res.ok) return [];
-  return res.json();
+export async function getProductPrices(){
+     const res = await request(`${ENDPOINT}`)
+      if (!res.ok) return [];
+      return res.json();
 }
 
-export async function updateProduct(id:number ,form :ProductForm){
+export async function updateProductPrice(id:number ,form :ProductPriceForm){
      const response = await request(`${ENDPOINT}/${id}`, {
           ... PUT_CONFIG,
             body:JSON.stringify(form)
@@ -24,7 +22,7 @@ export async function updateProduct(id:number ,form :ProductForm){
   }
 }
 
-export async function createProduct(form :ProductForm){
+export async function createProductPrice(form :ProductPriceForm){
      const response = await request(`${ENDPOINT}`, {
           ... POST_CONFIG,
             body:JSON.stringify(form)
@@ -35,7 +33,3 @@ export async function createProduct(form :ProductForm){
     throw new Error(`Create failed: ${errorText}`);
   }
 }
-
-
-
-

@@ -9,13 +9,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "product_tbl")
 public class Product {
 
 	@Id
+	@NonNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	

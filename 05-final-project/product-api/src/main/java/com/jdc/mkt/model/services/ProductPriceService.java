@@ -56,4 +56,8 @@ public class ProductPriceService {
 		product = repo.save(form.entity(product));
 		return ModificationResult.status(product.getId(), ModifiedType.Save, product.getProduct().getName());
 	}
+
+	public List<SelectProductPrice> findAll() {
+		return repo.findAll().stream().map(SelectProductPrice::from).toList();
+	}
 }

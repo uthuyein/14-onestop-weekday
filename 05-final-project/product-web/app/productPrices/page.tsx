@@ -1,7 +1,7 @@
-export default function ProductPricesPage () {
-    return (
-      <main>
-        <h1>Product Prices Page</h1>
-      </main>
-    );
+import { getProductPrices } from "@/lib/server/product.price.server";
+import ProductPricePage from "../productPrices/ProductPricePage";
+
+export default async  function Page () {
+    const prices = await getProductPrices();
+    return <ProductPricePage prices = {prices} />
 }
