@@ -5,11 +5,12 @@ import com.jdc.mkt.model.entities.Category;
 public record SelectCategory(
 		int id,
 		String name,
-		Category subCategory
+		Category subCategory,
+		boolean isActive
 		){
 
 	public static SelectCategory from(Category c) {
-		return new SelectCategory(c.getId(),c.getName(),c.getCategory());
+		return new SelectCategory(c.getId(),c.getName(),c.getCategory(),c.isActive());
 	}
 
 }

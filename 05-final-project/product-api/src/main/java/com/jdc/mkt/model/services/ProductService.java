@@ -20,31 +20,32 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepo repo;
-	
-	public List<SelectProduct> findAll(){
-		return repo.findAll().stream().map( p -> SelectProduct.from(p)).toList();
+
+	public List<SelectProduct> findAll() {
+		return repo.findAll().stream().map(p -> SelectProduct.from(p)).toList();
 	}
 
 	public List<SelectProduct> findBy(SearchProductForm form) {
-		var list = repo.findBy( cb -> {
-			
+		var list = repo.findBy(cb -> {
+
 			var cq = cb.createQuery(SelectProduct.class);
 			var root = cq.from(Product.class);
-			
+
 			SelectProduct.select(cb, cq, root);
-			
-			
+
+			if (null != form) {
 				cq.where(form.where(cb, root));
-			
+			}
+
 			return cq;
-		});	
+		});
 		return list;
 	}
 
 	@Transactional
 	public ModificationResult<Integer> update(Integer id, ProductForm form) {
 		var product = id != null ? repo.findById(id).orElse(null) : null;
-		
+
 		product = repo.save(form.entity(product));
 		return ModificationResult.status(product.getId(), ModifiedType.Update, product.getName());
 	}

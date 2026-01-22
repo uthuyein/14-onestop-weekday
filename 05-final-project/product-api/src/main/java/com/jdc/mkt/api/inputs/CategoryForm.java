@@ -8,7 +8,7 @@ public record CategoryForm(
 		Integer id,
 		@NotBlank(message = "Please type category name !") 
 		String name,
-		Integer categoryId,
+		Integer subCategoryId,
 		boolean isActive
 		) {
 
@@ -17,9 +17,9 @@ public record CategoryForm(
 		cat.setName(name);
 		cat.setActive(isActive);
 		
-		if (null != categoryId) {			
+		if (null != subCategoryId) {			
 			var catId = new Category();
-			catId.setId(categoryId);
+			catId.setId(subCategoryId);
 			cat.setCategory(catId);
 		}
 		return cat;

@@ -18,23 +18,19 @@ import lombok.Data;
 @AllArgsConstructor
 public class SearchProductForm {
 	
-	private Integer id;
 	private Boolean isActive;
-	private String keywords;
+	private String keyword;
 	
 	
 
 	public  Predicate[] where(CriteriaBuilder cb, Root<Product> root) {
 		var params = new ArrayList<Predicate>();
 		
-		if (null != id) {
-			params.add(cb.equal(root.get(Product_.id), id));
-		}
-		if(StringUtils.hasLength(keywords)) {
+		if(StringUtils.hasLength(keyword)) {
 			params.add(
 					cb.or(
-					cb.like(cb.lower(root.get(Product_.name)), keywords.toLowerCase().concat("%")),
-					cb.equal(root.get(Product_.category).get(Category_.name), keywords)));
+					cb.like(cb.lower(root.get(Product_.name)), keyword.toLowerCase().concat("%")),
+					cb.equal(root.get(Product_.category).get(Category_.name), keyword)));
 		}		
 
 		return params.toArray( s -> new Predicate[s]);

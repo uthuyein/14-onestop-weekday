@@ -1,6 +1,6 @@
 package com.jdc.mkt.api.outputs;
 
-import com.jdc.mkt.model.entities.Category_;
+import com.jdc.mkt.model.entities.Category;
 import com.jdc.mkt.model.entities.Product;
 import com.jdc.mkt.model.entities.Product_;
 
@@ -11,13 +11,12 @@ import jakarta.persistence.criteria.Root;
 public record SelectProduct(
 		Integer id,
 		String name,
-		Integer categoryId,
-		String categoryName,
+		Category category,
 		boolean isActive
 		) {
 
 	public static SelectProduct from(Product p) {
-		return new SelectProduct(p.getId(), p.getName(), p.getCategory().getId(),p.getCategory().getName(),p.isActive());
+		return new SelectProduct(p.getId(), p.getName(), p.getCategory(),p.isActive());
 	}
 
 	public static void select(CriteriaBuilder cb,CriteriaQuery<SelectProduct> cq, Root<Product> root) {
@@ -26,8 +25,7 @@ public record SelectProduct(
 						SelectProduct.class,
 						root.get(Product_.id),
 						root.get(Product_.name),
-						root.get(Product_.category).get(Category_.id),
-						root.get(Product_.category).get(Category_.name),
+						root.get(Product_.category),
 						root.get(Product_.isActive)
 						)
 				);
