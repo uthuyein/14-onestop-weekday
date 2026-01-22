@@ -24,14 +24,14 @@ export default function FormSelect<T extends FieldValues>({
         <FormField control={control} name={path} render={({field}) => 
             <FormItem  className={className}>
                 {label && <FormLabel>{label}</FormLabel>}
-                <Select value={field.value} onChange={field.onChange} className="w-full">
+                 <Select value={field.value?.toString()}  onValueChange={(value) => {field.onChange(Number(value))}} >
                     <FormControl> 
                         <SelectTrigger className="w-full">
                             <SelectValue placeholder={placeholder || "Select an option"}/>
                         </SelectTrigger> 
-                    </FormControl>
+                    </FormControl>  
                     <SelectContent>
-                        {options.map((item,index )=> <SelectItem key={index} value={item.key}>{item.value}</SelectItem>)}
+                        {options.map((item,index )=> <SelectItem key={index} value={item.key.toString()}>{item.value}</SelectItem>)}
                     </SelectContent>
                 </Select>
             </FormItem>
@@ -40,3 +40,5 @@ export default function FormSelect<T extends FieldValues>({
         
     );
 }
+
+

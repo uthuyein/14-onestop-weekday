@@ -6,14 +6,22 @@ export const categorySchema = z.object({
     .string()
     .nonempty( "Category name is required"),
   isActive: z.boolean(),
-
-  subCategory: z.preprocess(
-    (val) => (val === "" ? null : val),
-    z.union([z.number(), z.null()])
-  ),
+  subCategoryId:z.number().optional(),
 });
 
 export type CategoryForm = z.infer<typeof categorySchema>;
+
+
+export type CategoryListItem ={
+  id:number
+  name: string 
+  isActive:boolean
+  subCategory:{
+    id:number
+    name: string 
+    isActive:boolean
+  }
+}
 
 
 
