@@ -9,33 +9,37 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ProductListItem } from "@/lib/type/product-types";
+import {ProductPriceListItem } from "@/lib/type/product-price-type";
 import { Button } from "@/components/ui/button";
 
 
 
-type CategoryTableProps = {
-  products: ProductListItem[];
-  onEdit: (prod: ProductListItem) => void;
-  handleDeactivate:(id:number ) => void
+type PriceTableProps = {
+  prices:ProductPriceListItem[];
+  onEdit: (prod:ProductPriceListItem) => void;
+  handleDeactivate:(id: number) => void
 };
 
-export default function ProductTable({products,onEdit,handleDeactivate}: CategoryTableProps) {
+export default function ProductPriceTable({prices,onEdit,handleDeactivate}: PriceTableProps) {
+  
   return (
     <div className="border bg-white ">
       <Table  className="table-fixed w-full ">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">ID</TableHead>
-            <TableHead>Product</TableHead>
             <TableHead>Category</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right w-[120px]">Actions</TableHead>
+            <TableHead>Product</TableHead>
+            <TableHead>Size</TableHead>
+            <TableHead>Price Type</TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead>Created At</TableHead>
+            <TableHead className="text-center">Updated At</TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
-          {products.length === 0 ? (
+          {prices.length === 0 ? (
             <TableRow>
               <TableCell
                 colSpan={5}
@@ -45,33 +49,33 @@ export default function ProductTable({products,onEdit,handleDeactivate}: Categor
               </TableCell>
             </TableRow>
           ) : (
-            products.map((prod) => (
+            prices.map((prod) => (
               <TableRow key={prod.id}>
                 <TableCell className="font-mono text-xs">
                   #{prod.id}
                 </TableCell>
-
                 <TableCell className="font-medium">
-                  {prod.name}
+                  {prod.category.name}
                 </TableCell>
-
                 <TableCell>
-                  {prod.category.name || "—"}
+                  {prod.product.name }
                 </TableCell>
-
                 <TableCell>
-                  <span
-                    className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
-                      prod.isActive
-                        ? "bg-green-100 text-green-700"
-                        : "bg-slate-100 text-slate-600"
-                    }`}
-                  >
-                    {prod.isActive ? "Active" : "Inactive"}
-                  </span>
+                  {prod.size.name }
                 </TableCell>
-
-                <TableCell className="text-right">
+                 <TableCell>
+                  {prod.priceType }
+                </TableCell>
+                <TableCell>
+                  {prod.price }
+                </TableCell>
+                <TableCell>
+                  {prod.createAt }
+                </TableCell>
+                <TableCell className="text-center">
+                  {prod.updateAt || "-"}
+                </TableCell>
+                 <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button
                         onClick={() => onEdit(prod)}

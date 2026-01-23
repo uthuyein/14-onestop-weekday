@@ -1,6 +1,6 @@
 "use client";
 
-import { Edit2 } from "lucide-react";
+import { Edit2, Trash2 } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -10,18 +10,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { CategoryListItem } from "@/lib/type/category-types";
+import { Button } from "@/components/ui/button";
 
 
 
 type CategoryTableProps = {
   categories: CategoryListItem[];
   onEdit: (cat: CategoryListItem) => void;
+  handleDeactivate:(id: number) => void;
 };
 
-export default function CategoryTable({
-  categories,
-  onEdit,
-}: CategoryTableProps) {
+export default function CategoryTable({categories,onEdit,handleDeactivate}: CategoryTableProps) {
   return (
     <div className="rounded-md border bg-white">
       <Table>
@@ -70,16 +69,33 @@ export default function CategoryTable({
                   >
                     {cat.isActive ? "Active" : "Inactive"}
                   </span>
-                </TableCell>
-
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex justify-end gap-2">
+                      <Button
+                        onClick={() => onEdit(cat)}
+                        className="hover:bg-blue-50 text-blue-600 bg-bg-light"
+                      >
+                        <Edit2 className="w-4 h-4" />
+                      </Button>
+                     <Button
+                        onClick={() => handleDeactivate(cat.id)}
+                        className=" hover:bg-red-50 rounded text-red-600 bg-bg-light"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </TableCell>
+                {/* 
                 <TableCell className="text-right">
+                  
                   <button
                     onClick={() => onEdit(cat)}
                     className="inline-flex items-center justify-center w-8 h-8 hover:bg-slate-50 text-blue-600 transition-colors"
                   >
                     <Edit2 className="w-4 h-4" />
                   </button>
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))
           )}

@@ -1,3 +1,4 @@
+"use server"
 import { ProductPriceForm } from "../type/product-price-type";
 import { POST_CONFIG, PUT_CONFIG } from "../utils";
 import { request } from "./base.server";

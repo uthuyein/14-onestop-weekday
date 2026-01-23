@@ -1,18 +1,18 @@
 "use server"
 
-import { ProductForm } from "../type/product-types";
+import { SizeForm } from "../type/size-type";
 import { POST_CONFIG, PUT_CONFIG } from "../utils";
 import { request } from "./base.server";
 
-const  ENDPOINT ="admin/products"
+const  ENDPOINT ="admin/sizes"
 
-export async function getProducts() {
+export async function getSizes() {
   const res = await request(`${ENDPOINT}`)
   if (!res.ok) return [];
   return res.json();
 }
 
-export async function updateProduct(id:number ,form :ProductForm){
+export async function updateSize(id:number ,form :SizeForm){
      const response = await request(`${ENDPOINT}/${id}`, {
           ... PUT_CONFIG,
             body:JSON.stringify(form)
@@ -24,7 +24,7 @@ export async function updateProduct(id:number ,form :ProductForm){
   }
 }
 
-export async function createProduct(form :ProductForm){
+export async function createProduct(form :SizeForm){
      const response = await request(`${ENDPOINT}`, {
           ... POST_CONFIG,
             body:JSON.stringify(form)
@@ -35,7 +35,3 @@ export async function createProduct(form :ProductForm){
     throw new Error(`Create failed: ${errorText}`);
   }
 }
-
-
-
-
