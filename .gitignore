@@ -1,5 +1,6 @@
 # dependencies
 node_modules/
+package-lock.json
 
 # production
 dist/
@@ -33,6 +34,7 @@ Thumbs.db
 
 # Log file
 *.log
+
 
 # BlueJ files
 *.ctxt

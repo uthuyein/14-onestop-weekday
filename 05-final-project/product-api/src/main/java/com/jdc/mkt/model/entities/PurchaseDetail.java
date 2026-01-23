@@ -17,6 +17,8 @@ public class PurchaseDetail {
 	
 	private int qty;
 	
+	private boolean isActive;
+	
 	@ManyToOne
 	@JoinColumn(insertable = false,updatable = false)
 	private Purchase purchase;

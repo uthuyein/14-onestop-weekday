@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jdc.mkt.api.inputs.SaleDetailForm;
 import com.jdc.mkt.api.inputs.SaleForm;
 import com.jdc.mkt.api.inputs.search.SearchSaleForm;
+import com.jdc.mkt.api.outputs.SelectSale;
 import com.jdc.mkt.api.outputs.SelectSaleDetail;
 import com.jdc.mkt.model.entities.ProductPrice_;
 import com.jdc.mkt.model.entities.Sale;
@@ -71,6 +72,17 @@ public class SaleService {
 			}
 		}
 	}
+	
+	public List<SelectSale> findByIsActiveSale(){
+		return saleRepo.findAll().stream().filter(c -> c.isActive())
+				.map(SelectSale :: from).toList();
+	}
+	
+	public List<SelectSaleDetail> findByIsActiveSaleDetail(){
+		return detailRepo.findAll().stream().filter(c -> c.isActive())
+				.map(SelectSaleDetail :: from).toList();
+	}
+
 
 	/**
 	 * @param form

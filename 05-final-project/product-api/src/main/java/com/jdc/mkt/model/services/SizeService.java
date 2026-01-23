@@ -22,6 +22,10 @@ public class SizeService {
 	public List<Size> findAll() {
 		return repo.findAll();
 	}
+	
+	public List<Size> findByIsActive(){
+		return repo.findAll().stream().filter(c -> c.isActive()).toList();
+	}
 
 	public Size findById(Integer id) {
 		return repo.findById(id).orElseThrow();

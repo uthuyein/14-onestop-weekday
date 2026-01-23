@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.mkt.api.inputs.CustomerForm;
-import com.jdc.mkt.api.inputs.search.SearchCustomerForm;
 import com.jdc.mkt.api.outputs.SelectCustomer;
 import com.jdc.mkt.model.services.CustomerService;
 import com.jdc.mkt.utils.ModificationResult;
@@ -25,8 +24,8 @@ public class CustomerApi {
 	private CustomerService service;
 	
 	@GetMapping
-	List<SelectCustomer> findBy(@RequestBody SearchCustomerForm form){
-		return service.findBy(form);
+	List<SelectCustomer> findAll(){
+		return service.findByIsActive();
 	}
 		
 	@PostMapping

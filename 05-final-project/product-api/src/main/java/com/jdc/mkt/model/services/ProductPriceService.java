@@ -23,6 +23,11 @@ public class ProductPriceService {
 	
 	@Autowired
 	private ProductPriceRepo repo;
+	
+	public List<SelectProductPrice> findByIsActive(){
+		return repo.findAll().stream().filter(c -> c.isActive())
+				.map(SelectProductPrice :: from).toList();
+	}
 
 	public List<SelectProductPrice> findBy(SearchProductPriceForm form) {
 		return repo.findBy(cb -> {

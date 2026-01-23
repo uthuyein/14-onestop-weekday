@@ -9,7 +9,6 @@ import com.jdc.mkt.model.entities.ProductPrice.PriceType;
 import com.jdc.mkt.model.entities.ProductPrice_;
 import com.jdc.mkt.model.entities.Product_;
 import com.jdc.mkt.model.entities.Size;
-import com.jdc.mkt.model.entities.Size_;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -17,8 +16,8 @@ import jakarta.persistence.criteria.Root;
 
 public record SelectProductPrice(
 		Integer id,
-		Product product,
 		Category category,
+		Product product,	
 		Size size,
 		PriceType priceType,
 		Double price,
@@ -28,8 +27,8 @@ public record SelectProductPrice(
 
 	public static SelectProductPrice from(ProductPrice p) {
 		return new SelectProductPrice(p.getId(),
-				p.getProduct(),
 				p.getProduct().getCategory(),
+				p.getProduct(),
 				p.getSize(),
 				p.getPriceType(),
 				p.getPrice(), 
@@ -42,8 +41,8 @@ public record SelectProductPrice(
 				cb.construct(
 						SelectProductPrice.class,
 						root.get(ProductPrice_.id),
-						root.get(ProductPrice_.product),
 						root.get(ProductPrice_.product).get(Product_.category),
+						root.get(ProductPrice_.product),
 						root.get(ProductPrice_.size),
 						root.get(ProductPrice_.priceType),
 						root.get(ProductPrice_.price),

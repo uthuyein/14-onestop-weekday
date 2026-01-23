@@ -18,7 +18,7 @@ import com.jdc.mkt.model.services.SizeService;
 import com.jdc.mkt.utils.ModificationResult;
 
 @RestController
-@RequestMapping("/sizes")
+@RequestMapping("admin/sizes")
 public class SizeApi {
 
 	@Autowired
@@ -26,7 +26,7 @@ public class SizeApi {
 	
 	@GetMapping
 	List<Size> findAll(){
-		return service.findAll();
+		return service.findByIsActive();
 	}
 	
 	@GetMapping("{id}")

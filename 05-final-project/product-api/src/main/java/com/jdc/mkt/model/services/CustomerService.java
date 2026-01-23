@@ -24,6 +24,11 @@ public class CustomerService {
 
 	@Autowired
 	private CustomerRepo repo;
+	
+	public List<SelectCustomer> findByIsActive(){
+		return repo.findAll().stream().filter(c -> c.isActive())
+				.map(SelectCustomer :: from).toList();
+	}
 
 	public List<SelectCustomer> findBy(SearchCustomerForm form) {
 		return repo.findBy(SearchFunction(form));

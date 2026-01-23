@@ -36,7 +36,7 @@ public class SaleApi {
 	
 	@GetMapping
 	List<SelectSaleDetail> findBy(@RequestBody SearchSaleForm form){
-		return service.findBy(form);
+		return service.findByIsActiveSaleDetail();
 	}
 	
 	@GetMapping("/add")

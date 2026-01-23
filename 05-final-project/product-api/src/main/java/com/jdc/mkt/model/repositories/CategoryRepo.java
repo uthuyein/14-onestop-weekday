@@ -7,4 +7,6 @@ import com.jdc.mkt.model.entities.Category;
 public interface CategoryRepo extends BaseRepo<Category, Integer> {
 	List<Category> findByNameLikeIgnoreCaseAndIsActiveTrue(String name);
 
+
+
 }

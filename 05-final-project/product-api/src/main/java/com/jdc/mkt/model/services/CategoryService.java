@@ -21,6 +21,12 @@ public class CategoryService {
 
 	@Autowired
 	private CategoryRepo repo;
+	
+	public List<SelectCategory> findByIsActive(){
+		return repo.findAll().stream().filter(c -> c.isActive())
+				.map(cat -> SelectCategory.from(cat))
+				.toList();
+	}
 
 	public List<SelectCategory> findAll() {
 		var list = repo.findAll().stream().map(cat -> SelectCategory.from(cat)).toList();

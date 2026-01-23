@@ -22,8 +22,8 @@ public class SupplierService {
 	@Autowired
 	private SupplierRepo repo;
 
-	public List<SelectSupplier> findAll() {
-		return repo.findAll().stream().map(s -> SelectSupplier.from(s)).toList();
+	public List<SelectSupplier> findByIsActive() {
+		return repo.findAll().stream().filter(s -> s.isActive()).map(SelectSupplier :: from).toList();
 	}
 	
 	public List<SelectSupplier> findByName(String name) {

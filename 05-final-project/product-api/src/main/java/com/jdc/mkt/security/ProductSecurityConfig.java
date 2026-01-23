@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.ExceptionTranslationFilter;
 
-import com.jdc.mkt.model.entities.Account.Role;
 import com.jdc.mkt.security.exception.SecurityExceptionHandler;
 import com.jdc.mkt.security.token.JwtTokenFilter;
 

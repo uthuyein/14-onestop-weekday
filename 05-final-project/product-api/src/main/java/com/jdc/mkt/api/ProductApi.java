@@ -18,7 +18,7 @@ import com.jdc.mkt.model.services.ProductService;
 import com.jdc.mkt.utils.ModificationResult;
 
 @RestController
-@RequestMapping("member/products")
+@RequestMapping("admin/products")
 public class ProductApi {
 
 	@Autowired
@@ -26,7 +26,7 @@ public class ProductApi {
 	
 	@GetMapping
 	List<SelectProduct> findAll(){
-		return service.findAll();
+		return service.findByIsActive();
 	}
 	
 	@GetMapping("findBy")

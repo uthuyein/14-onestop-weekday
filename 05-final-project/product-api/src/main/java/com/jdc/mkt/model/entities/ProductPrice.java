@@ -31,6 +31,7 @@ public class ProductPrice {
 	private PriceType priceType;
 	
 	private Double price;
+	private boolean isActive;
 	
 	private LocalDate createAt;
 	private LocalDate updateAt;

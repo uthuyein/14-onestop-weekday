@@ -28,6 +28,16 @@ public class PurchaseService {
 	private PurchaseRepo repo;
 	@Autowired
 	private PurchaseDetailRepo detailRepo;
+	
+	public List<SelectPurchaseDetail> findByIsActiveDetail(){
+		return detailRepo.findAll().stream().filter(c -> c.isActive())
+				.map(SelectPurchaseDetail :: from).toList();
+	}
+	
+	public List<SelectPurchase> findByIsActive(){
+		return repo.findAll().stream().filter(c -> c.isActive())
+				.map(SelectPurchase :: from).toList();
+	}
 
 	@Transactional
 	public ModificationResult<Integer> update(Integer id, PurchaseForm form) {

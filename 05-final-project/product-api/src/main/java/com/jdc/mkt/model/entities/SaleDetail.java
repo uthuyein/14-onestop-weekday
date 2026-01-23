@@ -22,6 +22,8 @@ public class SaleDetail {
 	@JoinColumn(insertable = false,updatable = false)
 	private Sale sale;
 	
+	private boolean isActive;
+	
 	@ManyToOne
 	@JoinColumn(insertable = false,updatable = false)
 	private ProductPrice productPrice;

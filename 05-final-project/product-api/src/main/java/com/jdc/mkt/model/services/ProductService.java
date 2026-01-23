@@ -20,6 +20,11 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepo repo;
+	
+	public List<SelectProduct> findByIsActive(){
+		return repo.findAll().stream().filter(c -> c.isActive())
+				.map(SelectProduct :: from).toList();
+	}
 
 	public List<SelectProduct> findAll() {
 		return repo.findAll().stream().map(p -> SelectProduct.from(p)).toList();

@@ -3,6 +3,7 @@
  */
 package com.jdc.mkt.api.outputs;
 
+import com.jdc.mkt.model.entities.Account;
 import com.jdc.mkt.model.entities.Account_;
 import com.jdc.mkt.model.entities.Customer;
 import com.jdc.mkt.model.entities.Customer_;
@@ -31,15 +32,11 @@ import jakarta.persistence.criteria.Root;
  * @project product-api
  */
 public record SelectSaleDetail(
-		Integer accountId,
-		String username,
-		Integer customerId,
-		String customerName,
-		Integer productId,
-		String productName,
+		Account account,
+		Customer customer,
+		Product product,
+		Size size,
 		Double price,
-		Integer sizeId,
-		String sizeName,
 		Integer qty,
 		Double subTotal,
 		Double discount,
@@ -48,16 +45,19 @@ public record SelectSaleDetail(
 		
 		) {
 
-	/**
-	 * @param cb
-	 * @param cq
-	 * @param root
-	 * @param detail
-	 * @param product
-	 * @param size
-	 * @param customer
-	 * @return
-	 */
+	public static SelectSaleDetail from(SaleDetail sale) {
+		return new SelectSaleDetail(sale.getSale().getAccount(),
+				sale.getSale().getCustomer(),
+				sale.getProductPrice().getProduct(),
+				sale.getProductPrice().getSize(),
+				sale.getProductPrice().getPrice(),
+				sale.getQty(),
+				(sale.getQty()*sale.getProductPrice().getPrice()),
+				sale.getSale().getDiscount(),
+				sale.getSale().getTax(),
+				sale.getSale().getTotal());
+	}
+	
 	public static void select(CriteriaBuilder cb, CriteriaQuery<SelectSaleDetail> cq,
 			Root<Sale> root, ListJoin<Sale, SaleDetail> detail, Path<Product> product, Path<Size> size,
 			Join<Sale, Customer> customer) {
