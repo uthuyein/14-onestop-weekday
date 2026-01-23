@@ -13,11 +13,14 @@ import { ProductPriceForm, ProductPriceListItem, productPriceSchema } from "@/li
 import { SizeListItem } from "@/lib/type/size-type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Save } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export default function ProductPricePage({prices,sizes}:{prices : ProductPriceListItem[],sizes : SizeListItem[]}){
-
+    
+    const router = useRouter();
+    
     const form = useForm<ProductPriceForm>({
         resolver:zodResolver(productPriceSchema),
         defaultValues:{
@@ -51,17 +54,17 @@ export default function ProductPricePage({prices,sizes}:{prices : ProductPriceLi
     const isEditMode = !!watch("id"); 
 
     const onSubmit = async (form: ProductPriceForm) => {
-
      try {
         if (form.id) {
             await updateProductPrice(form.id, form);
-            toast.success("Category updated");
+            toast.success("Product Price updated");
         } else {
             await createProductPrice(form);
-            toast.success("Category created");
+            toast.success("Product Price created");
             }
 
             reset(); 
+            router.refresh()
         } catch (e) {
             toast.error("Something went wrong");
         }
@@ -72,8 +75,8 @@ export default function ProductPricePage({prices,sizes}:{prices : ProductPriceLi
         categoryId:prod.category.id,
         productId: prod.product.id,
         sizeId: prod.size.id,
-        priceType: "Sale",
-        price: 0,
+        priceType: prod.priceType,
+        price: prod.price,
         });
     };
     const handleDeactivate = async (id: number) => {
@@ -108,14 +111,14 @@ export default function ProductPricePage({prices,sizes}:{prices : ProductPriceLi
                 </div>
                 </div>
                 <div className="flex space-x-2 mb-3">
-                    <FormSelect className="w-60" label="Size" control={form.control} path="sizeId" options={sizes.map((size) => ({ key: size.id,value: size.name}))} placeholder="Select Size"/>
+                    <FormSelect className="w-60" label="Size" control={form.control} path="sizeId" options={sizes.map((size) => ({ key: size.id.toString(),value: size.name}))} placeholder="Select Size"/>
                     <FormDatePicker control={form.control} name="createAt" label="Created At" className="flex flex-col"/>
                     <FormInput className="w-60 mt-5.5" control={form.control} path="price"  placeholder="Enter price "/>                               
                    
                     <div className="items-baseline gap-2 mt-5 px-2">              
                         <Button type="submit"  className="hover:bg-blue-800 bg-blue-500">            
                         { isEditMode ? <Save className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-                        {isEditMode ? "Update Changes" : "Create Category"}
+                        {isEditMode ? "Update Changes" : "Create Product Price"}
                         </Button>
                     </div>
                </div>

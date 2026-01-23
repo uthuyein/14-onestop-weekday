@@ -12,9 +12,11 @@ import FormSelect from "@/components/forms/form-select";
 import ProductTable from "@/components/forms/tables/table-product";
 import { Button } from "@/components/ui/button";
 import { CategoryListItem } from "@/lib/type/category-types";
+import { useRouter } from "next/navigation";
 
 export default function ProductPage({ products,categories }: { products: ProductListItem[] ,categories:CategoryListItem[]}) {
-  
+  const router = useRouter();
+
     const form = useForm<ProductForm>({
       resolver: zodResolver(productSchema),
       defaultValues: {
@@ -50,6 +52,7 @@ export default function ProductPage({ products,categories }: { products: Product
             }
 
             reset(); 
+            router.refresh()
         } catch (e) {
             toast.error("Something went wrong");
         }

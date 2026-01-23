@@ -6,10 +6,11 @@ export const productPriceSchema = z.object({
     productId :z.number().nonoptional("Please select one product !"),
     sizeId :z.number().nonoptional("Please select one size !"),
     priceType:z.string().nonempty("Please select one type !"),
-    price :z.number(),
     createAt:z.date().optional(),
-    
-
+    price : z.preprocess(
+            (v) => (v === "" ? undefined : Number(v)),
+            z.number().positive("Price must be greater than 0")
+            )
 })
 
 export type ProductPriceForm = z.infer<typeof productPriceSchema>
