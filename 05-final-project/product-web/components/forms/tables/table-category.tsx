@@ -17,10 +17,10 @@ import { Button } from "@/components/ui/button";
 type CategoryTableProps = {
   categories: CategoryListItem[];
   onEdit: (cat: CategoryListItem) => void;
-  handleDeactivate:(cat: CategoryListItem,active : boolean) => void;
+  onDelete:(cat: CategoryListItem,active : boolean) => void;
 };
 
-export default function CategoryTable({categories,onEdit,handleDeactivate}: CategoryTableProps) {
+export default function CategoryTable({categories,onEdit,onDelete}: CategoryTableProps) {
   return (
     <div className="rounded-md border bg-white">
       <Table>
@@ -79,7 +79,7 @@ export default function CategoryTable({categories,onEdit,handleDeactivate}: Cate
                         <Edit2 className="w-4 h-4" />
                       </Button>
                      <Button
-                        onClick={() => handleDeactivate(cat,false)}
+                        onClick={() => onDelete(cat,false)}
                         className=" hover:bg-red-50 rounded text-red-600 bg-bg-light"
                       >
                         <Trash2 className="w-4 h-4" />

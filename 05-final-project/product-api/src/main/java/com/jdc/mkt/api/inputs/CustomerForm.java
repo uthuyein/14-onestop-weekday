@@ -3,19 +3,26 @@ package com.jdc.mkt.api.inputs;
 import com.jdc.mkt.model.entities.Address;
 import com.jdc.mkt.model.entities.Contact;
 import com.jdc.mkt.model.entities.Customer;
+import com.jdc.mkt.model.entities.Customer.MemberType;
 
 public record CustomerForm(
+		int id,
 		String name,
 		String state,
-		String township, 
+		String township,
+		MemberType memberType,
 		String street, 
 		String email, 
 		String primary,
-		String secondary) {
+		String secondary,
+		boolean isActive) {
 
 	public Customer entity(Customer cu) {
+		cu.setId(id);
 		cu.setName(name);
-
+		cu.setMemberType(memberType);
+		cu.setActive(isActive);
+		
 		var ad = new Address();
 		ad.setState(state);
 		ad.setTownship(township);

@@ -9,37 +9,38 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {ProductPriceListItem } from "@/lib/type/product-price-types";
 import { Button } from "@/components/ui/button";
+import { CustomerListItem } from "@/lib/type/customer-types";
 
 
 
-type PriceTableProps = {
-  prices:ProductPriceListItem[];
-  onEdit: (prod:ProductPriceListItem) => void;
-  onDelete:(prod:ProductPriceListItem,active:boolean) => void
+type CustomerTableProps = {
+  customers: CustomerListItem[];
+  onEdit: (cu: CustomerListItem) => void;
+  onDelete:(cu: CustomerListItem,active : boolean) => void;
 };
 
-export default function ProductPriceTable({prices,onEdit,onDelete}: PriceTableProps) {
-  
+export default function CustomerTable({customers,onEdit,onDelete}: CustomerTableProps) {
   return (
-    <div className="border bg-white ">
-      <Table  className="table-fixed w-full ">
+    <div className="rounded-md border bg-white">
+      <Table>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">ID</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Product</TableHead>
-            <TableHead>Size</TableHead>
-            <TableHead>Price Type</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead>Created At</TableHead>
-            <TableHead className="text-center">Updated At</TableHead>
+            <TableHead>Customer Name</TableHead>
+            <TableHead>Member Type</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Primary</TableHead>
+            <TableHead>Secondary</TableHead>
+            <TableHead>State</TableHead>
+            <TableHead>Township</TableHead>
+            <TableHead>Street</TableHead>
+            <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
-          {prices.length === 0 ? (
+          {customers.length === 0 ? (
             <TableRow>
               <TableCell
                 colSpan={5}
@@ -49,48 +50,55 @@ export default function ProductPriceTable({prices,onEdit,onDelete}: PriceTablePr
               </TableCell>
             </TableRow>
           ) : (
-            prices.map((prod) => (
-              <TableRow key={prod.id}>
+            customers.map((cu) => (
+              <TableRow key={cu.id}>
                 <TableCell className="font-mono text-xs">
-                  #{prod.id}
+                  #{cu.id}
                 </TableCell>
+
                 <TableCell className="font-medium">
-                  {prod.category.name}
+                  {cu.name}
+                </TableCell>
+
+                <TableCell>
+                  {cu.memberType || "—"}
+                </TableCell>
+
+                <TableCell>
+                  {cu.contact.email}
                 </TableCell>
                 <TableCell>
-                  {prod.product.name }
+                  {cu.contact.primaryPhone}
                 </TableCell>
                 <TableCell>
-                  {prod.size.name }
-                </TableCell>
-                 <TableCell>
-                  {prod.priceType }
+                  {cu.contact.secondaryPhone}
                 </TableCell>
                 <TableCell>
-                  {prod.price }
+                  {cu.address.state}
                 </TableCell>
                 <TableCell>
-                  {prod.createAt }
+                  {cu.address.township}
                 </TableCell>
-                <TableCell className="text-center">
-                  {prod.updateAt || "-"}
+                <TableCell>
+                  {cu.address.street}
                 </TableCell>
-                 <TableCell className="text-right">
+                  <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button
-                        onClick={() => onEdit(prod)}
+                        onClick={() => onEdit(cu)}
                         className="hover:bg-blue-50 text-blue-600 bg-bg-light"
                       >
                         <Edit2 className="w-4 h-4" />
                       </Button>
                      <Button
-                        onClick={() => onDelete(prod,false)}
+                        onClick={() => onDelete(cu,false)}
                         className=" hover:bg-red-50 rounded text-red-600 bg-bg-light"
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
                   </TableCell>
+                
               </TableRow>
             ))
           )}

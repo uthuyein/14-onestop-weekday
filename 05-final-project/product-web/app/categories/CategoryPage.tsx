@@ -4,7 +4,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Save} from "lucide-react";
-import { createCategory,deleteByCategory,updateCategory} from "@/lib/server/category.server";
+import { createCategory,updateCategory} from "@/lib/server/category.server";
 import { categorySchema ,CategoryForm, CategoryListItem} from "@/lib/type/category-types";
 import { Form } from "@/components/ui/form";
 import FormInput from "@/components/forms/form-input";
@@ -12,7 +12,6 @@ import FormSelect from "@/components/forms/form-select";
 import { toast } from "sonner";
 import CategoryTable from "@/components/forms/tables/table-category";
 import { Button } from "@/components/ui/button";
-import { boolean } from "zod";
 
 export default function CategoryPage({ categories }: { categories: CategoryListItem[] }) {
   

@@ -9,7 +9,7 @@ import { Form, FormField } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { createProductPrice, updateProductPrice } from "@/lib/server/product.price.server";
-import { ProductPriceForm, ProductPriceListItem, productPriceSchema } from "@/lib/type/product-price-type";
+import { ProductPriceForm, ProductPriceListItem, productPriceSchema } from "@/lib/type/product-price-types";
 import { SizeListItem } from "@/lib/type/size-type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Save } from "lucide-react";

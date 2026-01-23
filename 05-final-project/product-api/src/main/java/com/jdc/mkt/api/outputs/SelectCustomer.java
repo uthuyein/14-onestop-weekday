@@ -1,9 +1,7 @@
 package com.jdc.mkt.api.outputs;
 
 import com.jdc.mkt.model.entities.Address;
-import com.jdc.mkt.model.entities.Address_;
 import com.jdc.mkt.model.entities.Contact;
-import com.jdc.mkt.model.entities.Contact_;
 import com.jdc.mkt.model.entities.Customer;
 import com.jdc.mkt.model.entities.Customer.MemberType;
 import com.jdc.mkt.model.entities.Customer_;
@@ -17,13 +15,9 @@ public record SelectCustomer(
 		Integer id,
 		String name,
 		MemberType memberType,
-		String email,
-		String primaryPh,
-		String secondaryPh,
-		String state,
-		String township,
-		String street
-		
+		Contact contact,
+		Address address
+				
 		) {
 
 	public static void select(
@@ -38,13 +32,8 @@ public record SelectCustomer(
 						root.get(Customer_.id),
 						root.get(Customer_.name),
 						root.get(Customer_.memberType),
-						contact.get(Contact_.email),
-						contact.get(Contact_.primaryPhone),
-						contact.get(Contact_.secondaryPhone),
-						address.get(Address_.state),
-						address.get(Address_.township),
-						address.get(Address_.street))						
-				);
+						root.get(Customer_.contact),
+						root.get(Customer_.address)));
 	}
 
 	public static SelectCustomer from(Customer cu) {
@@ -52,12 +41,9 @@ public record SelectCustomer(
 				cu.getId(),
 				cu.getName(),
 				cu.getMemberType(),
-				cu.getContact().getEmail(),
-				cu.getContact().getPrimaryPhone(),
-				cu.getContact().getSecondaryPhone(),
-				cu.getAddress().getState(), 
-				cu.getAddress().getTownship(),
-				cu.getAddress().getStreet());
+				cu.getContact(),
+				cu.getAddress() 
+				);
 	}
 
 }
