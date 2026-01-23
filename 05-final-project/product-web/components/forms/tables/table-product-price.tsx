@@ -17,10 +17,10 @@ import { Button } from "@/components/ui/button";
 type PriceTableProps = {
   prices:ProductPriceListItem[];
   onEdit: (prod:ProductPriceListItem) => void;
-  handleDeactivate:(id: number) => void
+  onDelete:(prod:ProductPriceListItem,active:boolean) => void
 };
 
-export default function ProductPriceTable({prices,onEdit,handleDeactivate}: PriceTableProps) {
+export default function ProductPriceTable({prices,onEdit,onDelete}: PriceTableProps) {
   
   return (
     <div className="border bg-white ">
@@ -84,7 +84,7 @@ export default function ProductPriceTable({prices,onEdit,handleDeactivate}: Pric
                         <Edit2 className="w-4 h-4" />
                       </Button>
                      <Button
-                        onClick={() => handleDeactivate(prod.id)}
+                        onClick={() => onDelete(prod,false)}
                         className=" hover:bg-red-50 rounded text-red-600 bg-bg-light"
                       >
                         <Trash2 className="w-4 h-4" />

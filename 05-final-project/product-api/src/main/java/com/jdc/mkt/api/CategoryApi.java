@@ -41,7 +41,7 @@ public class CategoryApi {
 	}
 	
 	@PutMapping("{id}")
-	ModificationResult<Integer> update(@PathVariable Integer id, @Validated @RequestBody CategoryForm form){
+	ModificationResult<Integer> update(@PathVariable Integer id, @Validated @RequestBody(required = false) CategoryForm form){
 		return service.update(id,form);
 	}
 }

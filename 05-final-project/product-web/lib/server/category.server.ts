@@ -28,7 +28,8 @@ export async function createCategory(data: CategoryForm) {
   return { success: true };
 }
 
- export async function updateCategory(id: number, data: CategoryForm) {
+ export async function updateCategory(id: number, data: CategoryForm) { 
+
      const response = await request(`${ENDPOINT}/${id}`, {
       ... PUT_CONFIG,
         body:JSON.stringify(data)

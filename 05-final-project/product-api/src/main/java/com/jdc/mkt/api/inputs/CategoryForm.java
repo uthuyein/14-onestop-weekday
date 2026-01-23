@@ -22,6 +22,7 @@ public record CategoryForm(
 			catId.setId(subCategoryId);
 			cat.setCategory(catId);
 		}
+		
 		return cat;
 	}
 

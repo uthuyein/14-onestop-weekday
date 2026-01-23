@@ -37,18 +37,17 @@ export default function ProductPage({ products,categories }: { products: Product
         return true;
         });
 
-    const handleDeactivate = async (id: number) => {
-   
-    };
+    
     const onSubmit = async (form: ProductForm) => {
-
+          
      try {
         if (form.id) {
             await updateProduct(form.id, form);
-            toast.success("Category updated");
+           
+            toast.success(form.isActive ? "Product updated":"Product deleted");
         } else {
             await createProduct(form);
-            toast.success("Category created");
+            toast.success("Product created");
             }
 
             reset(); 
@@ -58,11 +57,11 @@ export default function ProductPage({ products,categories }: { products: Product
         }
     };
 
-    const handleEdit = (prod: ProductListItem) => {
+    const handleEdit = (prod: ProductListItem,active?:boolean) => {
       reset({
         id: prod.id,      
         name: prod.name,
-        isActive:prod.isActive,
+        isActive:active,
         categoryId:prod.category.id  
       });
     };
@@ -93,11 +92,11 @@ export default function ProductPage({ products,categories }: { products: Product
   
                 </div>
                 </div>
-              </form>
-          </Form> 
+             
           {/* <ProductSearchForm /> */}
-          <ProductTable products={filteredProducts} onEdit={handleEdit} handleDeactivate={handleDeactivate} />
-          
+          <ProductTable products={filteredProducts} onEdit={handleEdit} onDelete={handleEdit} />
+           </form>
+          </Form> 
       </div>
     );
   }

@@ -6,3 +6,8 @@ export type OptionItem = {
     key: string;
     value: string | number;
 };
+
+export type Active={
+    key:string,
+    value:string
+}

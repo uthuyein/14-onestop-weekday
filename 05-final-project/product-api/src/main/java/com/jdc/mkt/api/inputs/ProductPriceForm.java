@@ -17,7 +17,8 @@ public record ProductPriceForm(
 		@NotNull(message = "Please select price type !")
 		PriceType priceType,
 		@NotNull(message = "Please type product price !")
-		Double price
+		Double price,
+		boolean isActive
 		) {
 	
 	public ProductPrice entity(ProductPrice p) {
@@ -27,6 +28,7 @@ public record ProductPriceForm(
 		p.setPriceType(priceType);
 		p.setPrice(price);
 		p.setCreateAt(LocalDate.now());
+		p.setActive(isActive);
 		
 		if(null != p.getId()) {
 			p.setUpdateAt(LocalDate.now());

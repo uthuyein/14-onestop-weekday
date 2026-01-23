@@ -24,11 +24,13 @@ export default function ProductPricePage({prices,sizes}:{prices : ProductPriceLi
     const form = useForm<ProductPriceForm>({
         resolver:zodResolver(productPriceSchema),
         defaultValues:{
+            
             categoryId:undefined,
             productId:undefined,
             sizeId:undefined,
             priceType:"Sale",
-            price:undefined
+            price:undefined,
+            
         }
     })
     const {watch,reset} = form
@@ -56,7 +58,7 @@ export default function ProductPricePage({prices,sizes}:{prices : ProductPriceLi
     const onSubmit = async (form: ProductPriceForm) => {
      try {
         if (form.id) {
-            await updateProductPrice(form.id, form);
+            await updateProductPrice(form.id, form);        
             toast.success("Product Price updated");
         } else {
             await createProductPrice(form);
@@ -70,18 +72,18 @@ export default function ProductPricePage({prices,sizes}:{prices : ProductPriceLi
         }
     };
     
-    const handleEdit = (prod: ProductPriceListItem) => {
+    const handleEdit = (prod: ProductPriceListItem,active?:boolean) => {
         reset({
+        id:prod.id,
         categoryId:prod.category.id,
         productId: prod.product.id,
         sizeId: prod.size.id,
         priceType: prod.priceType,
         price: prod.price,
+        isActive:active
         });
     };
-    const handleDeactivate = async (id: number) => {
-   
-    };
+    
     return(
         <div className="w-full space-y-5 p-5">
             <div className="flex space-x-1 items-center">
@@ -122,9 +124,10 @@ export default function ProductPricePage({prices,sizes}:{prices : ProductPriceLi
                         </Button>
                     </div>
                </div>
+               <ProductPriceTable prices={filteredPrices}  onEdit={handleEdit} onDelete={handleEdit}/>
                </form>
             </Form>
-            <ProductPriceTable prices={filteredPrices}  onEdit={handleEdit} handleDeactivate={handleDeactivate}/>
+            
         </ div>
     );
 }

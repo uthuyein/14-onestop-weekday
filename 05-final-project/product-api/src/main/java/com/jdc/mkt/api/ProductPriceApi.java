@@ -45,7 +45,7 @@ public class ProductPriceApi {
 	}
 	
 	@PutMapping("{id}")
-	ModificationResult<Integer> update(@PathVariable Integer id, @RequestBody ProductPriceForm form ){
+	ModificationResult<Integer> update(@PathVariable Integer id, @RequestBody(required = false) ProductPriceForm form ){
 		return service.update(id,form);
 	}
 	

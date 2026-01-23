@@ -17,10 +17,10 @@ import { Button } from "@/components/ui/button";
 type CategoryTableProps = {
   products: ProductListItem[];
   onEdit: (prod: ProductListItem) => void;
-  handleDeactivate:(id:number ) => void
+  onDelete:(prod: ProductListItem,active:boolean ) => void
 };
 
-export default function ProductTable({products,onEdit,handleDeactivate}: CategoryTableProps) {
+export default function ProductTable({products,onEdit,onDelete}: CategoryTableProps) {
   return (
     <div className="border bg-white ">
       <Table  className="table-fixed w-full ">
@@ -80,7 +80,7 @@ export default function ProductTable({products,onEdit,handleDeactivate}: Categor
                         <Edit2 className="w-4 h-4" />
                       </Button>
                      <Button
-                        onClick={() => handleDeactivate(prod.id)}
+                        onClick={() => onDelete(prod,false)}
                         className=" hover:bg-red-50 rounded text-red-600 bg-bg-light"
                       >
                         <Trash2 className="w-4 h-4" />

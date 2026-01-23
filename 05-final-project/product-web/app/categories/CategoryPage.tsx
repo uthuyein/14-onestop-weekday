@@ -4,7 +4,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Save} from "lucide-react";
-import { createCategory,updateCategory} from "@/lib/server/category.server";
+import { createCategory,deleteByCategory,updateCategory} from "@/lib/server/category.server";
 import { categorySchema ,CategoryForm, CategoryListItem} from "@/lib/type/category-types";
 import { Form } from "@/components/ui/form";
 import FormInput from "@/components/forms/form-input";
@@ -12,6 +12,7 @@ import FormSelect from "@/components/forms/form-select";
 import { toast } from "sonner";
 import CategoryTable from "@/components/forms/tables/table-category";
 import { Button } from "@/components/ui/button";
+import { boolean } from "zod";
 
 export default function CategoryPage({ categories }: { categories: CategoryListItem[] }) {
   
@@ -25,19 +26,15 @@ export default function CategoryPage({ categories }: { categories: CategoryListI
     });
     const { reset, watch } = form;
 
-    const handleEdit = (cat: CategoryListItem) => {
+    const handleEdit = (cat: CategoryListItem,active? :boolean) => {
+      
       reset({
         id: cat.id,       
         name: cat.name,
         subCategoryId: cat.subCategory ? cat.subCategory.id : undefined,
-        isActive:cat.isActive
+        isActive:active
         });
     };
-
-    const handleDeactivate = async (id: number) => {
-    
-    };
-
 
     const onSubmit = async (form: CategoryForm) => {
       try {
@@ -77,12 +74,12 @@ export default function CategoryPage({ categories }: { categories: CategoryListI
                 </Button>
             </div>
             </div>
-          </form>
-      </Form>
+         
       
       {/* --- TABLE SECTION --- */}
-      <CategoryTable categories={categories} onEdit={handleEdit} handleDeactivate={handleDeactivate}/>
-    
+      <CategoryTable categories={categories} onEdit={handleEdit} onDelete={handleEdit}/>
+     </form>
+    </Form>
     </div>
   );
 }

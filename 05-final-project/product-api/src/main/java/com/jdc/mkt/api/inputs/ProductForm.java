@@ -22,7 +22,7 @@ public record ProductForm(
 		p.setName(name);
 		
 		p.setCategory(c);
-		p.setActive(p.isActive());
+		p.setActive(isActive);
 		return p;
 	}
 
