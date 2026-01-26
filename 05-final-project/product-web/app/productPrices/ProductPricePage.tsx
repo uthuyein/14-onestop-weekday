@@ -23,14 +23,14 @@ export default function ProductPricePage({prices,sizes}:{prices : ProductPriceLi
     
     const form = useForm<ProductPriceForm>({
         resolver:zodResolver(productPriceSchema),
-        defaultValues:{
-            
+        defaultValues:{           
             categoryId:undefined,
             productId:undefined,
             sizeId:undefined,
             priceType:"Sale",
             price:undefined,
-            
+            createAt:new Date(),
+            udpateAt:new Date()
         }
     })
     const {watch,reset} = form
@@ -38,12 +38,14 @@ export default function ProductPricePage({prices,sizes}:{prices : ProductPriceLi
     const productId = watch("productId");
     const sizeId = watch("sizeId");
     const priceType = watch("priceType");
+    const createAt = watch("createAt")
 
     const filteredPrices = prices.filter((p) => {
         if (categoryId && p.category.id !== categoryId) return false;
         if (productId && p.product.id !== productId) return false;
         if (sizeId && p.size.id !== sizeId) return false;
         if (priceType && p.priceType !== priceType) return false;
+        // if(createAt && p.createAt !== createAt) return false
         return true;
         });
    
@@ -56,12 +58,14 @@ export default function ProductPricePage({prices,sizes}:{prices : ProductPriceLi
     const isEditMode = !!watch("id"); 
 
     const onSubmit = async (form: ProductPriceForm) => {
+         console.log("create ::::"+form.categoryId)
      try {
         if (form.id) {
             await updateProductPrice(form.id, form);        
             toast.success("Product Price updated");
         } else {
             await createProductPrice(form);
+            
             toast.success("Product Price created");
             }
 
@@ -74,13 +78,14 @@ export default function ProductPricePage({prices,sizes}:{prices : ProductPriceLi
     
     const handleEdit = (prod: ProductPriceListItem,active?:boolean) => {
         reset({
-        id:prod.id,
-        categoryId:prod.category.id,
-        productId: prod.product.id,
-        sizeId: prod.size.id,
-        priceType: prod.priceType,
-        price: prod.price,
-        isActive:active
+            id:prod.id,
+            categoryId:prod.category.id,
+            productId: prod.product.id,
+            sizeId: prod.size.id,
+            priceType: prod.priceType,
+            price: prod.price,
+            isActive:active,
+            
         });
     };
     

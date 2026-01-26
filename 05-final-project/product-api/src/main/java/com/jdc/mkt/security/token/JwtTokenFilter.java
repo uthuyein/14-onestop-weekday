@@ -30,10 +30,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
-		var token = request.getHeader("Authorization");
+var authToken = request.getHeader("Authorization");
+		
+		if(StringUtils.hasLength(authToken) && authToken.startsWith(JwtTokenProvider.PREFIX)) {
+			var authentication = tokenProvider.parseAccess(authToken.substring(JwtTokenProvider.PREFIX.length()));
 			
-		if(StringUtils.hasLength(token)) {
-			SecurityContextHolder.getContext().setAuthentication(tokenProvider.parseAccess(token));
+			if(null != authentication) {
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
 		}
 		
 		filterChain.doFilter(request, response);

@@ -44,6 +44,7 @@ public class JwtTokenProvider {
 	private int refreshLife;
 	
 	private SecretKey key = Jwts.SIG.HS256.key().build();
+	public static final String PREFIX = "Bearer ";
 	
 	public enum Type {
 		Access,Refresh

@@ -30,6 +30,7 @@ export default function ProductPage({ products,categories }: { products: Product
 
     const categoryId = watch("categoryId");
     const name = watch("name");
+
     
     const filteredProducts = products.filter((p) => {
         if (categoryId && p.category.id !== categoryId) return false;
@@ -42,9 +43,9 @@ export default function ProductPage({ products,categories }: { products: Product
           
      try {
         if (form.id) {
-            await updateProduct(form.id, form);
-           
+            await updateProduct(form.id, form);        
             toast.success(form.isActive ? "Product updated":"Product deleted");
+            
         } else {
             await createProduct(form);
             toast.success("Product created");
@@ -64,6 +65,7 @@ export default function ProductPage({ products,categories }: { products: Product
         isActive:active,
         categoryId:prod.category.id  
       });
+      reset();
     };
     const isEditMode = !!watch("id");
 

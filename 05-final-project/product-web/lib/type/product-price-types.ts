@@ -6,7 +6,8 @@ export const productPriceSchema = z.object({
     productId :z.number().nonoptional("Please select one product !"),
     sizeId :z.number().nonoptional("Please select one size !"),
     priceType:z.string().nonempty("Please select one type !"),
-    createAt:z.date().optional(),
+    createAt:z.date() .optional(),
+    udpateAt:z.date() .optional(),
     isActive:z.boolean(),
     price : z.preprocess(
             (v) => (v === "" ? undefined : Number(v)),
@@ -34,8 +35,8 @@ export type ProductPriceListItem = {
 ,
     price:number,
     isActive:boolean,
-    createAt?:string,
-    updateAt?:string
+    createAt?:Date,
+    updateAt?:Date
 }
 
 
