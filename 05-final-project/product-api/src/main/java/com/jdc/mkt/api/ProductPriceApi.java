@@ -42,9 +42,10 @@ public class ProductPriceApi {
 		@RequestParam(required = false) LocalDate dateFrom,
 		@RequestParam(required = false) LocalDate dateTo){
 		var form = new SearchProductPriceForm(category,product,size,priceType,dateFrom,dateTo);
+		
 		var list = service.findBy(form);
-		System.out.println(list);
-		return service.findBy(form);
+		System.out.println("name :::"+category+"\t=>"+list);
+		return list;
 	}
 	
 	@GetMapping("{id}")

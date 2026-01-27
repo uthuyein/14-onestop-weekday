@@ -35,15 +35,15 @@ public class SearchProductPriceForm {
 		var params = new ArrayList<Predicate>();
 		
 		if(StringUtils.hasLength(category)) {
-			params.add(cb.equal(root.get(ProductPrice_.product).get(Product_.category).get(Category_.name), category));
+			params.add(cb.equal(root.get(ProductPrice_.product).get(Product_.category).get(Category_.id), category));
 		}
 		
 		if(StringUtils.hasLength(product)) {
-			params.add(cb.like(cb.lower(root.get(ProductPrice_.product).get(Product_.name)), product.concat("%")));
+			params.add(cb.equal(root.get(ProductPrice_.product).get(Product_.id), product));
 		}
 		
 		if(StringUtils.hasLength(size)) {
-			params.add(cb.equal(root.get(ProductPrice_.size).get(Size_.name), size));
+			params.add(cb.equal(root.get(ProductPrice_.size).get(Size_.id), size));
 		}
 		
 		if(null != priceType) {

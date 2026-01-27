@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { createProductPrice, updateProductPrice } from "@/lib/server/product.price.server";
 import { CategoryListItem } from "@/lib/type/category-types";
-import { ProductPriceForm, ProductPriceListItem, productPriceSchema } from "@/lib/type/product-price-types";
+import { ProductPriceForm, SelectProductPriceList, productPriceSchema } from "@/lib/type/product-price-types";
 import { ProductListItem } from "@/lib/type/product-types";
 import { SizeListItem } from "@/lib/type/size-type";
 import { zodResolver } from "@hookform/resolvers/zod";
