@@ -1,11 +1,11 @@
 "use server"
-import { ProductPriceForm } from "../type/product-price-types";
-import { POST_CONFIG, PUT_CONFIG } from "../utils";
+import { ProductPriceForm, ProductPriceListItem ,SearchProductPriceForm} from "../type/product-price-types";
+import { GET_CONFIG, POST_CONFIG, PUT_CONFIG } from "../utils";
 import { request } from "./base.server";
 
 const ENDPOINT = "admin/prices"
 
-export async function getProductPrices(){
+export async function getProductPrices():Promise<ProductPriceListItem[]>{
      const res = await request(`${ENDPOINT}`)
       if (!res.ok) return [];
       return res.json();
@@ -33,4 +33,30 @@ export async function createProductPrice(form :ProductPriceForm){
     const errorText = await response.text();
     throw new Error(`Create failed: ${errorText}`);
   }
+
+}
+
+export async function findProductPrices(
+        form: SearchProductPriceForm
+      ): Promise<ProductPriceListItem[]> {
+
+        const params = new URLSearchParams()
+
+        Object.entries(form).forEach(([key, value]) => {
+          if (value !== undefined && value !== "") {
+            params.append(key, String(value))
+          }
+        })
+
+        const response = await request(`${ENDPOINT}/find?${params.toString()}`, {
+          ... GET_CONFIG,    
+        })
+
+      if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Create failed: ${errorText}`);
+        }
+
+
+  return response.json()
 }

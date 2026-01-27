@@ -17,6 +17,12 @@ export function queryString(form:{[key:string]: unknown}){
     return params.toString();
 }
 
+export const GET_CONFIG:RequestInit = {
+  method: "Get",
+  cache: "no-store",
+    
+}
+
 export const POST_CONFIG:RequestInit = {
   method: "POST",
   headers: {

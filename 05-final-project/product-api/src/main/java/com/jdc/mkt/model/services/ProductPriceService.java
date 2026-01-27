@@ -10,6 +10,7 @@ import com.jdc.mkt.api.inputs.ProductPriceForm;
 import com.jdc.mkt.api.inputs.search.SearchProductPriceForm;
 import com.jdc.mkt.api.outputs.SelectProductPrice;
 import com.jdc.mkt.model.entities.ProductPrice;
+import com.jdc.mkt.model.entities.ProductPrice_;
 import com.jdc.mkt.model.repositories.ProductPriceRepo;
 import com.jdc.mkt.utils.ModificationResult;
 import com.jdc.mkt.utils.ModificationResult.ModifiedType;
@@ -25,8 +26,10 @@ public class ProductPriceService {
 	private ProductPriceRepo repo;
 	
 	public List<SelectProductPrice> findByIsActive(){
-		return repo.findAll().stream().filter(c -> c.isActive())
+		var list = repo.findAll().stream().filter(c -> c.isActive())
 				.map(SelectProductPrice :: from).toList();
+		System.out.println(list);
+		return list;
 	}
 
 	public List<SelectProductPrice> findBy(SearchProductPriceForm form) {
@@ -36,6 +39,7 @@ public class ProductPriceService {
 
 			SelectProductPrice.select(cb, cq, root);
 			cq.where(form.where(cb, root));
+			cb.desc(root.get(ProductPrice_.createAt));
 
 			return cq;
 		});

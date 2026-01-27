@@ -1,6 +1,8 @@
 
-import { ChartColumnStacked, CircleDollarSign, FileText, Handbag, Home, ShoppingBasket, UserLock, UserRoundPen, UserStar } from "lucide-react";
+import { Home, UserLock,} from "lucide-react";
+import { Menubar,MenubarCheckboxItem,MenubarContent,MenubarMenu, MenubarTrigger,} from "@/components/ui/menubar"
 import Link from "next/link";
+import { MenubarCheckbox } from "./menu-bar-menu";
 
 export default function MenuBar() {
     return (
@@ -11,36 +13,39 @@ export default function MenuBar() {
                    <Home/> Product Store
                 </Link>
                <div className="flex">
-                    <div className="flex gap-2">
-                         <Link href="/categories" className="flex items-center gap-2 px-2 py-2">
-                         <ChartColumnStacked/> Category 
-                         </Link>
-                         <Link href="/products" className="flex items-center gap-2 px-2 py-2">
-                              <FileText/> Product 
-                         </Link> 
-                         <Link href="/productPrices" className="flex items-center gap-2 px-2 py-2">
-                              <CircleDollarSign/> Product Price
-                         </Link> 
-                         <Link href="/customers" className="flex items-center gap-2 px-2 py-2">
-                              <UserStar/> Customer 
-                         </Link> 
-                         <Link href="/suppliers" className="flex items-center gap-2 px-2 py-2">
-                              <UserRoundPen/> Supplier 
-                         </Link> 
-                         <Link href="/purchases" className="flex items-center gap-2 px-2 py-2">
-                              <Handbag/> Purchase
-                         </Link> 
-                         <Link href="/sales" className="flex items-center gap-2 px-2 py-2">
-                              <ShoppingBasket/> Sales
-                         </Link>              
-                    </div> 
+                         <Menubar className="border-0 shadow-none" >
+                         < MenubarCheckbox  items={[
+                              { link: "/categories", name: "Category Form",},
+                               { link: "/products", name: "Product Form"}
+                              ]} menu={"Product "} pIcon="FileText"/>                      
+                          < MenubarCheckbox  items={[
+                              { link: "/productPrices/edit", name: "Product Price Form",},
+                               { link: "/productPrices/search", name: "Product Price List"}
+                              ]} menu={"Product Price"} pIcon="CircleDollarSign"/>
+                           < MenubarCheckbox  items={[
+                              { link: "/customers", name: "Customer Form" },
+                              { link: "/customers/search", name: "Customer List"}
+                              ]} menu={"Customer"} pIcon="UserStar"/>
+                         < MenubarCheckbox  items={[
+                              { link: "/purchases", name: "Purchase Form" },
+                              { link: "/purchases/search", name: "Purchase List"}
+                              ]} menu={"Purchase"} pIcon="Handbag"/>
+                         < MenubarCheckbox  items={[
+                              { link: "/sales", name: "Purchase Form" },
+                              { link: "/sales/search", name: "Sale List"}
+                              ]} menu={"Sale"} pIcon="ShoppingBasket"/>             
+                     </Menubar>
                     <div className="px-3 ms-5">
                          <Link href="/sales" className="flex text-blue-400 items-center gap-2 px-2 py-2">
                               <UserLock/>
                          </Link> 
                     </div>
+                    
                </div>            
             </div>
         </nav>
     );
 }
+
+
+

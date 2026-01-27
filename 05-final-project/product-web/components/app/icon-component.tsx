@@ -1,4 +1,4 @@
-import { IconType } from '@/lib/types'
+import { IconType } from '@/lib/type/types'
 import * as lucideIcons from 'lucide-react'
 
 export default function IconComponent({icon,className} :{icon : IconType, className? : string}){

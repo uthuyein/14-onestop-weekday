@@ -1,5 +1,6 @@
 package com.jdc.mkt.api;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.mkt.api.inputs.ProductPriceForm;
 import com.jdc.mkt.api.inputs.search.SearchProductPriceForm;
 import com.jdc.mkt.api.outputs.SelectProductPrice;
+import com.jdc.mkt.model.entities.ProductPrice.PriceType;
 import com.jdc.mkt.model.services.ProductPriceService;
 import com.jdc.mkt.utils.ModificationResult;
 
@@ -29,8 +32,18 @@ public class ProductPriceApi {
 	List<SelectProductPrice> findAll(){
 		return service.findByIsActive();
 	}
-	@GetMapping("findBy")
-	List<SelectProductPrice> findBy(@RequestBody(required = false) SearchProductPriceForm form){
+	
+	@GetMapping("find")
+	List<SelectProductPrice> findBy(
+		@RequestParam(required = false) String category,
+		@RequestParam(required = false) String product,
+		@RequestParam(required = false) String size,
+		@RequestParam(required = false) PriceType priceType,
+		@RequestParam(required = false) LocalDate dateFrom,
+		@RequestParam(required = false) LocalDate dateTo){
+		var form = new SearchProductPriceForm(category,product,size,priceType,dateFrom,dateTo);
+		var list = service.findBy(form);
+		System.out.println(list);
 		return service.findBy(form);
 	}
 	
