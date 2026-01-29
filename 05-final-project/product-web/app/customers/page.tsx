@@ -33,19 +33,17 @@ export default function Page() {
   const search = useForm<SearchCustomer>({
     defaultValues: { 
       type:"",
-      keyword: "" 
-      
+      keyword: ""       
     },
-
   });
 
   const router = useRouter();
   const { reset, watch } = form;
+
   const isEditMode = !!form.watch("id");
 
   const onSubmit = async (data: CustomerForm) => {
-    try {
-       
+    try {    
       if (data.id) {
         await updateCustomer(data.id, data);
         toast.success("Customer updated");
@@ -60,9 +58,9 @@ export default function Page() {
       toast.error("Something went wrong");
     }
   };
+
 const handleDelete = async (id: number) => {
   try {
-    console.log("Delete :::  "+id)
     await deactivateCustomer(id);
     toast.success("Customer deactivated"); 
     handleSearch();   
@@ -101,7 +99,7 @@ const handleDelete = async (id: number) => {
   }, []);
 
   return (
-    <div className="space-y-4">
+    <div className="w-full space-y-4">
       <CustomerPage
         form={form}
         isEdit={isEditMode}
@@ -109,7 +107,7 @@ const handleDelete = async (id: number) => {
         handleSearch={handleSearch}
         onSubmit={onSubmit}
       />
-
+      {/* <CustomerSearchPage search={search} handleSearch={handleSearch}/> */}
       <CustomerTable
         customers={selectCustomer}
         loading={loading}

@@ -22,7 +22,6 @@ export const customerSchema = z.object({
 
 
 export type CustomerForm = z.infer<typeof customerSchema>
-
 export type MemberType = typeof MemberType[keyof typeof MemberType];
 
 export const MemberTypeList = Object.values(MemberType);

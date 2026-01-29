@@ -7,13 +7,9 @@ import { SearchProductPriceForm, SelectProductPrice } from "@/lib/type/product-p
 import ProductPriceTable from "@/components/forms/tables/table-product-price"
 import ProductPriceSearchForm from "./ProductPriceSearch"
 
-
-
-
 export default  function ProductPricePage() {
 
 const [productPrices, setProductPrices] =  useState<SelectProductPrice[]>([])
-
 
   const handleSearch = async (form: SearchProductPriceForm) => {
     const params = {

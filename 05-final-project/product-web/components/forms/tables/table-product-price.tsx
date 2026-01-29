@@ -17,13 +17,7 @@ import { Button } from "@/components/ui/button";
 type PriceTableProps = {
   prices:SelectProductPrice[];
   onEdit: (prod:SelectProductPrice) => void;
-  onDelete:(prod: SelectProductPrice,active:boolean ) => void
-};
-
-type SelectPriceTableProps = {
-  prices:SelectProductPrice[];
-  select: (prod:SelectProductPrice) => void;
- 
+  onDelete:(id:number ) => void
 };
 
 export default function ProductPriceTable({prices,onEdit,onDelete}: PriceTableProps) {
@@ -80,22 +74,27 @@ export default function ProductPriceTable({prices,onEdit,onDelete}: PriceTablePr
                 <TableCell className="text-center">
                   {prod.updateAt? new Date(prod.updateAt).toLocaleDateString() : "-"}
                 </TableCell>
-                 <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        onClick={() => onEdit(prod)}
-                        className="hover:bg-blue-50 text-blue-600 bg-bg-light"
-                      >
-                        <Edit2 className="w-4 h-4" />
-                      </Button>
-                     <Button
-                        onClick={() => onDelete(prod,false)}
-                        className=" hover:bg-red-50 rounded text-red-600 bg-bg-light"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
+                  <TableCell className="text-right">
+                  <div className="flex justify-end gap-2">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => onEdit?.(prod)}
+                      className="text-blue-600 hover:bg-blue-50"
+                    >
+                      <Edit2 className="w-4 h-4" />
+                    </Button>
+
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => onDelete?.(prod.id)}
+                      className="text-red-600 hover:bg-red-50"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </TableCell>
               </TableRow>
             ))
           )}
@@ -105,62 +104,62 @@ export default function ProductPriceTable({prices,onEdit,onDelete}: PriceTablePr
   );
 }
 
-export  function SelectProductPriceTable({prices,select}: SelectPriceTableProps) {
+// export  function SelectProductPriceTable({prices,select}: SelectPriceTableProps) {
   
-  return (
-    <div className="border bg-white ">
-      <Table  className="table-fixed w-full ">
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[100px]">ID</TableHead>
-            <TableHead>Product</TableHead>
-            <TableHead>Size</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead className="text-center">Updated At</TableHead>
-          </TableRow>
-        </TableHeader>
+//   return (
+//     <div className="border bg-white ">
+//       <Table  className="table-fixed w-full ">
+//         <TableHeader>
+//           <TableRow>
+//             <TableHead className="w-[100px]">ID</TableHead>
+//             <TableHead>Product</TableHead>
+//             <TableHead>Size</TableHead>
+//             <TableHead>Price</TableHead>
+//             <TableHead className="text-center">Updated At</TableHead>
+//           </TableRow>
+//         </TableHeader>
 
-        <TableBody>
-          {prices.length === 0 ? (
-            <TableRow>
-              <TableCell
-                colSpan={5}
-                className="text-center py-8 text-muted-foreground"
-              >
-                No categories found.
-              </TableCell>
-            </TableRow>
-          ) : (
-            prices.map((prod) => (
-              <TableRow key={prod.id}>
-                <TableCell className="font-mono text-xs">
-                  #{prod.id}
-                </TableCell>
-                <TableCell>
-                  {prod.product.name }
-                </TableCell>
-                <TableCell>
-                  {prod.size.name }
-                </TableCell>
-                <TableCell>
-                  {prod.price }
-                </TableCell>
-                 <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        onClick={() => select(prod)}
-                        className="hover:bg-blue-50 text-blue-600 bg-bg-light"
-                      >
-                        <DiamondPlus className="w-5 h-5" />
-                      </Button>
+//         <TableBody>
+//           {prices.length === 0 ? (
+//             <TableRow>
+//               <TableCell
+//                 colSpan={5}
+//                 className="text-center py-8 text-muted-foreground"
+//               >
+//                 No categories found.
+//               </TableCell>
+//             </TableRow>
+//           ) : (
+//             prices.map((prod) => (
+//               <TableRow key={prod.id}>
+//                 <TableCell className="font-mono text-xs">
+//                   #{prod.id}
+//                 </TableCell>
+//                 <TableCell>
+//                   {prod.product.name }
+//                 </TableCell>
+//                 <TableCell>
+//                   {prod.size.name }
+//                 </TableCell>
+//                 <TableCell>
+//                   {prod.price }
+//                 </TableCell>
+//                  <TableCell className="text-right">
+//                     <div className="flex justify-end gap-2">
+//                       <Button
+//                         onClick={() => select(prod)}
+//                         className="hover:bg-blue-50 text-blue-600 bg-bg-light"
+//                       >
+//                         <DiamondPlus className="w-5 h-5" />
+//                       </Button>
                     
-                    </div>
-                  </TableCell>
-              </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
-    </div>
-  );
-}
+//                     </div>
+//                   </TableCell>
+//               </TableRow>
+//             ))
+//           )}
+//         </TableBody>
+//       </Table>
+//     </div>
+//   );
+// }

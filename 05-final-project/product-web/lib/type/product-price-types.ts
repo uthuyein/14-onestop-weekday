@@ -2,37 +2,20 @@ import {z} from "zod"
 
 export const productPriceSchema = z.object({
     id:z.number().optional(),
-    categoryId :z.preprocess(
-            (v) => (v === "" ? undefined : Number(v)),
-            z.number().positive("Price must be greater than 0")
-            ),
-    productId :z.preprocess(
-            (v) => (v === "" ? undefined : Number(v)),
-            z.number().positive("Price must be greater than 0")
-            ),
-    sizeId :z.preprocess(
-            (v) => (v === "" ? undefined : Number(v)),
-            z.number().positive("Price must be greater than 0")
-            ),
+    categoryId :z.number(),
+    productId :z.number(),
+    sizeId :z.number(),
     priceType:z.string().nonempty("Please select one type !"),
     createAt:z.date() .optional(),
-    udpateAt:z.date() .optional(),
+    updateAt:z.date() .optional(),
     isActive:z.boolean(),
-    price : z.preprocess(
-            (v) => (v === "" ? undefined : Number(v)),
-            z.number().positive("Price must be greater than 0")
-            )
+    price : z.number().optional()
 })
 
 export type ProductPriceForm = z.infer<typeof productPriceSchema>
 
 export type SearchProductPriceForm = {
-    category?:string,
-    product?:string,
-    size?:string
-    priceType?:string
-    dateFrom?:Date
-    dateTo?:Date
+    keyword?:string
 }
 
 

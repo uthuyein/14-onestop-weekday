@@ -1,54 +1,58 @@
 "use client"
 
-import ProductPriceTable, { SelectProductPriceTable } from "@/components/forms/tables/table-product-price";
-import { Select, SelectContent, SelectGroup, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ProductPriceForm, ProductPriceListItem, productPriceSchema, SearchProductPrice } from "@/lib/type/product-price-types";
-import { SelectItem } from "@radix-ui/react-select";
-import { useRouter } from "next/navigation";
+import { useForm, useFieldArray } from "react-hook-form"
+import { ProductPriceTable } from "./product-price-table"
+import { PurchaseDetailTable } from "./purchase-detail-table"
+import { ProductPrice, Supplier } from "@/lib/type/purchase-types"
 
-export default function ProductPricePage({prices}:{prices : ProductPriceListItem[]}){
-    
-    const router = useRouter();
-   
-    const categories =  prices.map(p => p.category).map((cat) => ({ key: cat.id.toString(),value: cat.name}));
-    const products =  prices.map(p => p.product).map((prod) => ({ key: prod.id.toString(),value: prod.name}));
-  
-    const onSubmit = async (form: ProductPriceListItem) => {
-          
-    
-    };
+type PurchaseDetailForm = {
+  productPrice: ProductPrice
+  qty: number
+}
 
-    const handleEdit = (prod: ProductPriceListItem,active?:boolean) => {
-      
-     
-    };
+type PurchaseForm = {
+  issueDate: string
+  supplier: Supplier
+  purchaseDetails: PurchaseDetailForm[]
+}
 
-    return(
-        <div className="w-full space-y-5 p-5">
-               <Select>
-                <SelectTrigger className="">
-                    <SelectValue placeholder="Select a Category" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectGroup>
-                    <SelectLabel>Category</SelectLabel>
-                       {categories.map((item,index )=> <SelectItem key={index} value={item.key.toString()}>{item.value}</SelectItem>)}
-                    </SelectGroup>
-                </SelectContent>
-                </Select>
-               
-            <Select>
-                <SelectTrigger className="">
-                    <SelectValue placeholder="Select a Product" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectGroup>
-                    <SelectLabel>Product</SelectLabel>
-                       {products.map((item,index )=> <SelectItem key={index} value={item.key.toString()}>{item.value}</SelectItem>)}
-                    </SelectGroup>
-                </SelectContent>
-                </Select>
-               
-        </ div>
-    );
+export default function PurchaseCreatePage() {
+  const form = useForm<PurchaseForm>({
+    defaultValues: {
+      issueDate: new Date().toISOString().substring(0, 10),
+      purchaseDetails: [],
+    },
+  })
+
+  const { control, handleSubmit, watch } = form
+
+  const { fields, append, remove, update } = useFieldArray({
+    control,
+    name: "purchaseDetails",
+  })
+
+  const onSubmit = (data: PurchaseForm) => {
+    console.log(data)
+    // POST to /purchase
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
+      <ProductPriceTable onSelect={(pp) => addProduct(pp)} />
+      <PurchaseDetailTable
+        fields={fields}
+        update={update}
+        remove={remove}
+      />
+    </form>
+  )
+
+  function addProduct(productPrice: ProductPrice) {
+    const exists = fields.find(
+      (f) => f.productPrice.id === productPrice.id
+    )
+    if (exists) return
+
+    append({ productPrice, qty: 1 })
+  }
 }

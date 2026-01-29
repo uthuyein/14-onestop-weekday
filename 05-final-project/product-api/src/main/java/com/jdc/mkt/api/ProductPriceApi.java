@@ -1,6 +1,5 @@
 package com.jdc.mkt.api;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jdc.mkt.api.inputs.ProductPriceForm;
 import com.jdc.mkt.api.inputs.search.SearchProductPriceForm;
 import com.jdc.mkt.api.outputs.SelectProductPrice;
-import com.jdc.mkt.model.entities.ProductPrice.PriceType;
 import com.jdc.mkt.model.services.ProductPriceService;
 import com.jdc.mkt.utils.ModificationResult;
 
@@ -35,13 +33,8 @@ public class ProductPriceApi {
 	
 	@GetMapping("find")
 	List<SelectProductPrice> findBy(
-		@RequestParam(required = false) String category,
-		@RequestParam(required = false) String product,
-		@RequestParam(required = false) String size,
-		@RequestParam(required = false) PriceType priceType,
-		@RequestParam(required = false) LocalDate dateFrom,
-		@RequestParam(required = false) LocalDate dateTo){
-		var form = new SearchProductPriceForm(category,product,size,priceType,dateFrom,dateTo);
+		@RequestParam(required = false) String keyword){
+		var form = new SearchProductPriceForm(keyword);
 		
 		return service.findBy(form);
 	}

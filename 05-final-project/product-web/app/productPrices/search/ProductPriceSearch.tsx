@@ -35,7 +35,6 @@ export default function ProductPriceSearchForm({onSearch,}: {onSearch: (data: Se
         ).values()
       )
     )
-
     setProducts(
       Array.from(
         new Map(
@@ -74,9 +73,9 @@ export default function ProductPriceSearchForm({onSearch,}: {onSearch: (data: Se
         </div>
         <Form {...form}>
         <form onSubmit={form.handleSubmit(onSearch)} className="flex gap-4">
-            <FormSelect control={form.control} options={categories} path="category" label="Category" />
-            <FormSelect control={form.control} options={products} path="product" label="Product" />
-            <FormSelect control={form.control} options={sizes} path="size" label="Size" />
+            <FormSelect control={form.control} options={categories} placeholder="Select Category" path="category" label="Category" />
+            <FormSelect control={form.control} options={products} placeholder="Select Product" path="product" label="Product" />
+            <FormSelect control={form.control} options={sizes} path="size" placeholder="Select Size" label="Size" />
 
             <Button type="submit" className=" bg-blue-500 hover:bg-blue-800 self-end">
             Search
@@ -85,5 +84,6 @@ export default function ProductPriceSearchForm({onSearch,}: {onSearch: (data: Se
         </form>
         </Form>
     </div>
+    
   )
 }

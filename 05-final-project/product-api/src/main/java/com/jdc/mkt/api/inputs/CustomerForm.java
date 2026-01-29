@@ -33,9 +33,7 @@ public record CustomerForm(
 		con.setEmail(email);
 		con.setPrimaryPhone(primary);
 		con.setSecondaryPhone(secondary);
-
-		
-
+	
 		cu.setAddress(ad);
 		cu.setContact(con);
 		

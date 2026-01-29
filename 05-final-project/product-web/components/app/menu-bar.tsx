@@ -19,8 +19,7 @@ export default function MenuBar() {
                                { link: "/products", name: "Product Form"}
                               ]} menu={"Product "} pIcon="FileText"/>                      
                           < MenubarCheckbox  items={[
-                              { link: "/productPrices/edit", name: "Product Price Form",},
-                               { link: "/productPrices/search", name: "Product Price List"}
+                              { link: "/productPrices", name: "Product Price Form",},
                               ]} menu={"Product Price"} pIcon="CircleDollarSign"/>
                            < MenubarCheckbox  items={[
                               { link: "/customers", name: "Customer List"}
