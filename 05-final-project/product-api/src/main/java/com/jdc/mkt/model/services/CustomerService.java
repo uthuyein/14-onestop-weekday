@@ -30,8 +30,9 @@ public class CustomerService {
 				.map(SelectCustomer :: from).toList();
 	}
 
-	public List<SelectCustomer> findBy(SearchCustomerForm form) {
-		return repo.findBy(SearchFunction(form));
+	public List<SelectCustomer> findBy(String type,String keyword) {
+		var search = new SearchCustomerForm(type,keyword);
+		return repo.findBy(SearchFunction(search));
 	}
 
 	private Function<CriteriaBuilder, CriteriaQuery<SelectCustomer>> SearchFunction(SearchCustomerForm form) {
@@ -64,5 +65,12 @@ public class CustomerService {
 		customer.setActive(true);
 		customer = repo.save(form.entity(customer));
 		return ModificationResult.status(customer.getId(), ModifiedType.Save, customer.getName());
+	}
+
+	@Transactional
+	public SelectCustomer deactivate(int id) {
+		var c = repo.findById(id).orElseThrow();
+		c.setActive(false);
+		return SelectCustomer.from(repo.save(c));
 	}
 }

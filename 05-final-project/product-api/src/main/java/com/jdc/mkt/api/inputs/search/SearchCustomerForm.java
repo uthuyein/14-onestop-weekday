@@ -18,16 +18,15 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class SearchCustomerForm {
 
-	private String name;
-	private MemberType memberType;
-	private String address;
-	private String email;
-	private String phone;
+	String type;
+	String keyword;
 	
 	public Predicate[] where(
 			CriteriaBuilder cb, 
@@ -35,33 +34,26 @@ public class SearchCustomerForm {
 			Join<Customer, Contact> joinCont,
 			Join<Customer, Address> joinAdd) {
 		var params = new ArrayList<Predicate>();
-	
-		if(StringUtils.hasLength(name)) {
-			params.add(cb.like(
-					cb.lower(root.get(Customer_.name)), 
-					name.toLowerCase().concat("%")));
+		
+		if(null != type) {
+			params.add(cb.equal(root.get(Customer_.memberType),MemberType.valueOf(type)));
+					
 		}
 		
-		if(null != memberType) {
-			params.add(cb.equal(root.get(Customer_.memberType), memberType));
-		}
-		
-		if(StringUtils.hasLength(address)) {
+		if(StringUtils.hasLength(keyword)) {
 			params.add(cb.or(
-					cb.equal(joinAdd.get(Address_.state), address) ,
-					cb.equal(joinAdd.get(Address_.township), address),
-					cb.like(cb.lower(joinAdd.get(Address_.street)), address.toLowerCase().concat("%"))));
+					cb.like(cb.lower(root.get(Customer_.name)), keyword.toLowerCase().concat("%")),
+					cb.equal(joinAdd.get(Address_.state), keyword) ,
+					cb.equal(joinAdd.get(Address_.township), keyword),
+					cb.like(cb.lower(joinAdd.get(Address_.street)), keyword.toLowerCase().concat("%")),
+					cb.equal(joinCont.get(Contact_.email), keyword),
+					cb.equal(joinCont.get(Contact_.primaryPhone), keyword),
+					cb.equal(joinCont.get(Contact_.secondaryPhone), keyword)
+					));
 		}
-		
-		if(StringUtils.hasLength(email)) {
-			params.add(cb.equal(joinCont.get(Contact_.email), email));
-		}
-		
-		if(StringUtils.hasLength(phone)) {
-			params.add(cb.or(cb.equal(joinCont.get(Contact_.primaryPhone), phone),
-					cb.equal(joinCont.get(Contact_.secondaryPhone), phone)));
-		}
-		
+		params.add(cb.equal(root.get(Customer_.isActive), true));
+	
+	
 		return params.toArray(q -> new Predicate[q]);
 	}
 }

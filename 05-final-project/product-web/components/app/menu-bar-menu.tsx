@@ -1,4 +1,4 @@
-import { IconType, LinkItems } from "@/lib/type/types";
+import { IconType, LinkItem } from "@/lib/type/types";
 import { MenubarCheckboxItem, MenubarContent, MenubarMenu, MenubarTrigger } from "../ui/menubar";
 import IconComponent from "./icon-component";
 import Link from "next/link";
@@ -6,7 +6,7 @@ import Link from "next/link";
 export type menuType = {
     menu :string,
     pIcon:IconType
-    items:LinkItems[]
+    items:LinkItem[]
 
 }
 
@@ -15,9 +15,9 @@ export function MenubarCheckbox({menu,pIcon,items} : menuType){
     
       <MenubarMenu >
         <MenubarTrigger>
-            <IconComponent icon={pIcon} /> {menu}
+            <IconComponent icon={pIcon} />&nbsp; {menu}
         </MenubarTrigger>
-        <MenubarContent className=""> 
+        <MenubarContent> 
             {items.map((item,index )=> 
             <MenubarCheckboxItem key={index}  >
                     <Link href={item.link}  className="flex items-center gap-2 px-2 py-2 ">

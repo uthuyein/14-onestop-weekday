@@ -6,15 +6,15 @@ import com.jdc.mkt.model.entities.Customer;
 import com.jdc.mkt.model.entities.Customer.MemberType;
 
 public record CustomerForm(
-		int id,
+		Integer id,
 		String name,
-		String state,
-		String township,
 		MemberType memberType,
-		String street, 
 		String email, 
 		String primary,
 		String secondary,
+		String state,
+		String township,
+		String street, 
 		boolean isActive) {
 
 	public Customer entity(Customer cu) {
@@ -23,20 +23,18 @@ public record CustomerForm(
 		cu.setMemberType(memberType);
 		cu.setActive(isActive);
 		
-		var ad = new Address();
+		
+		var ad = cu.getId() == null ? new Address():cu.getAddress();
 		ad.setState(state);
 		ad.setTownship(township);
 		ad.setStreet(street);
 
-		var con = new Contact();
+		var con =  cu.getId() == null ?new Contact():cu.getContact();
 		con.setEmail(email);
 		con.setPrimaryPhone(primary);
 		con.setSecondaryPhone(secondary);
 
-		if (null != cu.getId()) {
-			ad.setId(cu.getAddress().getId());
-			con.setId(cu.getContact().getId());
-		}
+		
 
 		cu.setAddress(ad);
 		cu.setContact(con);

@@ -7,7 +7,7 @@ export type OptionItem = {
     value: string | number;
 };
 
-export type LinkItems = {
+export type LinkItem = {
     link: string;
     name: string | number;
     icon?:IconType

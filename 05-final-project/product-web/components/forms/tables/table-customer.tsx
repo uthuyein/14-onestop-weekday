@@ -10,17 +10,24 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { CustomerListItem } from "@/lib/type/customer-types";
-
-
+import { SelectCustomer } from "@/lib/type/customer-types";
 
 type CustomerTableProps = {
-  customers: CustomerListItem[];
-  onEdit: (cu: CustomerListItem) => void;
-  onDelete:(cu: CustomerListItem,active : boolean) => void;
+  customers: SelectCustomer[];
+  loading?:boolean
+  onEdit?: (cu: SelectCustomer) => void;
+  onDelete?:(id: number) => void
 };
+export default function CustomerTable({customers,loading,onEdit,onDelete,}: CustomerTableProps) {
 
-export default function CustomerTable({customers,onEdit,onDelete}: CustomerTableProps) {
+  if (loading) {
+    return (
+      <p className="text-center text-muted-foreground py-6">
+        Loading...
+      </p>
+    );
+  }
+
   return (
     <div className="rounded-md border bg-white">
       <Table>
@@ -43,10 +50,10 @@ export default function CustomerTable({customers,onEdit,onDelete}: CustomerTable
           {customers.length === 0 ? (
             <TableRow>
               <TableCell
-                colSpan={5}
+                colSpan={10}
                 className="text-center py-8 text-muted-foreground"
               >
-                No categories found.
+                No customers found.
               </TableCell>
             </TableRow>
           ) : (
@@ -64,41 +71,34 @@ export default function CustomerTable({customers,onEdit,onDelete}: CustomerTable
                   {cu.memberType || "—"}
                 </TableCell>
 
-                <TableCell>
-                  {cu.contact.email}
+                <TableCell>{cu.contact.email}</TableCell>
+                <TableCell>{cu.contact.primaryPhone}</TableCell>
+                <TableCell>{cu.contact.secondaryPhone}</TableCell>
+                <TableCell>{cu.address.state}</TableCell>
+                <TableCell>{cu.address.township}</TableCell>
+                <TableCell>{cu.address.street}</TableCell>
+
+                <TableCell className="text-right">
+                  <div className="flex justify-end gap-2">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => onEdit?.(cu)}
+                      className="text-blue-600 hover:bg-blue-50"
+                    >
+                      <Edit2 className="w-4 h-4" />
+                    </Button>
+
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => onDelete?.(cu.id)}
+                      className="text-red-600 hover:bg-red-50"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
                 </TableCell>
-                <TableCell>
-                  {cu.contact.primaryPhone}
-                </TableCell>
-                <TableCell>
-                  {cu.contact.secondaryPhone}
-                </TableCell>
-                <TableCell>
-                  {cu.address.state}
-                </TableCell>
-                <TableCell>
-                  {cu.address.township}
-                </TableCell>
-                <TableCell>
-                  {cu.address.street}
-                </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        onClick={() => onEdit(cu)}
-                        className="hover:bg-blue-50 text-blue-600 bg-bg-light"
-                      >
-                        <Edit2 className="w-4 h-4" />
-                      </Button>
-                     <Button
-                        onClick={() => onDelete(cu,false)}
-                        className=" hover:bg-red-50 rounded text-red-600 bg-bg-light"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                
               </TableRow>
             ))
           )}
@@ -107,3 +107,4 @@ export default function CustomerTable({customers,onEdit,onDelete}: CustomerTable
     </div>
   );
 }
+

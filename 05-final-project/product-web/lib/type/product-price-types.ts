@@ -2,6 +2,10 @@ import {z} from "zod"
 
 export const productPriceSchema = z.object({
     id:z.number().optional(),
+    categoryId :z.preprocess(
+            (v) => (v === "" ? undefined : Number(v)),
+            z.number().positive("Price must be greater than 0")
+            ),
     productId :z.preprocess(
             (v) => (v === "" ? undefined : Number(v)),
             z.number().positive("Price must be greater than 0")
@@ -31,7 +35,9 @@ export type SearchProductPriceForm = {
     dateTo?:Date
 }
 
-export type SelectProductPriceList = {
+
+
+export type SelectProductPrice = {
     id? :number,
     category:{
         id:number,

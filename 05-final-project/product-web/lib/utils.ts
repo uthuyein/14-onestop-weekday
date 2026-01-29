@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { OptionItem } from "./type/types";
 
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -30,6 +31,7 @@ export const POST_CONFIG:RequestInit = {
   },
 }
 
+
 export const PUT_CONFIG:RequestInit = {
   method: "PUT",
   headers: {
@@ -41,4 +43,6 @@ export const STATUS_OPTIONS:OptionItem[]=[
   {key : "false" ,value : "Active"},
   {key : "true",value: "Deleted"}
 ]
+
+
  

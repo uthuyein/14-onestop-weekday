@@ -1,97 +1,96 @@
 
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus, Save} from "lucide-react";
+import {  UseFormReturn } from "react-hook-form";
+import { Plus, Save, Search} from "lucide-react";
 import { Form } from "@/components/ui/form";
 import FormInput from "@/components/forms/form-input";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { CustomerForm, CustomerListItem, customerSchema } from "@/lib/type/customer-types";
-import { createCustomers, updateCustomer } from "@/lib/server/customer.server";
-import { useRouter } from "next/navigation";
-import CustomerTable from "@/components/forms/tables/table-customer";
+import { CustomerForm, SearchCustomer, MemberTypeList} from "@/lib/type/customer-types";
+import FormSelect from "@/components/forms/form-select";
+import { Card, CardContent } from "@/components/ui/card";
 
-export default function CustomerPage({ customers }: { customers: CustomerListItem[] }) {
-    const router = useRouter();
-    const form = useForm<CustomerForm>({
-      resolver: zodResolver(customerSchema),
-      defaultValues: {
-        name: "",
-        isActive: true,
-        primary: "",
-        secondary:"",
-        email:"",
-        state:"",
-        township:"",
-        street:""
-      },
-    });
-    const { reset, watch } = form;
+type PageType = {
+  form: UseFormReturn<CustomerForm>;
+  isEdit?:any;
+  search: UseFormReturn<SearchCustomer>;
+  handleSearch: (data: SearchCustomer) => void;
+  onSubmit: (data: CustomerForm) => void;
+};
 
-    const handleEdit = (cu:CustomerListItem,active? :boolean) => {
-      
-      reset({
-        id: cu.id,       
-        name: cu.name,
-        primary:cu.contact.primaryPhone,
-        secondary:cu.contact.secondaryPhone,
-        isActive:active,
-        state:cu.address.state,
-        township:cu.address.township,
-        street:cu.address.street
-        });
-    };
+export default function CustomerEdit({
+  form,
+  isEdit,
+  search,
+  handleSearch,
+  onSubmit,
+}: PageType) {
 
-    const onSubmit = async (form: CustomerForm) => {
-      try {
-        if (form.id) {
-          await updateCustomer(form.id, form);
-          toast.success("Customer updated");
-        } else {
-          await createCustomers(form);
-          toast.success("Customer created");
-        }
-        reset(); 
-        router.refresh();
-
-      } catch (e) {
-        toast.error("Something went wrong");
-      }
-    };
-  const isEditMode = !!watch("id");
-
+  
   return (
-     <div className="w-full space-y-5 p-5">
-      <div className="flex space-x-1 items-center">
-         { isEditMode ? <Save className="w-5 h-5 " /> : <Plus className="w-5 h-5" />}
-        <h2 className="text-lg  ">
-          {isEditMode ? "Update ":"Create"} Customer Form</h2>
-      </div>
-      <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <div className="flex items-end space-x-3">
+    <div className="flex w-full gap-4 space-y-2 items-baseline-last">
+      <div className="w-full ">
+        <div className="flex gap-2 items-center py-3">
+          {isEdit ? <Save className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
+          <h2 className="text-lg">
+            {isEdit ? "Update" : "Create"} Customer Form
+          </h2>
+        </div>
 
-                <FormInput  control={form.control} path="name" label="Customer Name" placeholder="Type customer name !" className="" />             
-                {/* <FormSelect control={form.control} label="memberType" options={categories.map((cat) => ({ key: cat.id,value: cat.name}))} path="subCategoryId"  className="w-50"  placeholder="Please select one"/> */}
-             
-              <div className="flex gap-2">              
-                <Button type="submit"  className="hover:bg-blue-800 bg-blue-500">            
-                  { isEditMode ? <Save className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-                  {isEditMode ? "Update Changes" : "Create Customer"}
-                </Button>
-            </div>
-            </div>
-         
-      
-      {/* --- TABLE SECTION --- */}
-      <CustomerTable customers={customers} onEdit={handleEdit} onDelete={handleEdit}/>
-     </form>
-    </Form>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <div className="flex gap-2">
+                  <FormInput control={form.control} path="name" label="Customer Name" />
+                  <FormSelect
+                    control={form.control}
+                    path="memberType"
+                    label="Member Type"
+                    options={MemberTypeList.map(m => ({ key: m, value: m }))}
+                    className="w-sm"
+                  />
+                </div>
+
+                <div className="flex gap-2">
+                  <FormInput control={form.control} path="email" label="Email" />
+                  <FormInput control={form.control} path="primary" label="Primary Phone" />
+                  <FormInput control={form.control} path="secondary" label="Secondary Phone" />
+                </div>
+
+                <div className="flex gap-2">
+                  <FormInput control={form.control} path="state" label="State" />
+                  <FormInput control={form.control} path="township" label="Township" />
+                  <FormInput control={form.control} path="street" type="textarea" label="Address" />
+                  <Button type="submit" className="bg-blue-500 hover:bg-blue-800 mt-6 pt-3 ">
+                    {isEdit ? "Update Changes" : "Create Customer"}
+                 </Button>
+                </div>                
+              </form>
+            </Form>        
+      </div>
+
+      <div className="mt-3">
+        <Form {...search}>
+          <Card>
+            <CardContent>
+          <form onSubmit={search.handleSubmit(handleSearch)} className="flex gap-2">
+            <FormSelect
+                    control={search.control}
+                    path="type"
+                    options={MemberTypeList.map(m => ({ key: m, value: m }))}              
+                />
+            <FormInput control={search.control} path="keyword" placeholder="Search..."  className="w-2xl"/>
+              <Button className="bg-blue-500 hover:bg-blue-800">
+              <Search /> Search
+            </Button>
+          </form>
+          </CardContent>
+          </Card>
+        </Form>
+      </div>
     </div>
   );
 }
+
 
 
 

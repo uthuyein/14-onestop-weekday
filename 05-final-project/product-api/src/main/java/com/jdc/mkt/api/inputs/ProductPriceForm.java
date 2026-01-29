@@ -10,8 +10,6 @@ import com.jdc.mkt.model.entities.Size;
 import jakarta.validation.constraints.NotNull;
 
 public record ProductPriceForm(
-		@NotNull(message = "Please select category first !")
-		Integer categoryId,
 		@NotNull(message = "Please select product first !")
 		Integer productId,
 		@NotNull(message = "Please select product size !")

@@ -10,7 +10,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body suppressHydrationWarning>
         <MenuBar />
         <main className="w-full flex px-4 py-4">
           {children}

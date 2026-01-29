@@ -1,5 +1,5 @@
 
-import { Home, UserLock,} from "lucide-react";
+import { Home, icons, UserLock,} from "lucide-react";
 import { Menubar,MenubarCheckboxItem,MenubarContent,MenubarMenu, MenubarTrigger,} from "@/components/ui/menubar"
 import Link from "next/link";
 import { MenubarCheckbox } from "./menu-bar-menu";
@@ -15,7 +15,7 @@ export default function MenuBar() {
                <div className="flex">
                          <Menubar className="border-0 shadow-none" >
                          < MenubarCheckbox  items={[
-                              { link: "/categories", name: "Category Form",},
+                              { link: "/categories", name: "Category Form",icon:"User"},
                                { link: "/products", name: "Product Form"}
                               ]} menu={"Product "} pIcon="FileText"/>                      
                           < MenubarCheckbox  items={[
@@ -23,8 +23,7 @@ export default function MenuBar() {
                                { link: "/productPrices/search", name: "Product Price List"}
                               ]} menu={"Product Price"} pIcon="CircleDollarSign"/>
                            < MenubarCheckbox  items={[
-                              { link: "/customers", name: "Customer Form" },
-                              { link: "/customers/search", name: "Customer List"}
+                              { link: "/customers", name: "Customer List"}
                               ]} menu={"Customer"} pIcon="UserStar"/>
                          < MenubarCheckbox  items={[
                               { link: "/purchases", name: "Purchase Form" },

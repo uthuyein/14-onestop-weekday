@@ -1,11 +1,11 @@
 "use server"
-import { ProductPriceForm, ProductPriceListItem ,SearchProductPriceForm} from "../type/product-price-types";
+import { ProductPriceForm, SelectProductPrice ,SearchProductPriceForm} from "../type/product-price-types";
 import { GET_CONFIG, POST_CONFIG, PUT_CONFIG } from "../utils";
 import { request } from "./base.server";
 
 const ENDPOINT = "admin/prices"
 
-export async function getProductPrices():Promise<ProductPriceListItem[]>{
+export async function getProductPrices():Promise<SelectProductPrice[]>{
      const res = await request(`${ENDPOINT}`)
       if (!res.ok) return [];
       return res.json();
@@ -38,7 +38,7 @@ export async function createProductPrice(form :ProductPriceForm){
 
 export async function findProductPrices(
         form: SearchProductPriceForm
-      ): Promise<ProductPriceListItem[]> {
+      ): Promise<SelectProductPrice[]> {
 
         const params = new URLSearchParams()
 

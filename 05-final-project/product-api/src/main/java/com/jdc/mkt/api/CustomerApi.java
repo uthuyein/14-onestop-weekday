@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.mkt.api.inputs.CustomerForm;
@@ -17,7 +18,7 @@ import com.jdc.mkt.model.services.CustomerService;
 import com.jdc.mkt.utils.ModificationResult;
 
 @RestController
-@RequestMapping("member/customers")
+@RequestMapping("/member/customers")
 public class CustomerApi {
 
 	@Autowired
@@ -33,8 +34,18 @@ public class CustomerApi {
 		return service.save(form);
 	}
 	
-	@PutMapping("{id}")
+	@PutMapping("/{id}")
 	ModificationResult<Integer> update(@PathVariable Integer id, @RequestBody CustomerForm form ){
 		return service.update(id,form);
+	}
+	
+	@PutMapping("/{id}/deactivate")
+	public SelectCustomer deactivateCustomer(@PathVariable int id) {
+	    return service.deactivate(id); 
+	}
+	
+	@GetMapping("/find")
+	List<SelectCustomer> findBy(@RequestParam(required = false) String type, @RequestParam(required = false) String keyword){	
+		return service.findBy(type,keyword);
 	}
 }

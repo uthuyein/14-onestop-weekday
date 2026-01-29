@@ -9,31 +9,30 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {SelectProductPriceList } from "@/lib/type/product-price-types";
+import {SelectProductPrice } from "@/lib/type/product-price-types";
 import { Button } from "@/components/ui/button";
 
 
 
 type PriceTableProps = {
-  prices:SelectProductPriceList[];
-  onEdit: (prod:SelectProductPriceList) => void;
-  onDelete:(prod: SelectProductPriceList,active:boolean ) => void
+  prices:SelectProductPrice[];
+  onEdit: (prod:SelectProductPrice) => void;
+  onDelete:(prod: SelectProductPrice,active:boolean ) => void
 };
 
 type SelectPriceTableProps = {
-  prices:SelectProductPriceList[];
-  select: (prod:SelectProductPriceList) => void;
+  prices:SelectProductPrice[];
+  select: (prod:SelectProductPrice) => void;
  
 };
 
 export default function ProductPriceTable({prices,onEdit,onDelete}: PriceTableProps) {
-  
   return (
     <div className="border bg-white ">
       <Table  className="table-fixed w-full ">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">ID</TableHead>
+            <TableHead className="w-[100px]">No.</TableHead>
             <TableHead>Category</TableHead>
             <TableHead>Product</TableHead>
             <TableHead>Size</TableHead>
@@ -51,14 +50,14 @@ export default function ProductPriceTable({prices,onEdit,onDelete}: PriceTablePr
                 colSpan={5}
                 className="text-center py-8 text-muted-foreground"
               >
-                No categories found.
+                No Product Price found.
               </TableCell>
             </TableRow>
           ) : (
-            prices.map((prod) => (
+            prices.map((prod,index) => (
               <TableRow key={prod.id}>
                 <TableCell className="font-mono text-xs">
-                  #{prod.id}
+                  #{index+1}
                 </TableCell>
                 <TableCell className="font-medium">
                   {prod.category.name}
@@ -76,10 +75,10 @@ export default function ProductPriceTable({prices,onEdit,onDelete}: PriceTablePr
                   {prod.price }
                 </TableCell>
                 <TableCell>
-                  {/* {prod.createAt } */}
+                  {prod.createAt? new Date(prod.createAt).toLocaleDateString():"-"}
                 </TableCell>
                 <TableCell className="text-center">
-                  {/* {prod.updateAt || "-"} */}
+                  {prod.updateAt? new Date(prod.updateAt).toLocaleDateString() : "-"}
                 </TableCell>
                  <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
