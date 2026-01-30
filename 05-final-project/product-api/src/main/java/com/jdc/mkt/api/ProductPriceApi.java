@@ -34,8 +34,7 @@ public class ProductPriceApi {
 	@GetMapping("find")
 	List<SelectProductPrice> findBy(
 		@RequestParam(required = false) String keyword){
-		var form = new SearchProductPriceForm(keyword);
-		
+		var form = new SearchProductPriceForm(keyword);		
 		return service.findBy(form);
 	}
 	
@@ -47,6 +46,11 @@ public class ProductPriceApi {
 	@PostMapping
 	ModificationResult<Integer> update(@Validated @RequestBody ProductPriceForm form){		
 		 return service.save(form);
+	}
+	
+	@PutMapping("/{id}/deactivate")
+	public SelectProductPrice deactivateCustomer(@PathVariable int id) {
+	    return service.deactivate(id); 
 	}
 	
 	@PutMapping("{id}")

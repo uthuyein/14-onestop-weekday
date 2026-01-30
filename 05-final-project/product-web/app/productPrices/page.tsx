@@ -1,5 +1,5 @@
 "use client"
-import { createProductPrice, findProductPrices, getProductPrices, updateProductPrice } from "@/lib/server/product.price.server";
+import { createProductPrice, deactivateProductPrice, findProductPrices, getProductPrices, updateProductPrice } from "@/lib/server/product.price.server";
 import ProductPricePage from "@/app/productPrices/ProductPricePage";
 import { getSizes } from "@/lib/server/size.server";
 import { getCategories } from "@/lib/server/category.server";
@@ -12,24 +12,34 @@ import { toast } from "sonner";
 import ProductPriceTable from "@/components/forms/tables/table-product-price";
 import { useEffect, useState } from "react";
 
- const products = await getProducts();
-const categories = await getCategories()
-const sizes = await  getSizes();
 
-export default  function Page () {
-    
+export default   function Page () {
+
+    const [data, setData] = useState({ products: [], categories: [], sizes: [] });
     const [productPrices, setProductPrices] =  useState<SelectProductPrice[]>([])
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+ 
+    useEffect(() => {
+        const fetchData = async () => {
+        const [products, categories, sizes] = await Promise.all([
+            getProducts(),
+            getCategories(),
+            getSizes(),
+        ]);
+        setData({ products, categories, sizes });
+        setLoading(false);
+    };
+        fetchData();
+    }, []);
 
-      const handleSearch = async (form: SearchProductPriceForm={}) => {
-       setLoading(true);
-        try {
-             const result = await findProductPrices(form) 
-             setProductPrices(result)
-           } finally {
-             setLoading(false);
-           }      
-      }
+    const handleSearch = async (form: SearchProductPriceForm={}) => {
+    try {
+            const result = await findProductPrices(form) 
+            setProductPrices(result)
+        } finally {
+            setLoading(false);
+        }      
+    }
       
     const search = useForm<SearchProductPriceForm>({
         defaultValues:{
@@ -71,29 +81,38 @@ export default  function Page () {
             }
             reset(); 
             router.refresh();
+            handleSearch();
         } catch (e) {
             toast.error("An error occurred saving the price");
         }
     };
 
-    const onDelete = async (id:number) => {}
+    const handleDelete = async (id: number) => {
+      try {
+        await deactivateProductPrice(id);
+        toast.success("Customer deactivated"); 
+        handleSearch();   
+      } catch (e) {
+        toast.error("Failed to deactivate");
+      }
+    };
 
-    const handleEdit = (prod: SelectProductPrice,active?:boolean) => {
-        reset({
-            id:prod.id,
-            productId: prod.product.id,
-            sizeId: prod.size.id,
-            priceType: prod.priceType,
-            price: prod.price,
-            isActive:active,
-            
+    const handleEdit = (prod: SelectProductPrice) => {
+        reset({       
+                id: prod.id,
+                categoryId: String(prod.category.id),
+                productId: String(prod.product.id),
+                sizeId: String(prod.size.id),
+                priceType: prod.priceType,
+                price: prod.price,
+                isActive: true,          
         });
     };
 
     return (
         <div className="">
-             <ProductPricePage form={form} searchForm={search} isEditMode={isEditMode} onSubmit={onSubmit} handleSearch={handleSearch} categories={categories}  products = {products} sizes={sizes}/>
-             <ProductPriceTable prices={productPrices}  onEdit={handleEdit} onDelete={onDelete} />
+             <ProductPricePage form={form} searchForm={search} isEditMode={isEditMode} onSubmit={onSubmit} handleSearch={handleSearch} categories={data.categories}  products = {data.products} sizes={data.sizes}/>
+             <ProductPriceTable prices={productPrices}  onEdit={handleEdit} onDelete={handleDelete} />
         </div>
     )
 }

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.mkt.api.inputs.ProductPriceForm;
 import com.jdc.mkt.api.inputs.search.SearchProductPriceForm;
+import com.jdc.mkt.api.outputs.SelectCustomer;
 import com.jdc.mkt.api.outputs.SelectProductPrice;
 import com.jdc.mkt.model.entities.ProductPrice;
 import com.jdc.mkt.model.entities.ProductPrice_;
@@ -21,13 +22,11 @@ import jakarta.persistence.EntityNotFoundException;
 @Transactional(readOnly = true)
 public class ProductPriceService {
 
-	
 	@Autowired
 	private ProductPriceRepo repo;
-	
-	public List<SelectProductPrice> findByIsActive(){
-		var list = repo.findAll().stream().filter(c -> c.isActive())
-				.map(SelectProductPrice :: from).toList();
+
+	public List<SelectProductPrice> findByIsActive() {
+		var list = repo.findAll().stream().filter(c -> c.isActive()).map(SelectProductPrice::from).toList();
 		System.out.println(list);
 		return list;
 	}
@@ -53,8 +52,8 @@ public class ProductPriceService {
 
 	@Transactional
 	public ModificationResult<Integer> update(Integer id, ProductPriceForm form) {
-		var product = id != null ?  repo.findById(id).orElse(null) : null;
-		
+		var product = id != null ? repo.findById(id).orElse(null) : null;
+
 		product = repo.save(form.entity(product));
 		return ModificationResult.status(product.getId(), ModifiedType.Update, product.getProduct().getName());
 	}
@@ -68,5 +67,13 @@ public class ProductPriceService {
 
 	public List<SelectProductPrice> findAll() {
 		return repo.findAll().stream().map(SelectProductPrice::from).toList();
+	}
+
+	@Transactional
+	public SelectProductPrice deactivate(int id) {
+		var c = repo.findById(id).orElseThrow();
+		c.setActive(false);
+		return SelectProductPrice.from(repo.save(c));
+
 	}
 }

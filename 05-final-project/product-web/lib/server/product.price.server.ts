@@ -1,4 +1,5 @@
 "use server"
+import { revalidatePath } from "next/cache";
 import { ProductPriceForm, SelectProductPrice ,SearchProductPriceForm} from "../type/product-price-types";
 import { GET_CONFIG, POST_CONFIG, PUT_CONFIG } from "../utils";
 import { request } from "./base.server";
@@ -36,27 +37,38 @@ export async function createProductPrice(form :ProductPriceForm){
 
 }
 
-export async function findProductPrices(
-        form: SearchProductPriceForm
-      ): Promise<SelectProductPrice[]> {
+export async function findProductPrices(form: SearchProductPriceForm ): Promise<SelectProductPrice[]> {
 
-        const params = new URLSearchParams()
+    const params = new URLSearchParams()
 
-        Object.entries(form).forEach(([key, value]) => {
-          if (value !== undefined && value !== "") {
-            params.append(key, String(value))
-          }
-        })
+    Object.entries(form).forEach(([key, value]) => {
+      if (value !== undefined && value !== "") {
+        params.append(key, String(value))
+      }
+    })
 
-        const response = await request(`${ENDPOINT}/find?${params.toString()}`, {
-          ... GET_CONFIG,    
-        })
+    const response = await request(`${ENDPOINT}/find?${params.toString()}`, {
+      ... GET_CONFIG,    
+    })
 
-      if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Create failed: ${errorText}`);
-        }
-
-
+  if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Create failed: ${errorText}`);
+    }
   return response.json()
 }
+
+export async function deactivateProductPrice(id:number) {
+    const response = await request(`${ENDPOINT}/${id}/deactivate`, {
+    method: "PUT", 
+  });
+ 
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Update failed: ${errorText}`);
+  }
+
+  revalidatePath(ENDPOINT); 
+  return { success: true };
+}
+

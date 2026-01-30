@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { CustomerForm, SearchCustomer, MemberTypeList} from "@/lib/type/customer-types";
 import FormSelect from "@/components/forms/form-select";
 import { Card, CardContent } from "@/components/ui/card";
+import FormSearch from "@/components/forms/form-search";
 
 type PageType = {
   form: UseFormReturn<CustomerForm>;
@@ -69,30 +70,10 @@ export default function CustomerEdit({
       </div>
 
       <div className="flex mt-9">
-        <Form {...search}>
-          <Card className="
-                w-xl
-                h-2
-                rounded-xl
-               ">
-            <CardContent>
+        <Form {...search}>       
           <form onSubmit={search.handleSubmit(handleSearch)} className="flex gap-2">
-            <FormSelect
-                    control={search.control}
-                    path="type"
-                    options={MemberTypeList.map(m => ({ key: m, value: m }))}  
-                    className=""            
-                />
-            <FormInput control={search.control} path="keyword" placeholder="Search..."  className="border-0
-                  shadow-none
-                  px-0
-                  flex-1"/>
-              <Button className="bg-blue-500 hover:bg-blue-800">
-              <Search /> 
-            </Button>
+            <FormSearch form={search.control} path="keyword" label="Search" placeholder="Search ..." />
           </form>
-          </CardContent>
-          </Card>
         </Form>
       </div>
     </div>

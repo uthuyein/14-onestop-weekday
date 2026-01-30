@@ -1,6 +1,6 @@
 "use server"
 
-import { ProductForm } from "../type/product-types";
+import { ProductForm, ProductListItem } from "../type/product-types";
 import { POST_CONFIG, PUT_CONFIG } from "../utils";
 import { request } from "./base.server";
 
